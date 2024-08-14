@@ -16,6 +16,9 @@ export const authUser =  (req,res,next) => {
     if(!verifiedToken){
         res.status(400).json({success:false,message:"user not athenticated"})
     }
+     
+     
+    req.user = verifiedToken;
 
     next()
   } catch (error) {
