@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { isEmail, isMobilePhone } from "validator";
-
+import validatorPkg from 'validator';
+const { isEmail } = validatorPkg;
 
 const userSchema = new mongoose.Schema({
     username:{
@@ -8,20 +8,21 @@ const userSchema = new mongoose.Schema({
         required:true,
         minLength:3,
         maxLength:15,
-        unique:true
+      
     },
     email:{
         type:String,
         trim: true,
         lowercase: true,
         unique: true,
+        required:true,
         validate:[isEmail,"invalid email"]
     },
     password:{
         type:String,
-        required:true,
-        minLength:8,
-        maxLength:15
+        required:[true,"password is requird"],
+       
+        
     },
     city:{
         type:String,
@@ -31,7 +32,7 @@ const userSchema = new mongoose.Schema({
     mobile:{
         type:String,
         required:true,
-        validate:[isMobilePhone,"invalid phone number"]
+        
     },
     movieBooked:[{type:mongoose.Types.ObjectId,ref :"movie"}]
 },
