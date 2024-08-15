@@ -6,8 +6,8 @@ const Router =express.Router();
 
 Router.post('/signup',userSignup)
 Router.post('/login',userLogin)
-Router.post('/logout',userLogout)
 
+Router.get('/logout',userLogout)
 Router.get('/check-user',authUser,checkUser)
 Router.get('/profile/:id',authUser,userProfile)
 

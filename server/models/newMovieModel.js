@@ -12,14 +12,14 @@ import mongoose from 'mongoose'
         },
         image:{
             type:String,
-            required:true
+            default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaLGtEd0MJro4X9wDmT2vrvLT-HjKkyyWVmg&s",
         },
         rating:{
             type:Number,
             required:true
         },
         duration:{
-            type:Number,
+            type:String,
             required:true
         },
         genure:{

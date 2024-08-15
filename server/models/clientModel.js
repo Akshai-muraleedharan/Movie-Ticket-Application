@@ -29,6 +29,6 @@ const theaterOwnerSchema = new mongoose.Schema({
   {timestamps:true}
 )
 
-const TheaterOwnerModel = mongoose.model('admin',theaterOwnerSchema);
+const clientModel = mongoose.model('Client',theaterOwnerSchema);
 
-export default TheaterOwnerModel;
+export default clientModel;
