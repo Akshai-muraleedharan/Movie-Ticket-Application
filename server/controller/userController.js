@@ -73,14 +73,20 @@ export const userLogin = async (req,res,next) => {
 
 export const userProfile= async (req,res,next) => {
     try {
-       const {id} = req.params
        
-       const userProfileData = await UserModel.findById(id).select('-password')
+        const {verifiedUser} = req.user;
+       
+       const userProfileData = await UserModel.findOne(verifiedUser).select('-password')
+
+       if(!userProfileData){
+        return res.status(400).json({success:false,message:"no account"})
+        }
 
        res.status(200).json({success:true,message:userProfileData})
        
        
     } catch (error) {
+       
         res.status(error.status || 500).json({message:error || "internal server error"})
        
         
@@ -139,11 +145,21 @@ export  const userGetALL = async (req,res) => {
 export const userDelete = async (req,res) => {
 
     try {
-
+         
         const {id} = req.params
-        await UserModel.findByIdAndDelete(id)
+         
+        const accountExist = await UserModel.findById(id)
+        
+      if(!accountExist){
 
+        return res.status(400).json({success:false,message:"your account could not delete now"})
+
+      }else{
+        res.clearCookie('token')
+        await UserModel.findByIdAndDelete(id)
         res.json({success:true,message:"your account deleted successfully"})
+      }
+      
 
     } catch (error) {
         res.status(error.status || 500).json({message:error || "internal server error"})

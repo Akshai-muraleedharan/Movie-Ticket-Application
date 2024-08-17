@@ -20,10 +20,12 @@ const adminSchema = new mongoose.Schema({
     },
     password:{
         type:String,
-        required:[true,"password is requird"],
-       
-        
+        required:[true,"password is requird"],  
     },
+    profilePic:{
+        type:String,
+        default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaLGtEd0MJro4X9wDmT2vrvLT-HjKkyyWVmg&s",
+    }
     
 },
   {timestamps:true}

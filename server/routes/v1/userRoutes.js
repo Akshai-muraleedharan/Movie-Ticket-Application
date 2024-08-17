@@ -4,15 +4,17 @@ import { authUser } from '../../middleware/authUser.js';
 
 const Router =express.Router();
 
+// user signup and login
+
 Router.post('/signup',userSignup)
 Router.post('/login',userLogin)
 
 Router.delete('/delete/:id',authUser,userDelete)
 
-Router.get('/',userGetALL)
+
 Router.get('/logout',userLogout)
 Router.get('/check-user',authUser,checkUser)
-Router.get('/profile/:id',authUser,userProfile)
+Router.get('/profile',authUser,userProfile)
 
 
 export default Router  

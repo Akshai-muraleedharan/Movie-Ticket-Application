@@ -25,3 +25,18 @@ try {
 
 
 } 
+
+
+export const totalPaymentList = async (req,res) => {
+    try {
+        const ticketList = await MovieTicket.find()
+
+        if(!ticketList){
+            return res.status(400).json({success:false,message:"no payments"})
+        }else{
+            res.json({success:true,message:ticketList})
+        }
+    } catch (error) {
+        res.status(error.status || 500).json({message:error || "internal server error"})
+    }
+}

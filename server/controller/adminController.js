@@ -1,9 +1,10 @@
-import OwnerModel from '../models/theaterOwnerModel.js'
+
 import bcyrpt from 'bcrypt'
 import { createToken } from '../utils/generateToken.js'
+import AdminModel from '../models/adminModel.js'
 
 
-export const ownerSignup = async (req,res) => {
+export const adminSignup = async (req,res) => {
     try {
        
         const {username,email,password,profilePic} = req.body
@@ -11,24 +12,32 @@ export const ownerSignup = async (req,res) => {
         if(!username || !email || !password ) {
             return res.status(400).json({success:false,message:"All fields are required"})
         }
-        const userExist = await OwnerModel.findOne({email})
+        const adminExist = await AdminModel.findOne({email})
         
-        if(userExist){
-            return res.status(400).json({success:false,message:"user already exist"})
+        if(adminExist){
+            return res.status(400).json({success:false,message:"admin already exist"})
             
         }
+
+       const totalAdmin = await AdminModel.find();
+        const adminLength = totalAdmin.length + 1
+       
+        if(adminLength > 4){
+            return res.status(400).json({success:false,message:"maximum number of admins added"})
+        }
+        
         
         const salt = 10
         const hashedPassword = bcyrpt.hashSync(password,salt)
 
-        const NewOwner = new OwnerModel({username,email,password:hashedPassword,profilePic}) 
-        await NewOwner.save()
+        const NewAdmin = new AdminModel({username,email,password:hashedPassword,profilePic}) 
+        await NewAdmin.save()
 
-        const token = createToken(email,"owner")
+        const token = createToken(email,"admin")
  
         res.cookie('token',token)
         
-        res.status(200).json({success:true,message:"owner signup successfully"})
+        res.status(200).json({success:true,message:"admin signup successfully"})
     } catch (error) {
         console.log(error)
         res.status(error.status || 500).json({message:error || "internal server error"})
@@ -39,17 +48,17 @@ export const ownerSignup = async (req,res) => {
 
 
 
-export const ownerLogin = async (req,res,next) => {
+export const adminLogin = async (req,res,next) => {
     try {
         const {email,password} = req.body
 
         if( !email || !password ) {
             return res.status(400).json({success:false,message:"All fields are required"})
         }
-        const userExist = await OwnerModel.findOne({email})
+        const userExist = await AdminModel.findOne({email})
         
         if(!userExist){
-            return res.status(400).json({success:false,message:"owner doesn't exist"})
+            return res.status(400).json({success:false,message:"admin doesn't exist"})
             
         }
         
@@ -57,10 +66,10 @@ export const ownerLogin = async (req,res,next) => {
         const passwordMatch = bcyrpt.compareSync(password,userExist.password)
 
         if(!passwordMatch){
-            return res.status(400).json({success:false,message:"owner not Authenticaed"})
+            return res.status(400).json({success:false,message:"admin not Authenticaed"})
         }
         
-        const token = createToken(email,"owner")
+        const token = createToken(email,"admin")
  
         res.cookie('token',token)
         
@@ -74,18 +83,18 @@ export const ownerLogin = async (req,res,next) => {
 
 
 
-export const ownerProfile= async (req,res,next) => {
+export const adminProfile= async (req,res,next) => {
     try {
-       const {verifiedOwner} = req.owner;
+       const {verifiedAdmin} = req.admin;
        
-       const ownerProfileData = await OwnerModel.findOne(verifiedOwner).select('-password')
+       const adminProfileData = await AdminModel.findOne(verifiedAdmin).select('-password')
   
         
-       if(!ownerProfileData){
+       if(!adminProfileData){
        return res.status(400).json({success:false,message:"no account"})
        }
     
-       res.status(200).json({success:true,message:ownerProfileData})
+       res.status(200).json({success:true,message:adminProfileData})
        
        
     } catch (error) {
@@ -97,12 +106,12 @@ export const ownerProfile= async (req,res,next) => {
 } 
 
 
-export const ownerLogout= async (req,res,next) => {
+export const adminLogout= async (req,res,next) => {
     try {
            
         res.clearCookie('token')
 
-        res.json({success:true,message:"owner logout"})
+        res.json({success:true,message:"admin logout"})
        
        
     } catch (error) {
@@ -112,15 +121,15 @@ export const ownerLogout= async (req,res,next) => {
     }
 } 
 
-export const checkOwner= async (req,res,next) => {
+export const checkAdmin= async (req,res,next) => {
     try {
        
-      const verifiedOwner = req.owner;
+      const verifiedAdmin = req.admin;
    
-      if(!verifiedOwner){
-      return  res.status(400).json({success:false,message:"owner not authenticated"})
+      if(!verifiedAdmin){
+      return  res.status(400).json({success:false,message:"admin not authenticated"})
       }
-      res.json({success:true,message:"owner authenticatd"})
+      res.json({success:true,message:"admin authenticatd"})
      
         
     } catch (error) {
@@ -132,26 +141,27 @@ export const checkOwner= async (req,res,next) => {
 } 
 
 
-export const ownerDelete = async (req,res) => {
+export const adminDelete = async (req,res) => {
 
     try {
 
         const {id} = req.params
    
    
-        const accountExist = await OwnerModel.findById(id)
+        const accountExist = await AdminModel.findById(id)
 
         if(!accountExist){
             return res.status(400).json({success:false,message:"your account could not delete now"})
         }else{
             res.clearCookie('token')
-            await OwnerModel.findByIdAndDelete(id)
+            await AdminModel.findByIdAndDelete(id)
             res.json({success:true,message:"your account deleted successfully"})
         }
 
       
 
     } catch (error) {
+        
         res.status(error.status || 500).json({message:error || "internal server error"})
     }
 

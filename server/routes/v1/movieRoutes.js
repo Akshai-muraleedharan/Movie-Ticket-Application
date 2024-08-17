@@ -1,12 +1,14 @@
 import express from 'express'
 import { movieCreate, movieDelete, movieList, movieUpdate } from '../../controller/movieController.js'
+import { authOwner } from '../../middleware/authOwner.js'
 
 const router = express.Router()
 
+// new movie routes
 
-router.get('/',movieList)
-router.post('/Movie-create',movieCreate)
-router.put('/movie-update/:id',movieUpdate)
-router.delete('/movie-delete/:id',movieDelete)
+router.get('/',authOwner,movieList)
+router.post('/Movie-create',authOwner,movieCreate)
+router.put('/movie-update/:id',authOwner,movieUpdate)
+router.delete('/movie-delete/:id',authOwner,movieDelete)
 
 export default router
