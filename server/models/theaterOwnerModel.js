@@ -24,11 +24,15 @@ const theaterOwnerSchema = new mongoose.Schema({
        
         
     },
+     profilePic:{
+        type:String,
+        default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaLGtEd0MJro4X9wDmT2vrvLT-HjKkyyWVmg&s",
+    }
     
 },
   {timestamps:true}
 )
 
-const clientModel = mongoose.model('Client',theaterOwnerSchema);
+const OwnerModel = mongoose.model('Owner',theaterOwnerSchema);
 
-export default clientModel;
+export default OwnerModel;

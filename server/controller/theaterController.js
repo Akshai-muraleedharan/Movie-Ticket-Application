@@ -1,19 +1,16 @@
-import TheaterModel from "../models/movieShowModel.js";
-import NewMovieModel from '../models/newMovieModel.js'
+import TheaterModel from "../models/theaterModel.js"
+
 
 
 export const theaterCreate = async (req,res) => {
 
     try {
-        
-        
+               
         const {screenName,city,screenType,seats,movieSchedules} =req.body;
-
 
     const newTheater =new TheaterModel({
         screenName,city,screenType,seats,movieSchedules:[]
     })
-
 
     await newTheater.save()
 
