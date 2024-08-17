@@ -28,6 +28,6 @@ import mongoose from 'mongoose'
         }
   })
 
-  const NewMovieModel = mongoose.model('movie',newMovieSchema);
+  const NewMovieModel = mongoose.model('movies',newMovieSchema);
 
   export default NewMovieModel

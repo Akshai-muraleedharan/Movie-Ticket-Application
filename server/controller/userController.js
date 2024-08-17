@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 
 export const userSignup = async (req,res,next) => {
     try {
-        const {username,email,password,city,mobile,movieBooked} = req.body
+        const {username,email,password,city,mobile,movieBooked,profilePic} = req.body
 
         if(!username || !email || !password || !city || !mobile) {
             return res.status(400).json({success:false,message:"All fields are required"})
@@ -20,7 +20,7 @@ export const userSignup = async (req,res,next) => {
         const salt = 10
         const hashedPassword = bcyrpt.hashSync(password,salt)
 
-        const NewUser = new UserModel({username,email,password:hashedPassword,city,mobile,movieBooked}) 
+        const NewUser = new UserModel({username,email,password:hashedPassword,city,mobile,movieBooked,profilePic}) 
         await NewUser.save()
 
         const token = jwt.sign({email:email},process.env.JWT_KEY)
@@ -120,3 +120,31 @@ export const checkUser= async (req,res,next) => {
         
     }
 } 
+
+
+export  const userGetALL = async (req,res) => {
+    try {
+        const userGetAll = await UserModel.find()
+
+        const userLength = userGetAll.length;
+
+        res.json({success:true,allUser:userGetAll,userlength:userLength})
+    } catch (error) {
+        res.status(error.status || 500).json({message:error || "internal server error"})
+    }
+}
+
+export const userDelete = async (req,res) => {
+
+    try {
+
+        const {id} = req.params
+        await UserModel.findByIdAndDelete(id)
+
+        res.json({success:true,message:"your account deleted successfully"})
+
+    } catch (error) {
+        res.status(error.status || 500).json({message:error || "internal server error"})
+    }
+
+}

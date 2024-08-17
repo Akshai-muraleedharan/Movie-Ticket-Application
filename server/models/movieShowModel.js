@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
 
-
+ 
     const movieShowSchema = new mongoose.Schema({
-        screenname:{
+        screenName:{
             type:String,
             required:true
         },
@@ -19,26 +19,18 @@ import mongoose from 'mongoose';
             type:Array,
             default:[]
         },
-        movieSchedules:[
-            {
-                movieId:{
-                    type:mongoose.Types.ObjectId,
-                    ref:"movie",
-                    required:true
-                },
-                showTime:String,
-                notAvailableSeats: [{
-
-                    row:String,
-                    col:Number,
-                    seat_id:String,
-                    price:Number
-                }],
-                showDates:Date
-            }
-        ]
+        movieSchedules:[{
+            movieId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'movies', // Reference to the Movie model
+              
+            },
+            showTime: String,
+           
+            showDate: String
+        }]
     })
 
-    const ShowModel = mongoose.model('show',movieShowSchema);
+    const TheaterModel = mongoose.model('theater',movieShowSchema);
 
-    export default showModel
+    export default TheaterModel

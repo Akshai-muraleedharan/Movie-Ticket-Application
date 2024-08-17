@@ -29,7 +29,7 @@ const movieTicketSchema = new mongoose.Schema({
             required: true
         },
         col: {
-            type: Number,
+            type: String,
             required: true
         },
         seat_id: {
@@ -37,24 +37,20 @@ const movieTicketSchema = new mongoose.Schema({
             required: true
         },
         price: {
-            type: Number,
-            required: true
+            type: String,
+            required: true 
         }
       } 
     
     ],
-    payment:{
+    totalPrice:{
         type:String,
         required:true
     },
-    totalPrice:{
-        type:Number,
-        required:true
-    },
     paymentType:{
-        type:Number,
+        type:String,
         required:true
-    }
+    } 
 })
 
 const MovieTicket = mongoose.model('movieTicket',movieTicketSchema)
