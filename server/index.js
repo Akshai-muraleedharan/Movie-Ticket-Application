@@ -8,7 +8,9 @@ app.use(cookieParser())
 const port =process.env.PORT || 4001 
 
 dbConnect()
-
+app.get('/',(req,res)=> {
+    res.send("hello my dear friend")
+})
 app.use('/api',apiRouter)
 
 app.listen(port,()=> {
