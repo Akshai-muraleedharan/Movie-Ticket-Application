@@ -1,34 +1,51 @@
 import UserModel from '../models/userModel.js'
 import bcyrpt from 'bcrypt'
-
 import { createToken } from '../utils/generateToken.js'
+import { cloudinaryInstance } from '../config/cloudneryConfig.js'
 
 
 export const userSignup = async (req,res,next) => {
     try {
+            
         const {username,email,password,city,mobile,movieBooked,profilePic} = req.body
+       
 
         if(!username || !email || !password || !city || !mobile) {
             return res.status(400).json({success:false,message:"All fields are required"})
         }
+
+      
+
+        
+       
+         
+     
         const userExist = await UserModel.findOne({email})
         
         if(userExist){
             return res.status(400).json({success:false,message:"user already exist"})
             
         }
-        
+
         const salt = 10
         const hashedPassword = bcyrpt.hashSync(password,salt)
 
-        const NewUser = new UserModel({username,email,password:hashedPassword,city,mobile,movieBooked,profilePic}) 
+        const NewUser = new UserModel({username,
+            email,
+            password:hashedPassword,
+            city,
+            mobile,
+            movieBooked,
+            profilePic
+        }) 
+
         await NewUser.save()
 
         const token = createToken(email)
  
         res.cookie('token',token)
         
-        res.status(200).json({success:true,message:"user signup successfully"})
+        res.status(200).json({success:true,message:"user signup successfully",date:NewUser})
     } catch (error) {
         console.log(error)
         res.status(error.status || 500).json({message:error || "internal server error"})
@@ -71,6 +88,44 @@ export const userLogin = async (req,res,next) => {
     }
 }
 
+
+export const userUpdate= async ( req,res) => {
+
+    try {
+        
+        const {username,city,mobile} = req.body;
+        const {id} = req.params;
+        let image;
+
+        if(!req.file ){
+            image = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png'
+        }else{
+            image = req.file.path
+        }
+        const uploadResult = await cloudinaryInstance.uploader.upload(image,{folder:'movie ticket application/user profile'})
+          .catch((error)=>{
+            console.log(error)
+        })
+
+
+        const updatedData = await UserModel.findByIdAndUpdate(id,{
+            username,
+            city,
+            mobile,
+            profilePic:uploadResult.url
+
+        },{new:true})
+
+        res.json({success:true,message:"updated successfully",data:updatedData})
+
+    } catch (error) {
+        console.log(error)
+        res.status(error.status || 500).json({message:error || "internal server error"})
+    }
+
+
+}
+
 export const userProfile= async (req,res,next) => {
     try {
        
@@ -100,7 +155,7 @@ export const userLogout= async (req,res,next) => {
        
         res.clearCookie('token')
 
-        res.json({success:true,message:"user logout"})
+        res.json({success:true,message:"logout successfully"})
        
        
     } catch (error) {

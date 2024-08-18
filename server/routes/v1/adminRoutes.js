@@ -2,11 +2,12 @@ import express from 'express'
 
 
 import { userGetALL } from '../../controller/userController.js'
-import { adminDelete, adminLogin, adminLogout, adminProfile, adminSignup, checkAdmin } from '../../controller/adminController.js'
+import { adminDelete, adminLogin, adminLogout, adminProfile, adminSignup, adminUpdate, checkAdmin } from '../../controller/adminController.js'
 import { authAdmin } from '../../middleware/authAdmin.js'
 import { theaterList } from '../../controller/theaterController.js'
 import { movieList } from '../../controller/movieController.js'
 import { totalPaymentList } from '../../controller/movieTicketController.js'
+import { upload } from '../../middleware/imageUploadMiddleware.js'
 
 
 
@@ -17,6 +18,8 @@ router.post('/siginup',adminSignup)
 router.post('/login',adminLogin)
 
 router.delete('/account-delete/:id',authAdmin,adminDelete)
+
+router.put('/update',authAdmin,upload.single('profile-pic'),adminUpdate)
 
 // 
 router.get('/logout',authAdmin,adminLogout)

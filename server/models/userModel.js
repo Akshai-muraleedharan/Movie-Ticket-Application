@@ -4,11 +4,8 @@ const { isEmail } = validatorPkg;
 
 const userSchema = new mongoose.Schema({
     username:{
-        type:String,
-        required:true,
-        minLength:3,
-        maxLength:15,
-      
+        type:String,  
+        required:true, 
     },
     email:{
         type:String,
@@ -20,23 +17,19 @@ const userSchema = new mongoose.Schema({
     },
     password:{
         type:String,
-        required:[true,"password is requird"],
-       
-        
+        required:[true,"password is requird"],  
     },
     profilePic:{
         type:String,
-        default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaLGtEd0MJro4X9wDmT2vrvLT-HjKkyyWVmg&s",
+        default: "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png",
     },
     city:{
         type:String,
         required:true,
-
     },
     mobile:{
         type:String,
-        required:true,
-        
+        required:true,  
     },
     movieBooked:[{type:mongoose.Types.ObjectId,ref :"movie"}]
 },

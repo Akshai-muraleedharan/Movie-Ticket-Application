@@ -1,6 +1,7 @@
 import OwnerModel from '../models/theaterOwnerModel.js'
 import bcyrpt from 'bcrypt'
 import { createToken } from '../utils/generateToken.js'
+import { cloudinaryInstance } from '../config/cloudneryConfig.js'
 
 
 export const ownerSignup = async (req,res) => {
@@ -73,7 +74,42 @@ export const ownerLogin = async (req,res,next) => {
 }
 
 
+export const ownerUpdate = async (req,res)=>{
+    try {
+        
+        const {verifiedOwner} = req.owner;
+        const {username} =req.body
+        let image;
 
+        const owner = await OwnerModel.findOne(verifiedOwner)
+
+
+        
+
+        if(!req.file ){
+            image = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png'
+        }else{
+            image = req.file.path
+        }
+        const uploadResult = await cloudinaryInstance.uploader.upload(image,{folder:'movie ticket application/owner profile'})
+          .catch((error)=>{
+            console.log(error)
+        })
+
+       
+        const updatedData = await OwnerModel.findOneAndUpdate(owner,{
+            username,
+            profilePic:uploadResult.url
+        },{new:true})
+
+        res.json({success:true,message:'successfully updated',data:updatedData})
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+ 
 export const ownerProfile= async (req,res,next) => {
     try {
        const {verifiedOwner} = req.owner;

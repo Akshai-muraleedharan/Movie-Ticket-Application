@@ -2,6 +2,7 @@
 import bcyrpt from 'bcrypt'
 import { createToken } from '../utils/generateToken.js'
 import AdminModel from '../models/adminModel.js'
+import { cloudinaryInstance } from '../config/cloudneryConfig.js'
 
 
 export const adminSignup = async (req,res) => {
@@ -66,8 +67,8 @@ export const adminLogin = async (req,res,next) => {
         const passwordMatch = bcyrpt.compareSync(password,userExist.password)
 
         if(!passwordMatch){
-            return res.status(400).json({success:false,message:"admin not Authenticaed"})
-        }
+            return res.status(400).json({success:false,message:"admin not Authenticaed" })
+            }
         
         const token = createToken(email,"admin")
  
@@ -79,6 +80,34 @@ export const adminLogin = async (req,res,next) => {
        
         
     }
+}
+
+
+export const adminUpdate = async (req,res) => {
+    const {username} =req.body;
+    const {verifiedAdmin} = req.admin;
+    let image;
+
+    const admin = await  AdminModel.findOneAndUpdate(verifiedAdmin)
+    
+    if(!req.file ){
+        image = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png'
+    }else{
+        image = req.file.path
+    }
+    const uploadResult = await cloudinaryInstance.uploader.upload(image,{folder:'movie ticket application/admin profile'})
+      .catch((error)=>{
+        console.log(error)
+    })
+
+
+    const updatedData = await AdminModel.findOneAndUpdate(admin,{
+        username,
+        profilePic:uploadResult.url
+    },{new:true})
+
+    res.json({success:true,message:"updated successessfully",data:updatedData})
+
 }
 
 

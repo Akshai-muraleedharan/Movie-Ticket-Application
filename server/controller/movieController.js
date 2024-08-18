@@ -1,3 +1,4 @@
+import { cloudinaryInstance } from '../config/cloudneryConfig.js'
 import NewMovieModel from '../models/newMovieModel.js'
 
 export const movieCreate = async (req,res,next) => {
@@ -5,17 +6,33 @@ export const movieCreate = async (req,res,next) => {
 
        
         
-        const {title,desc,image,rating,duration,genure} =req.body
+        const {title,desc,rating,duration,genure} =req.body
 
         const movieExist =await NewMovieModel.findOne({title})
+
+        if(!req.file ){
+           return res.status(400).json({success:false,message:"please add movie image"})
+        }
+
+        const uploadResult = await cloudinaryInstance.uploader.upload(req.file.path,{folder:'movie ticket application/movies'})
+          .catch((error)=>{
+            console.log(error)
+        })
 
         if(movieExist){
           
            return res.status(400).json({success:false,message:"movie already exist"})
         }
 
+
+
         const newMovie = new NewMovieModel({
-            title,desc,image,rating,duration,genure
+            title,
+            desc,
+            image:uploadResult.url,
+            rating,
+            duration,
+            genure
         })
 
         await newMovie.save()
