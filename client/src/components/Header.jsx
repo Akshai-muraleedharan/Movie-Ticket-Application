@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import CommonButton from "./ui/buttons/CommonButton";
 import { Menu } from "lucide-react";
 import { X } from "lucide-react";
+import logo from '../assets/image/movie-logo new.png'
 
 function Header() {
   const [toggles, setToggles] = useState(false);
@@ -13,8 +14,10 @@ function Header() {
   }
   return (
     <>
-      <div className="w-full flex justify-between items-center p-3 px-10 h-20 shadow-lg ">
-        <div>logo</div>
+      <div className="w-full flex justify-between items-center p-3 px-10 h-20 shadow-lg sticky top-0">
+        <div>
+          <img className="w-10" src={logo} alt="logo" />
+        </div>
 
         <nav
           className="flex items-center capitalize gap-4 font-semibold header-responsive"

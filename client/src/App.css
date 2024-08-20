@@ -4,28 +4,23 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-
-.header-responsive{
+.header-responsive {
   position: absolute;
   flex-direction: column;
   left: -140px;
   top: 80px;
   background-color: #fff;
   box-shadow: -1px 6px 13px -5px;
-    justify-content: space-around;
-    height: 60vh;
-    padding: 20px;
-    border-bottom-right-radius: 20px;
-    transition: left 1s;
-    transition-timing-function: ease-in-out
+  justify-content: space-around;
+  height: 60vh;
+  padding: 20px;
+  border-bottom-right-radius: 20px;
+  transition: left 1s ease-in-out;
 }
 
-.nav_responsive{
-  transition: left 1s;
-  transition-delay: 0.5s; 
+.nav_responsive {
+  transition: left 1s 0.5s ease-in-out;
   left: 0px;
-  transition-timing-function: ease-in-out;
-  
 }
 
 .header_ham {
@@ -35,12 +30,46 @@ body {
   .header_ham {
     display: none;
   }
-  .header-responsive{
+  .header-responsive {
     position: unset;
     flex-direction: row;
     height: 0px;
     padding: 0px;
-    
   }
- 
+}
+
+
+
+/* footer */
+
+
+.instagram{
+  background-image: linear-gradient(to right, #f9ce34, #ee2a7b, #6228d7);
+  color: #fff;
+  border-radius: 4px;
+  padding: 3px;
+
+}
+
+.facebook{
+  font-size: 38px;
+  background-color: #316FF6;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.twitter{
+  color: #08a0e9;
+  background-color: #fcfcfc;
+  border-radius: 4px;
+  font-size: 36px;
+  padding: 3px;
+}
+
+.whatsup{
+  font-size: 37px;
+  background-color: #25D366;
+  color: #fff;
+  border-radius: 4px;
+  padding: 3px;
 }
