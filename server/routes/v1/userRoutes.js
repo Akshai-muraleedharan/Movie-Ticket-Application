@@ -1,5 +1,5 @@
 import express from 'express'
-import { checkUser, userDelete, userGetALL, userLogin, userLogout, userProfile, userSignup, userUpdate } from '../../controller/userController.js';
+import { bookedMovies, checkUser, userDelete, userGetALL, userLogin, userLogout, userProfile, userSignup, userUpdate } from '../../controller/userController.js';
 import { authUser } from '../../middleware/authUser.js';
 import { upload } from '../../middleware/imageUploadMiddleware.js';
 
@@ -17,6 +17,7 @@ Router.put('/update/:id',authUser,upload.single('profile-pic'),userUpdate)
 Router.get('/logout',userLogout)
 Router.get('/check-user',authUser,checkUser)
 Router.get('/profile',authUser,userProfile) 
+Router.get('/booked-movies',authUser,bookedMovies) 
 
 
 export default Router  

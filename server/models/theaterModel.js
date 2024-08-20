@@ -25,9 +25,7 @@ import mongoose from 'mongoose';
                 ref: 'movies', // Reference to the Movie model
               
             },
-            showTime: String,
-           
-            showDate: String
+            
         }]
     })
 

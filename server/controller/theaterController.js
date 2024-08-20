@@ -6,7 +6,7 @@ export const theaterCreate = async (req,res) => {
 
     try {
                
-        const {screenName,city,screenType,seats,movieSchedules} =req.body;
+        const {screenName,city,screenType,seats} =req.body;
 
     const newTheater =new TheaterModel({
         screenName,city,screenType,seats,movieSchedules:[]
@@ -20,6 +20,26 @@ export const theaterCreate = async (req,res) => {
         res.status(error.status || 500).json({message:error || "internal server error"})
     }
 } 
+
+
+export const theaterMovieShedule = async (req,res) => {
+    try {
+        const {id} = req.params
+        const {movieId} =req.body
+        const movie = await TheaterModel.findById(id)
+
+        movie.movieSchedules.push({
+            movieId,
+             
+        })
+
+        await movie.save()
+     res.json({success:true,message:"data added successfully",data:movie})
+    } catch (error) {
+        console.log(error)
+        res.status(error.status || 500).json({message:error || "internal server error"})
+    }
+}
 
 export const theaterList = async (req,res) => {
 
@@ -86,7 +106,7 @@ export const theaterSingle = async (req,res) => {
         
         const {id} =req.params
 
-        const singleData = await TheaterModel.findById(id)
+        const singleData = await TheaterModel.findById(id).populate({path:'movieSchedules.movieId', model:'movies'})
 
         res.json({success:true,message:"single data",singleData})
     } catch (error) {

@@ -25,7 +25,14 @@ import mongoose from 'mongoose'
         genure:{
             type:String,
             required:true
-        }
+        } ,
+         showTime: [],
+               
+        showDate: {
+            type: String, 
+            
+        },
+        
   })
 
   const NewMovieModel = mongoose.model('movies',newMovieSchema);

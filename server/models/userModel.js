@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,  
     },
-    movieBooked:[{type:mongoose.Types.ObjectId,ref :"movie"}]
+    movieBooked:[{type:mongoose.Types.ObjectId,ref :"movieTicket"}]
 },
   {timestamps:true}
 )

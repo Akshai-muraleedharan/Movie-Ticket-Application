@@ -6,7 +6,7 @@ export const movieCreate = async (req,res,next) => {
 
        
         
-        const {title,desc,rating,duration,genure} =req.body
+        const {title,desc,rating,duration,genure,} =req.body
 
         const movieExist =await NewMovieModel.findOne({title})
 
@@ -24,7 +24,7 @@ export const movieCreate = async (req,res,next) => {
            return res.status(400).json({success:false,message:"movie already exist"})
         }
 
-
+          const timeShedule =['12:00pm','03:00pm','06:00:pm','12:00pm']
 
         const newMovie = new NewMovieModel({
             title,
@@ -32,7 +32,8 @@ export const movieCreate = async (req,res,next) => {
             image:uploadResult.url,
             rating,
             duration,
-            genure
+            genure,
+            showTime:timeShedule
         })
 
         await newMovie.save()
@@ -69,13 +70,9 @@ export const movieUpdate = async (req,res) => {
 
     const {id} = req.params
 
-    const movieExist =await NewMovieModel.findOne({title})
 
-    if(movieExist){
-      
-       return res.status(400).json({success:false,message:"movie already exist"})
-    }
 
+    const timeShedule =['12:00pm','03:00pm','07:00:pm','1:00pm']
 
     const updatedMovie = await NewMovieModel.findByIdAndUpdate(id,{
         title,
@@ -83,7 +80,8 @@ export const movieUpdate = async (req,res) => {
         image,
         rating,
         duration,
-        genure
+        genure,
+        showTime:timeShedule
     },{new:true})
 
     res.json({success:true,message:"movie updated", updatedMovie})

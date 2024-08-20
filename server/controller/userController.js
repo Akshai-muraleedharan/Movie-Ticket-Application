@@ -14,11 +14,7 @@ export const userSignup = async (req,res,next) => {
             return res.status(400).json({success:false,message:"All fields are required"})
         }
 
-      
-
-        
-       
-         
+    
      
         const userExist = await UserModel.findOne({email})
         
@@ -132,6 +128,8 @@ export const userProfile= async (req,res,next) => {
         const {verifiedUser} = req.user;
        
        const userProfileData = await UserModel.findOne(verifiedUser).select('-password')
+      
+       
 
        if(!userProfileData){
         return res.status(400).json({success:false,message:"no account"})
@@ -139,7 +137,7 @@ export const userProfile= async (req,res,next) => {
 
        res.status(200).json({success:true,message:userProfileData})
        
-       
+        
     } catch (error) {
        
         res.status(error.status || 500).json({message:error || "internal server error"})
@@ -148,6 +146,54 @@ export const userProfile= async (req,res,next) => {
     }
 } 
 
+export const bookedMovies = async (req,res) => {
+   
+
+    try {
+        const {verifiedUser} = req.user;
+
+// doubt this area
+        const user = await UserModel.findOne(verifiedUser)
+        .populate([{
+            path:'movieBooked',
+                  populate:{
+                    path:'movieId',
+                    model:'movies'
+                  },
+                 
+           }]) .populate([{
+            path:'movieBooked',
+            populate:{
+                path:'theaterId',
+                model:'theater' 
+              }
+                 
+           }])
+
+
+
+
+          
+
+         
+        if(!user){
+            
+            return res.status(400).json({success:false,message:"user not exist"})
+        }
+           
+       const movieBooked = user.movieBooked
+
+       if(movieBooked.length === 0){
+        return res.status(400).json({success:false,message:"No movie booked"})
+       }
+
+       res.json({success:true,message:"successfully fetched",data:movieBooked})
+        
+    } catch (error) {
+        console.log(error)
+        res.status(error.status || 500).json({message:error || "internal server error"})
+    }
+}
 
 
 export const userLogout= async (req,res,next) => {
