@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import CommonButton from "./ui/buttons/CommonButton";
 import { Menu } from "lucide-react";
 import { X } from "lucide-react";
-import logo from '../assets/image/movie-logo new.png'
+import logo from "../assets/image/movie-logo new.png";
+import {LoginButton} from "./ui/buttons/Buttons";
 
 function Header() {
   const [toggles, setToggles] = useState(false);
@@ -23,11 +23,11 @@ function Header() {
           className="flex items-center capitalize gap-4 font-semibold header-responsive"
           ref={navRef}
         >
-          <Link>Home</Link>
-          <Link>About-us</Link>
+          <Link to={"/"}>Home</Link>
+          <Link to={"about"}>About-us</Link>
 
           <div>
-            <CommonButton />
+            <Link to={"login"}> <LoginButton /> </Link>
           </div>
         </nav>
         <span className="header_ham" onClick={toggle}>

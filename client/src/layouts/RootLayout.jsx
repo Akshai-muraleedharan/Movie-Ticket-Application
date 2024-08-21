@@ -1,14 +1,15 @@
 import React from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import { Outlet } from 'react-router-dom'
 
 function RootLayout() {
   return (
    <>
     <Header />
-    <div className='w-full h-96 flex justify-center items-center'>
-      hello
-    </div>
+    
+     <Outlet/>
+   
     <Footer/>
    </>
   )
