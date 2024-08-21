@@ -6,11 +6,14 @@ import { Outlet } from 'react-router-dom'
 function RootLayout() {
   return (
    <>
-    <Header />
+   <div className='root_container'>
+   <Header />
     
-     <Outlet/>
+    <Outlet/>
+  
+   <Footer/>
+   </div>
    
-    <Footer/>
    </>
   )
 }

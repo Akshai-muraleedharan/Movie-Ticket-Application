@@ -7,7 +7,7 @@ import { FaFacebookF } from "react-icons/fa";
 function Footer() {
   return (
     <>
-      <div className="w-full bg-black  px-10 py-5" style={{height:'240px'}}>
+      <div className="w-full bg-black  px-10 py-5 mt-auto" >
         <div className="grid grid-cols-1 md:grid-cols-2 ">
           <div className="">
             <div>
