@@ -83,3 +83,16 @@ body {
 .instagram:hover,.facebook:hover,.twitter:hover,.whatsup:hover{
   opacity: 1;
 }
+
+
+/* login page */
+
+.backGround_img{
+  background-image: url('https://images.pexels.com/photos/3709369/pexels-photo-3709369.jpeg?auto=compress&cs=tinysrgb&w=600');
+  background-size: cover;
+}
+
+.login_box{
+  height: 300px;
+  width: 640px;
+}

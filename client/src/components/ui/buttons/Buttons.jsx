@@ -15,12 +15,20 @@ export function LoginButton() {
 export function LoginPageButton() {
   return (
     
-      <div className="bg-blue-500 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
+      <button className="bg-blue-500 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
         login
-      </div>
+      </button>
     
   );
 }
 
 
-
+export function GoogleSignup() {
+  return (
+    
+      <button className="bg-red-600 w-full mt-5 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
+        Google signup
+      </button>
+    
+  );
+}

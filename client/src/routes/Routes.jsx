@@ -4,6 +4,7 @@ import HomePage from "../pages/HomePage.jsx";
 import AboutPage from "../pages/AboutPage.jsx";
 import LoginPage from "../pages/LoginPage.jsx";
 import MovieSinglePage from "../pages/MovieSinglePage.jsx";
+import SignupPage from "../pages/SignupPage.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
       {
         path:'name/:id',
         element:<MovieSinglePage/>,
+      },
+      {
+        path:'sign-up',
+        element:<SignupPage />
       }
 
     ],
