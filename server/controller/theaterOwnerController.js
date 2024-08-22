@@ -2,16 +2,22 @@ import OwnerModel from '../models/theaterOwnerModel.js'
 import bcyrpt from 'bcrypt'
 import { createToken } from '../utils/generateToken.js'
 import { cloudinaryInstance } from '../config/cloudneryConfig.js'
+import { hashPassword } from '../utils/hashedPassword.js'
+import { matchPassword } from '../utils/comparePassword.js'
 
 
 export const ownerSignup = async (req,res) => {
     try {
        
-        const {username,email,password,profilePic} = req.body
-
-        if(!username || !email || !password ) {
+        const {username,email,password,profilePic,confirmPassword} = req.body
+                  
+        if(!username || !email || !password || !confirmPassword) {
             return res.status(400).json({success:false,message:"All fields are required"})
         }
+
+        if (password != confirmPassword) {
+            return res.status(400).json({ success: false, message: "password does not match" });
+          }
         const userExist = await OwnerModel.findOne({email})
         
         if(userExist){
@@ -19,8 +25,7 @@ export const ownerSignup = async (req,res) => {
             
         }
         
-        const salt = 10
-        const hashedPassword = bcyrpt.hashSync(password,salt)
+        const hashedPassword = hashPassword(password);
 
         const NewOwner = new OwnerModel({username,email,password:hashedPassword,profilePic}) 
         await NewOwner.save()
@@ -47,15 +52,17 @@ export const ownerLogin = async (req,res,next) => {
         if( !email || !password ) {
             return res.status(400).json({success:false,message:"All fields are required"})
         }
-        const userExist = await OwnerModel.findOne({email})
+        const ownerExist = await OwnerModel.findOne({email})
         
-        if(!userExist){
+        if(!ownerExist){
             return res.status(400).json({success:false,message:"owner doesn't exist"})
             
         }
         
 
-        const passwordMatch = bcyrpt.compareSync(password,userExist.password)
+        const PasswordValue = ownerExist.password
+
+        const passwordMatch = matchPassword(password,PasswordValue)
 
         if(!passwordMatch){
             return res.status(400).json({success:false,message:"owner not Authenticaed"})

@@ -2,16 +2,26 @@ import bcyrpt from "bcrypt";
 import { createToken } from "../utils/generateToken.js";
 import AdminModel from "../models/adminModel.js";
 import { cloudinaryInstance } from "../config/cloudneryConfig.js";
+import { hashPassword } from "../utils/hashedPassword.js";
+import { matchPassword } from "../utils/comparePassword.js";
 
 export const adminSignup = async (req, res) => {
   try {
-    const { username, email, password, profilePic } = req.body;
+    const { username, email, password, profilePic, confirmPassword } = req.body;
 
-    if (!username || !email || !password) {
+    if (!username || !email || !password || !confirmPassword)  {
       return res
         .status(400)
         .json({ success: false, message: "All fields are required" });
     }
+
+
+    if (password != confirmPassword) {
+      return res
+        .status(400)
+        .json({ success: false, message: "password does not match" });
+    }
+    
     const adminExist = await AdminModel.findOne({ email });
 
     if (adminExist) {
@@ -29,8 +39,7 @@ export const adminSignup = async (req, res) => {
         .json({ success: false, message: "maximum number of admins added" });
     }
 
-    const salt = 10;
-    const hashedPassword = bcyrpt.hashSync(password, salt);
+    const hashedPassword = hashPassword(password);
 
     const NewAdmin = new AdminModel({
       username,
@@ -64,16 +73,18 @@ export const adminLogin = async (req, res, next) => {
         .status(400)
         .json({ success: false, message: "All fields are required" });
     }
-    const userExist = await AdminModel.findOne({ email });
+    const adminExist = await AdminModel.findOne({ email });
 
-    if (!userExist) {
+    if (!adminExist) {
       return res
         .status(400)
         .json({ success: false, message: "admin doesn't exist" });
     }
 
-    const passwordMatch = bcyrpt.compareSync(password, userExist.password);
+    const PasswordValue = adminExist.password
 
+    const passwordMatch = matchPassword(password,PasswordValue)
+    
     if (!passwordMatch) {
       return res
         .status(400)
@@ -86,7 +97,7 @@ export const adminLogin = async (req, res, next) => {
 
     res
       .status(200)
-      .json({ success: true, message: "owner login successfully" });
+      .json({ success: true, message: "admin login successfully" });
   } catch (error) {
     res
       .status(error.status || 500)

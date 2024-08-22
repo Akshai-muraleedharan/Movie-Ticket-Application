@@ -27,7 +27,7 @@ function LoginPage() {
              
              <input type="password" className="grow"  />
            </label>
-          <p className="text-xs">Don't have an account ? <Link to={'/sign-up'}><span className="text-blue-400">Signup</span></Link> </p>
+          <p className="text-xs text-slate-500 mb-1">Don't have an account ? <Link to={'/sign-up'}><span className="text-blue-400">Signup</span></Link> </p>
            <LoginPageButton type='submit'/>
            </form>
            <p className="text-center mt-5 text-xs text-slate-400">Or</p>

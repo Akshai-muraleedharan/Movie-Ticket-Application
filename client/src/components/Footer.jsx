@@ -27,7 +27,7 @@ function Footer() {
         </div>
 
         <div className="flex justify-center mt-4 ">
-          <p className="text-xs text-white">
+          <p className="text-xs text-white text-center">
             Copyright © {new Date().getFullYear()} - All right reserved movie booking company
             
           </p>

@@ -79,7 +79,7 @@ export const movieUpdate = async (req, res) => {
         title,
         desc,
         image,
-        rating,P
+        rating,
         duration,
         genure,
         showTime: timeShedule,
