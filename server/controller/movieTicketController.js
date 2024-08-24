@@ -6,32 +6,33 @@ export const movieTicket = async (req,res) => {
 
 try {
    
-    const {seats,payment,totalPrice,paymentType,showTime,showDate} = req.body
-    const {user} =req.params
+    const {seatArry,payment,totalPrice,paymentType,showTime,showDate} = req.body
+    // const {user} =req.params
+    const  verifiedUser  = req.user.email;
     const {movie} =req.params
     const {theater} =req.params
-
-    if(!user || !movie || !theater){
+    
+    if( !movie || !theater){
         return res.status(400).json({success:false,message:'user not valid'})
     }
+  
+    const secureUser = await UserModel.findOne({email:verifiedUser})
 
-    const secureUser = await UserModel.findById(user)
-
+    const user = secureUser._id
     
-    
 
-    if(!seats){
-        return res.status(400).json({success:false,message:"seats not selected"})
-    }
+    // if(!seatArry){
+    //     return res.status(400).json({success:false,message:"seats not selected"})
+    // }
 
     const newMovieTicket = new MovieTicket({
         
         movieId:movie,
         theaterId:theater,
-        userId:user,
-        seats,
+         userId:user,
+        seats:seatArry,
         payment,
-        totalPrice,
+        totalPrice, 
         paymentType,
         showTime,
         showDate

@@ -18,7 +18,7 @@ router.put('/soft-delete',authOwner,ownerSoftDelete)
 router.post('/otp-generate',ownerOtpGenerate)
 router.put('/account-restore',ownerAccoutRestore)
 
-router.delete('/account-delete/:id',authOwner,ownerDelete)
+router.delete('/account-delete',authOwner,ownerDelete)
 router.put('/update',authOwner,upload.single('profile-pic'),ownerUpdate)
 
 router.get('/logout',authOwner,ownerLogout)

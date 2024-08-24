@@ -80,7 +80,7 @@ export const ownerUpdate = async (req,res)=>{
     try {
         
         const {verifiedOwner} = req.owner;
-        const {username} =req.body
+        const {username,mobile} =req.body
         let image;
 
         const owner = await OwnerModel.findOne(verifiedOwner)
@@ -94,20 +94,18 @@ export const ownerUpdate = async (req,res)=>{
             image = req.file.path
         }
         const uploadResult = await cloudinaryInstance.uploader.upload(image,{folder:'movie ticket application/owner profile'})
-          .catch((error)=>{
-            console.log(error)
-        })
-
+          
        
         const updatedData = await OwnerModel.findOneAndUpdate(owner,{
             username,
-            profilePic:uploadResult.url
+            profilePic:uploadResult.url,
+            mobile
         },{new:true})
 
         res.json({success:true,message:'successfully updated',data:updatedData})
 
     } catch (error) {
-        console.log(error)
+      res.status(error.status || 500).json({message:error || "internal server error"})
     }
 }
 
@@ -154,7 +152,7 @@ export const checkOwner= async (req,res,next) => {
     try {
        
       const verifiedOwner = req.owner;
-   
+     
       if(!verifiedOwner){
       return  res.status(400).json({success:false,message:"owner not authenticated"})
       }
@@ -174,16 +172,17 @@ export const ownerDelete = async (req,res) => {
 
     try {
 
-        const {id} = req.params
+      const {verifiedOwner} = req.owner.email;
    
+      console.log(verifiedOwner)
    
-        const accountExist = await OwnerModel.findById(id)
+        const accountExist = await OwnerModel.findOne(verifiedOwner)
 
         if(!accountExist){
             return res.status(400).json({success:false,message:"your account could not delete now"})
         }else{
             res.clearCookie('token')
-            await OwnerModel.findByIdAndDelete(id)
+            await OwnerModel.findOneAndDelete(verifiedOwner)
             res.json({success:true,message:"your account deleted successfully"})
         }
 
@@ -215,7 +214,7 @@ export const ownerSoftDelete = async (req, res) => {
       res.clearCookie("token");
       await ownerDelete.save();
   
-      res.json({success:true,message:"user delete successfully"  });
+      res.json({success:true,message:"owner soft delete successfully"  });
     } catch (error) {
       console.log(error)
       res.status(error.status || 500) .json({ message: error || "internal server error" });
@@ -237,7 +236,7 @@ export const ownerSoftDelete = async (req, res) => {
   
     await generatedOtp.save()
   
-    res.json({success:true,message:"otp generated successfull"})
+    res.json({success:true,message:"otp generated successfull",data:generatedOtp})
     } catch (error) {
       console.log(error)
       res .status(error.status || 500).json({ message: error || "internal server error" });
@@ -262,7 +261,7 @@ export const ownerSoftDelete = async (req, res) => {
         await accountRestore.save(); 
       }
   
-      res.json({success:true,message:"your account restore successfully"})
+      res.json({success:true,message:"your account restore successfully",})
     } catch (error) {
       console.log(error)
       res .status(error.status || 500).json({ message: error || "internal server error" });

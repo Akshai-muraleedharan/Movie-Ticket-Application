@@ -41,7 +41,7 @@ export const movieCreate = async (req, res, next) => {
 
     res
       .status(200)
-      .json({ success: true, message: " movie create successfully" });
+      .json({ success: true, message: " movie create successfully",data:newMovie });
   } catch (error) {
     console.log(error);
   }
@@ -98,5 +98,5 @@ export const movieDelete = async (req, res) => {
 
   await NewMovieModel.findByIdAndDelete(id);
 
-  res.json({ success: true, message: "deleted successfully" });
+  res.json({ success: true, message: "movie deleted successfully" });
 };

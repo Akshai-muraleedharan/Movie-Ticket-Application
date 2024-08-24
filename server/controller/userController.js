@@ -6,6 +6,7 @@ import { cloudinaryInstance } from "../config/cloudneryConfig.js";
 import { hashPassword } from "../utils/hashedPassword.js";
 import otpGenerator from "otp-generator";
 import TheaterModel from "../models/theaterModel.js";
+import MovieTicket from "../models/movieTicketModel.js";
 
 
 //  User create controller
@@ -25,9 +26,9 @@ export const userSignup = async (req, res, next) => {
 
     await NewUser.save();
 
-    const token = createToken(email, "user");
+    // const token = createToken(email, "user");
 
-    res.cookie("token", token);
+    // res.cookie("token", token);
 
     res.status(200).json({success: true,message: "user signup successfully",date: NewUser,});
   } catch (error) {
@@ -45,7 +46,7 @@ export const userLogin = async (req, res, next) => {
 
     
     const userExist = await UserModel.findOne({ email });
-
+   console.log(userExist)
     const deletedUser = userExist.userDeleted;
 
     if (!userExist || deletedUser === true) {
@@ -107,9 +108,9 @@ export const userUpdate = async (req, res) => {
 
 export const userProfile = async (req, res, next) => {
   try {
-    const { verifiedUser } = req.user;
-
-    const userProfileData = await UserModel.findOne(verifiedUser).select( "-password");
+    const  verifiedUser  = req.user.email;
+    
+    const userProfileData = await UserModel.findOne({email:verifiedUser}).select( "-password");
 
     if (!userProfileData) {
       return res.status(400).json({ success: false, message: "no account" });
@@ -124,16 +125,16 @@ export const userProfile = async (req, res, next) => {
 // user booked movies
 export const bookedMovies = async (req, res) => {
   try {
-    const { verifiedUser } = req.user;
+    const  verifiedUser  = req.user.email;
 
-   
-    const user = await UserModel.findOne(verifiedUser)
+   console.log(verifiedUser)
+    const user = await UserModel.findOne({email:verifiedUser})
       .populate([
         {
           path: "movieBooked",
           populate: {
             path: "movieId",
-            model: "movies",
+            model: "movies", 
           },
         },
       ])
@@ -142,6 +143,7 @@ export const bookedMovies = async (req, res) => {
           path: "movieBooked",
           populate: {
             path: "theaterId",
+            select: '-seats',
             model: "theater",
           },
         },
@@ -157,8 +159,7 @@ export const bookedMovies = async (req, res) => {
       return res .status(400).json({ success: false, message: "No movie booked" });
     }
 
-    res.json({ success: true, message: "successfully fetched", data: movieBooked,
-    });
+    res.json({ success: true, message: "successfully fetched", data:user });
   } catch (error) {
     console.log(error);
     res .status(error.status || 500).json({ message: error || "internal server error" });
@@ -175,6 +176,7 @@ export const SeatBooking = async (req,res) => {
       
       if(!seatNumber) return res.status(400).json({success:false,message:"please select seats"})
 
+       
       
       const updatePromises = seatNumber.map(seats =>
           TheaterModel.findByIdAndUpdate(
@@ -209,7 +211,7 @@ export const userLogout = async (req, res, next) => {
 export const checkUser = async (req, res, next) => {
   try {
     const verifiedUser = req.user;
-
+           console.log(verifiedUser)
     if (!verifiedUser) {
       return res
         .status(400)

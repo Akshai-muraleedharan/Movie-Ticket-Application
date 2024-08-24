@@ -8,13 +8,18 @@ export const theaterCreate = async (req,res) => {
                
         const {screenName,city,screenType} =req.body;
 
+        const theaterExist = await TheaterModel.findOne({ city,screenName  });
+
+       if(theaterExist) return res.status(200).json({success:false,message:"This theater already exist"})
+
+
     const newTheater =new TheaterModel({
         screenName,city,screenType,movieSchedules:[]
     })
 
     await newTheater.save()
 
-    res.json({success:true,message:"theater added successfully"})
+    res.json({success:true,message:"theater added successfully",data:newTheater})
     
     } catch (error) {
         console.log(error)
@@ -92,12 +97,11 @@ export const theaterUpdate = async (req,res) => {
           
         }
 
-        const {screenName,city,screenType,seats} =req.body
+        const {screenType} =req.body
         const theaterDetail =await TheaterModel.findByIdAndUpdate(id,{
-            screenName,
-            city,
+
             screenType, 
-            seats
+          
         },{new:true})
 
         res.json({success:true,message:theaterDetail})
