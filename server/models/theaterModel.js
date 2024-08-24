@@ -16,8 +16,8 @@ import mongoose from 'mongoose';
             required:true
         },
         seats:{
-            type:Array,
-            default:[]
+            type:[]
+           
         },
         movieSchedules:[{
             movieId: {

@@ -6,10 +6,10 @@ export const theaterCreate = async (req,res) => {
 
     try {
                
-        const {screenName,city,screenType,seats} =req.body;
+        const {screenName,city,screenType} =req.body;
 
     const newTheater =new TheaterModel({
-        screenName,city,screenType,seats,movieSchedules:[]
+        screenName,city,screenType,movieSchedules:[]
     })
 
     await newTheater.save()
@@ -17,6 +17,7 @@ export const theaterCreate = async (req,res) => {
     res.json({success:true,message:"theater added successfully"})
     
     } catch (error) {
+        console.log(error)
         res.status(error.status || 500).json({message:error || "internal server error"})
     }
 } 
@@ -40,6 +41,27 @@ export const theaterMovieShedule = async (req,res) => {
         res.status(error.status || 500).json({message:error || "internal server error"})
     }
 }
+
+
+export const seatCreate =async  (req,res) => {
+    try {
+        const{seatPayment,seatEndnumber}= req.body
+        const seatStart = parseInt(req.body.seatStart)
+        const {id} =req.params
+        
+        const seat = await TheaterModel.findById(id)
+       
+         for (let seatNumber = seatStart; seatNumber <= seatEndnumber; seatNumber++) {
+            seat.seats.push({ seatEndNumber:seatNumber, seatPayment:seatPayment,availableSeat:false });
+        }
+
+      await seat.save()
+            res.json({data:seat})
+    } catch (error) {
+        res.status(error.status || 500).json({message:error || "internal server error"})
+    }
+}
+
 
 export const theaterList = async (req,res) => {
 

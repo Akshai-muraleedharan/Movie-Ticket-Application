@@ -25,7 +25,7 @@ export const authAdmin =  (req,res,next) => {
       return res.status(400).json({ message: "admin not authenticated" });
   }
      
-  console.log(verifiedToken)
+
     req.admin = verifiedToken;
  
     next()

@@ -6,6 +6,7 @@ export const movieTicket = async (req,res) => {
 
 try {
    
+    const {seats,payment,totalPrice,paymentType,showTime,showDate} = req.body
     const {user} =req.params
     const {movie} =req.params
     const {theater} =req.params
@@ -18,7 +19,6 @@ try {
 
     
     
-    const {seats,payment,totalPrice,paymentType,showTime,showDate} = req.body
 
     if(!seats){
         return res.status(400).json({success:false,message:"seats not selected"})

@@ -22,22 +22,7 @@ const movieTicketSchema = new mongoose.Schema({
         type: String, 
         required: true 
     },
-    seats:[
-      {  
-        row: {
-            type: String, required: true  
-        },
-        col: {
-            type: String,  required: true
-        },
-        seat_id: {
-            type: String, required: true 
-        },
-        price: {
-            type: String, required: true 
-        }
-      } 
-    ],
+    seats:[],
     totalPrice:{  type:String, required:true
     },
     paymentType:{  type:String, required:true

@@ -1,25 +1,29 @@
-import express from 'express'
-import { bookedMovies, checkUser, userDelete, userGetALL, userLogin, userLogout, userProfile, userSignup, userSoftDelete, userUpdate } from '../../controller/userController.js';
-import { authUser } from '../../middleware/authUser.js';
-import { upload } from '../../middleware/imageUploadMiddleware.js';
+import express from "express";
+import { accoutRestore, bookedMovies, checkUser, otpGenerate, SeatBooking, userDelete, userLogin, userLogout, userProfile, userSignup,userSoftDelete, userUpdate,} from "../../controller/userController.js";
+import { authUser } from "../../middleware/authUser.js";
+import { upload } from "../../middleware/imageUploadMiddleware.js";
+import {  errorSignupHandler, loginErrorHandler, otpErroHandler } from "../../middleware/error.js";
 
-const Router =express.Router();
+const Router = express.Router();
 
 // user signup and login
 
-Router.post('/signup',userSignup)
-Router.post('/login',userLogin)
+Router.post("/signup",errorSignupHandler, userSignup);
+Router.post("/login",loginErrorHandler, userLogin);
+Router.post("/otp-generate", otpGenerate);
+Router.put("/account-restore",otpErroHandler, accoutRestore);
 
-Router.put('/soft-delete',authUser,userSoftDelete)
+Router.put('/book-seat/:theaterId',SeatBooking)
 
-Router.delete('/delete/:id',authUser,userDelete)
-Router.put('/update/:id',authUser,upload.single('profile-pic'),userUpdate)
+Router.put("/soft-delete", authUser, userSoftDelete);
 
+Router.delete("/delete", authUser, userDelete);
+Router.put("/update/", authUser, upload.single("profile-pic"), userUpdate);
 
-Router.get('/logout',userLogout)
-Router.get('/check-user',authUser,checkUser)
-Router.get('/profile',authUser,userProfile) 
-Router.get('/booked-movies',authUser,bookedMovies) 
+Router.get("/logout", userLogout);
+Router.get("/check-user", authUser, checkUser);
+Router.get("/profile", authUser, userProfile);
+Router.get("/booked-movies", authUser, bookedMovies);
 
-
-export default Router  
+export default Router;
+ 

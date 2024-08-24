@@ -1,23 +1,18 @@
 import OwnerModel from '../models/theaterOwnerModel.js'
-import bcyrpt from 'bcrypt'
+import otpGenerator from 'otp-generator'
 import { createToken } from '../utils/generateToken.js'
 import { cloudinaryInstance } from '../config/cloudneryConfig.js'
 import { hashPassword } from '../utils/hashedPassword.js'
 import { matchPassword } from '../utils/comparePassword.js'
+import OtpModel from '../models/otpModel.js'
 
 
 export const ownerSignup = async (req,res) => {
     try {
        
-        const {username,email,password,profilePic,confirmPassword} = req.body
+        const {username,email,password,profilePic,city, mobile} = req.body
                   
-        if(!username || !email || !password || !confirmPassword) {
-            return res.status(400).json({success:false,message:"All fields are required"})
-        }
-
-        if (password != confirmPassword) {
-            return res.status(400).json({ success: false, message: "password does not match" });
-          }
+    
         const userExist = await OwnerModel.findOne({email})
         
         if(userExist){
@@ -27,7 +22,7 @@ export const ownerSignup = async (req,res) => {
         
         const hashedPassword = hashPassword(password);
 
-        const NewOwner = new OwnerModel({username,email,password:hashedPassword,profilePic}) 
+        const NewOwner = new OwnerModel({username,email,password:hashedPassword,profilePic,mobile,city}) 
         await NewOwner.save()
 
         const token = createToken(email,"owner")
@@ -49,12 +44,11 @@ export const ownerLogin = async (req,res,next) => {
     try {
         const {email,password} = req.body
 
-        if( !email || !password ) {
-            return res.status(400).json({success:false,message:"All fields are required"})
-        }
         const ownerExist = await OwnerModel.findOne({email})
         
-        if(!ownerExist){
+        const deletedOwner = ownerExist.ownerDeleted;
+
+        if(!ownerExist || deletedOwner === true){
             return res.status(400).json({success:false,message:"owner doesn't exist"})
             
         }
@@ -65,7 +59,7 @@ export const ownerLogin = async (req,res,next) => {
         const passwordMatch = matchPassword(password,PasswordValue)
 
         if(!passwordMatch){
-            return res.status(400).json({success:false,message:"owner not Authenticaed"})
+            return res.status(400).json({success:false,message:"invalid password"})
         }
         
         const token = createToken(email,"owner")
@@ -74,6 +68,7 @@ export const ownerLogin = async (req,res,next) => {
         
         res.status(200).json({success:true,message:"owner login successfully"})
     } catch (error) {
+      
         res.status(error.status || 500).json({message:error || "internal server error"})
        
         
@@ -199,3 +194,79 @@ export const ownerDelete = async (req,res) => {
     }
 
 }
+
+
+
+// admin soft delete start
+
+
+export const ownerSoftDelete = async (req, res) => {
+    try {
+  
+      
+      const verifiedOwner = req.owner.email;
+  
+      if (!verifiedOwner) {
+        return res.status(400).json({ error: "User not authenticated" });
+      }
+      const ownerExist = await OwnerModel.findOne({ email: verifiedOwner });
+  
+      const ownerDelete = await OwnerModel.findOneAndUpdate( ownerExist,{ ownerDeleted: true,}, { new: true });
+      res.clearCookie("token");
+      await ownerDelete.save();
+  
+      res.json({success:true,message:"user delete successfully"  });
+    } catch (error) {
+      console.log(error)
+      res.status(error.status || 500) .json({ message: error || "internal server error" });
+    }
+  }; 
+  
+  export const ownerOtpGenerate = async (req, res) => {
+    try {
+      const { mobile } = req.body;
+  
+    const validMobile = await OwnerModel.findOne({ mobile });
+  
+    if (!validMobile) {
+      return res.status(200).json({ success: false, message: "invalid number" });
+    }
+    const otp = otpGenerator.generate(6, {digits: true, lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false,});
+  
+    const generatedOtp = await OtpModel({mobile,otp:otp})
+  
+    await generatedOtp.save()
+  
+    res.json({success:true,message:"otp generated successfull"})
+    } catch (error) {
+      console.log(error)
+      res .status(error.status || 500).json({ message: error || "internal server error" });
+    }
+  
+  };
+  
+  export const ownerAccoutRestore = async (req, res) => {
+    try {
+      const { mobile,otp} = req.body;
+       if(!mobile || !otp) return res.json({success:false,message:"all fields required"})
+        
+       const validOtp =await OtpModel.findOne({mobile,otp})
+  
+  
+      if (!validOtp) {
+        return res.status(200).json({ success: false, message: "invalid otp" });
+      }else{
+        const accountRestore = await OwnerModel.findOneAndUpdate({mobile},{
+            ownerDeleted: false,
+        },{new:true})
+        await accountRestore.save(); 
+      }
+  
+      res.json({success:true,message:"your account restore successfully"})
+    } catch (error) {
+      console.log(error)
+      res .status(error.status || 500).json({ message: error || "internal server error" });
+    }
+  };
+  
+  // admin soft delete and account-restore end 
