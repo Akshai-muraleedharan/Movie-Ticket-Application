@@ -5,6 +5,10 @@ import AboutPage from "../pages/AboutPage.jsx";
 import LoginPage from "../pages/LoginPage.jsx";
 import MovieSinglePage from "../pages/MovieSinglePage.jsx";
 import SignupPage from "../pages/SignupPage.jsx";
+import UserLayout from "../layouts/UserLayout.jsx";
+import MovieListPage from "../pages/userpage/MovieListPage.jsx";
+import UserProfile from "../pages/userpage/UserProfile.jsx";
+import BookedMovies from "../pages/userpage/BookedMovies.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -35,4 +39,32 @@ export const router = createBrowserRouter([
 
     ],
   },
+  {
+    path: "user",
+    element:<UserLayout/>,
+
+    children:[
+      {
+        path:'movies',
+        element:<MovieListPage/>
+      },
+      {
+        path:'about',
+       element: <AboutPage/>
+      },
+
+      {
+        path:'single-page',
+        element:<MovieSinglePage/>
+      },
+      {
+        path:'profile',
+        element:<UserProfile/>
+      },
+      {
+        path:'booked-movies',
+        element:<BookedMovies/>
+      }
+    ]
+  }
 ]);
