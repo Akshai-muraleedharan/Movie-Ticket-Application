@@ -229,7 +229,7 @@ export const checkUser = async (req, res, next) => {
 // user get all
 export const userGetALL = async (req, res) => {
   try {
-    const userGetAll = await UserModel.find();
+    const userGetAll = await UserModel.find({userDeleted:false});
 
     const userLength = userGetAll.length;
 

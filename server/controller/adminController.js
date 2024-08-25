@@ -103,10 +103,10 @@ export const adminLogin = async (req, res, next) => {
 
 export const adminUpdate = async (req, res) => {
   const { username } = req.body;
-  const { verifiedAdmin } = req.admin;
+  const { verifiedAdmin } = req.admin.email;
   let image;
 
-  const admin = await AdminModel.findOneAndUpdate(verifiedAdmin);
+  // const admin = await AdminModel.findOneAndUpdate({email:verifiedAdmin});
 
   if (!req.file) {
     image =
@@ -121,7 +121,7 @@ export const adminUpdate = async (req, res) => {
     });
 
   const updatedData = await AdminModel.findOneAndUpdate(
-    admin,
+    {email:verifiedAdmin},
     {
       username,
       profilePic: uploadResult.url,
@@ -138,9 +138,9 @@ export const adminUpdate = async (req, res) => {
 
 export const adminProfile = async (req, res, next) => {
   try {
-    const { verifiedAdmin } = req.admin;
+    const  verifiedAdmin  = req.admin.email;
 
-    const adminProfileData = await AdminModel.findOne(verifiedAdmin).select(
+    const adminProfileData = await AdminModel.findOne({email:verifiedAdmin}).select(
       "-password"
     );
 
@@ -172,7 +172,7 @@ export const adminLogout = async (req, res, next) => {
 export const checkAdmin = async (req, res, next) => {
   try {
     const verifiedAdmin = req.admin;
-
+console.log(verifiedAdmin)
     if (!verifiedAdmin) {
       return res
         .status(400)
@@ -189,9 +189,9 @@ export const checkAdmin = async (req, res, next) => {
 
 export const adminDelete = async (req, res) => {
   try {
-    const { id } = req.params;
+    const verifiedAdmin = req.admin.email;
 
-    const accountExist = await AdminModel.findById(id);
+    const accountExist = await AdminModel.findOne({email:verifiedAdmin});
 
     if (!accountExist) {
       return res
@@ -199,7 +199,7 @@ export const adminDelete = async (req, res) => {
         .json({ success: false, message: "your account could not delete now" });
     } else {
       res.clearCookie("token");
-      await AdminModel.findByIdAndDelete(id);
+      await AdminModel.findOneAndDelete({email:verifiedAdmin});
       res.json({ success: true, message: "your account deleted successfully" });
     }
   } catch (error) {

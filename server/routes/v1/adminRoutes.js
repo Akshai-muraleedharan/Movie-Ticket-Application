@@ -18,7 +18,7 @@ const router = express.Router()
 router.post('/siginup',errorSignupHandler,adminSignup)
 router.post('/login',loginErrorHandler,adminLogin)
 
-router.delete('/account-delete/:id',authAdmin,adminDelete)
+router.delete('/account-delete',authAdmin,adminDelete)
 router.put('/soft-delete',authAdmin,adminSoftDelete)
 router.post('/otp',adminOtpGenerate)
 router.put('/account-restore',adminAccoutRestore)

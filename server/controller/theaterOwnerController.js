@@ -112,9 +112,9 @@ export const ownerUpdate = async (req,res)=>{
  
 export const ownerProfile= async (req,res,next) => {
     try {
-       const {verifiedOwner} = req.owner;
+       const verifiedOwner = req.owner.email;
        
-       const ownerProfileData = await OwnerModel.findOne(verifiedOwner).select('-password')
+       const ownerProfileData = await OwnerModel.findOne({email:verifiedOwner}).select('-password')
   
         
        if(!ownerProfileData){
@@ -152,11 +152,11 @@ export const checkOwner= async (req,res,next) => {
     try {
        
       const verifiedOwner = req.owner;
-     
+       console.log(verifiedOwner)
       if(!verifiedOwner){
       return  res.status(400).json({success:false,message:"owner not authenticated"})
       }
-      res.json({success:true,message:"owner authenticatd"})
+      res.json({success:true,message:"owner authenticatd",})
      
         
     } catch (error) {
