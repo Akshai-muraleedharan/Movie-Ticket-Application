@@ -114,7 +114,7 @@ export const theaterUpdate = async (req,res) => {
 export const theaterDelete = async (req,res) => {
     
     try {
-        console.log('hitted');
+       
         
         const {id} =req.params
 
@@ -137,5 +137,18 @@ export const theaterSingle = async (req,res) => {
         res.json({success:true,message:"single data",singleData})
     } catch (error) {
         res.status(error.status || 500).json({message:error || "internal server error"})
+    }
+}
+
+export const theaterSheduleDelete = async (req,res) => {
+    try{
+        const {id} =req.params;
+        const {movieId} =req.params
+        await TheaterModel.findByIdAndUpdate({_id:id},{$pull:{movieSchedules:{_id:movieId}}},{new:true})
+       
+        res.json({success:true,message:"movie deleted"})
+    }
+    catch(error){
+          res.status(error.status || 500).json({message:error || "internal server error"})
     }
 }

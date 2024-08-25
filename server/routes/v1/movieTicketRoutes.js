@@ -5,7 +5,7 @@ import { authUser } from '../../middleware/authUser.js';
 const router = express.Router()
 // payement route
 
-router.post('/:movie/:theater',authUser,movieTicket)
+router.post('/movie/:movie/theater/:theater',authUser,movieTicket)
 router.get('/:user/:theater',authUser,ticketTest)
 
 

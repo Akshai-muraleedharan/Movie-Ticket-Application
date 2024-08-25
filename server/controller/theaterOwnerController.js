@@ -46,13 +46,18 @@ export const ownerLogin = async (req,res,next) => {
 
         const ownerExist = await OwnerModel.findOne({email})
         
-        const deletedOwner = ownerExist.ownerDeleted;
+    
 
-        if(!ownerExist || deletedOwner === true){
+        if(!ownerExist ){
             return res.status(400).json({success:false,message:"owner doesn't exist"})
             
         }
         
+        const deletedOwner = ownerExist.ownerDeleted
+
+        if (deletedOwner == true) {
+          return res.status(400).json({ success: false, message: "owner doesn't exist" });
+        }
 
         const PasswordValue = ownerExist.password
 
@@ -194,6 +199,20 @@ export const ownerDelete = async (req,res) => {
 
 }
 
+//  owner get all
+export const ownerGetALL = async (req, res) => {
+  try {
+    const OwnerGetAll = await OwnerModel.find({ownerDeleted:false});
+
+    const ownerLength = OwnerGetAll.length;
+
+    res.json({ success: true, message:"data fetched",data:OwnerGetAll, ownerLength: ownerLength });
+  } catch (error) {
+    res
+      .status(error.status || 500)
+      .json({ message: error || "internal server error" });
+  }
+};
 
 
 // admin soft delete start

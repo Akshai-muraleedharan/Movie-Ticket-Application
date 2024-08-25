@@ -6,19 +6,26 @@ import { cloudinaryInstance } from "../config/cloudneryConfig.js";
 import { hashPassword } from "../utils/hashedPassword.js";
 import otpGenerator from "otp-generator";
 import TheaterModel from "../models/theaterModel.js";
-import MovieTicket from "../models/movieTicketModel.js";
+
+
 
 
 //  User create controller
 
 export const userSignup = async (req, res, next) => {
   try {
-    const { username,email,password,city, mobile, movieBooked, profilePic, confirmPassword} = req.body;
+    const { username,email,password,city, mobile, movieBooked, profilePic,} = req.body;
 
-    const userExist = await UserModel.findOne({ email  });
+     const userExist = await UserModel.findOne({ email  });
+    const mobileExist = await UserModel.findOne({mobile})
 
-    if (userExist) {
-      return res.status(400).json({ success: false, message: "user already exist" });}
+
+     if (userExist) { 
+       return res.status(400).json({ success: false, message: "email already exist" });}
+
+      if(mobileExist) {
+        return res.status(400).json({ success: false, message: "mobile number already exist" });
+      }
  
     const hashedPassword = hashPassword(password);
 
@@ -26,11 +33,11 @@ export const userSignup = async (req, res, next) => {
 
     await NewUser.save();
 
-    // const token = createToken(email, "user");
+    const token = createToken(email, "user");
 
-    // res.cookie("token", token);
+    res.cookie("token", token);
 
-    res.status(200).json({success: true,message: "user signup successfully",date: NewUser,});
+    res.status(201).json({success: true,message: "user signup successfully",date: NewUser,});
   } catch (error) {
     console.log(error);
     res .status(error.status || 500) .json({ message: error || "internal server error" });
@@ -46,15 +53,18 @@ export const userLogin = async (req, res, next) => {
 
     
     const userExist = await UserModel.findOne({ email });
-   console.log(userExist)
-    const deletedUser = userExist.userDeleted;
-
-    if (!userExist || deletedUser === true) {
-      return res
-        .status(400)
-        .json({ success: false, message: "user doesn't exist" });
+   
+   
+    if (!userExist) {
+      return res.status(400).json({ success: false, message: "user doesn't exist" });
     }
 
+    const deletedUser = userExist.userDeleted;
+
+    if (deletedUser == true) {
+      return res.status(400).json({ success: false, message: "user doesn't exist" });
+    }
+    
     const PasswordValue = userExist.password;
 
     const passwordMatch = matchPassword(password, PasswordValue);
@@ -106,7 +116,7 @@ export const userUpdate = async (req, res) => {
 
 // user profile
 
-export const userProfile = async (req, res, next) => {
+export const userProfile = async (req, res,) => {
   try {
     const  verifiedUser  = req.user.email;
     
@@ -127,8 +137,11 @@ export const bookedMovies = async (req, res) => {
   try {
     const  verifiedUser  = req.user.email;
 
-   console.log(verifiedUser)
-    const user = await UserModel.findOne({email:verifiedUser})
+    if(!verifiedUser) {
+      return status(400)
+    }
+ 
+    const user = await UserModel.findOne({email:verifiedUser}).select('-password').select('-profilePic').select('-userDeleted')
       .populate([
         {
           path: "movieBooked",
@@ -161,11 +174,31 @@ export const bookedMovies = async (req, res) => {
 
     res.json({ success: true, message: "successfully fetched", data:user });
   } catch (error) {
-    console.log(error);
+   console.log(error)
     res .status(error.status || 500).json({ message: error || "internal server error" });
   }
 };
 
+
+export const bookedMovieDelete = async (req,res) => {
+  try {
+    const  verifiedUser  = req.user.email;
+    const {ticketId} =req.params
+
+    if (!ticketId) {
+      return res.status(400).json({ success: false, message: "Ticket ID is required" });
+    }
+
+    
+   await UserModel.findOneAndUpdate({email:verifiedUser},{$pull:{movieBooked:ticketId}},{ new: true })
+  
+   
+   res.json({success:true,message:"movie deleted"})
+  } catch (error) {
+  
+    res .status(error.status || 500).json({ message: error || "internal server error" });
+  }
+}
 
 // user seat booking
 export const SeatBooking = async (req,res) => {
@@ -233,7 +266,7 @@ export const userGetALL = async (req, res) => {
 
     const userLength = userGetAll.length;
 
-    res.json({ success: true, allUser: userGetAll, userlength: userLength });
+    res.json({ success: true,message:"data fetched", allUser: userGetAll, userlength: userLength });
   } catch (error) {
     res
       .status(error.status || 500)
