@@ -1,15 +1,13 @@
 import React from "react";
-import {
-  GoogleSignup,
-  LoginPageButton,
+import { GoogleSignup,LoginPageButton,
 } from "../components/ui/buttons/Buttons";
 import { Link } from "react-router-dom";
-
+import { FaRegEyeSlash } from "react-icons/fa6";
 function LoginPage() {
   return (
     <>
       <div className="w-full flex  justify-center mt-8 mb-4  items-center">
-        <div className="grid grid-cols-1 mb-8 md:grid-cols-2 login_box ">
+        <div className="grid grid-cols-1 mb-8  md:grid-cols-2  login_box ">
           <div className="hidden md:block backGround_img rounded-l-lg"></div>
 
           {/* validform */}
@@ -32,6 +30,7 @@ function LoginPage() {
                     className="grow"
                     placeholder="password"
                   />
+                   <FaRegEyeSlash />
                 </label>
                 <div className="h-4 text-xs text-end text-red-500 font-semibold">
                 password  required

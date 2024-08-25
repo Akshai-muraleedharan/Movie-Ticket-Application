@@ -22,6 +22,16 @@ export function LoginPageButton() {
   );
 }
 
+export function SignUpPageButton() {
+  return (
+    
+      <button className="bg-blue-500 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
+        sign-up
+      </button>
+    
+  );
+}
+
 
 export function GoogleSignup() {
   return (
