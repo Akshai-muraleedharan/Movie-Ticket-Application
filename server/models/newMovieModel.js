@@ -26,7 +26,7 @@ import mongoose from 'mongoose'
             type:String,
             required:true
         },
-        genure:{
+        genres:{
             type:String,
             required:true
         } ,

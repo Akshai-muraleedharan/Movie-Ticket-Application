@@ -6,12 +6,12 @@ function SignupPage() {
   return (
     <div className="w-full flex  justify-center mt-8 mb-4  items-center">
 
-    <div className="grid grid-cols-1 mb-8 md:grid-cols-2 mx-10 signup_box ">
+    <div className="grid grid-cols-1 mb-8 md:grid-cols-2 md:mx-10 signup_box ">
 
       <div className="hidden md:block backGround_img rounded-l-lg"></div>
 
       {/* validform */}
-      <div className="border-0 p-5 md:border-2 rounded-r-lg ">
+      <div className="border-0 px-4 py-3 md:border-2 rounded-r-lg ">
         <h2 className="text-center mb-2 font-bold text-2xl">Signup</h2>
         <form className=" gap-3 flex flex-col ">
 
@@ -59,7 +59,7 @@ function SignupPage() {
             </div>
           </div>
       {/* city */}
-          <div>
+          {/* <div>
             <label className="input input-bordered flex items-center gap-2">
               <input
                 type="password"
@@ -70,7 +70,7 @@ function SignupPage() {
             <div className="h-4 text-xs text-end text-red-500 font-semibold">
             city required
             </div>
-          </div>
+          </div> */}
       {/* mobile*/}
           <div>
             <label className="input input-bordered flex items-center gap-2">
