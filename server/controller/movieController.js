@@ -3,7 +3,7 @@ import NewMovieModel from "../models/newMovieModel.js";
 
 export const movieCreate = async (req, res, next) => {
   try {
-    const { title, desc, rating, duration, genure } = req.body;
+    const { title, desc, rating, duration, genure,language } = req.body;
 
     const movieExist = await NewMovieModel.findOne({ title });
 
@@ -35,6 +35,7 @@ export const movieCreate = async (req, res, next) => {
       duration,
       genure,
       showTime: timeShedule,
+      language
     });
 
     await newMovie.save();

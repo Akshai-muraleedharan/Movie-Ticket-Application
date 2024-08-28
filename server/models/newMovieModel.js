@@ -18,6 +18,10 @@ import mongoose from 'mongoose'
             type:Number,
             required:true
         },
+        language:{
+            type:String,
+            required:true
+        },
         duration:{
             type:String,
             required:true

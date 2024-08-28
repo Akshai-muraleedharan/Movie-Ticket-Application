@@ -6,7 +6,8 @@ const router = express.Router()
 
 // new movie routes
 
-router.get('/',authOwner,movieList)
+router.get('/list',movieList)
+// router.get('all-movie',authOwner,movieList)
 router.post('/Movie-create',authOwner,upload.single('movie-image'),movieCreate)
 router.put('/movie-update/:id',authOwner,movieUpdate)
 router.delete('/movie-delete/:id',authOwner,movieDelete)
