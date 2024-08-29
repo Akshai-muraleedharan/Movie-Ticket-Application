@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../config/axiosInstance.js";
+import {useNavigate} from 'react-router-dom'
 function HomePage() {
   const [movies,setmovies] =useState([])
 
-  console.log(movies)
+ const navigate = useNavigate()
   const fetchMovieList = async () => {
     
    
@@ -17,6 +18,9 @@ function HomePage() {
       setmovies(respone?.data?.movies)
     } catch (error) {}
   };
+  const handleClick = () => {
+    navigate('/login')
+  }
 
   useEffect(() => {
     fetchMovieList();
@@ -24,11 +28,11 @@ function HomePage() {
 
   const moviList = movies.map((item) => {
     return(
-      <div className="card[unset] rounded-lg card-compact bg-base-100 w-56 md:w-60 shadow-xl" key={item._id}>
+      <div className="card[unset] rounded-lg card-compact bg-base-100 w-56 md:w-60 shadow-xl cursor-pointer" key={item._id} onClick={handleClick}>
        {/* <div className="card[unset] rounded-lg card-compact bg-base-100 w-48 md:w-60 shadow-xl"> */}
       <figure>
         <img
-          className="rounded-t-lg w-full min-h-[360px] "
+          className="rounded-t-lg w-full max-h-[250px] "
           src={item.image}
           alt="Shoes"
         />

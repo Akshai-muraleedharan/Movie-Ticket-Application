@@ -7,40 +7,40 @@ export const errorSignupHandler = (req,res,next) => {
             const { email, username, password, city,confirmPassword,mobile } = req.body;
 
             if (!email || email.trim() === "") {
-                return res.status(400).json({ success: 'error', message: "Email is required", value: 'email' });
+                return res.status(400).json({ success: 'error', message: "Email is required", values: 'email' });
             }
 
             if (!password || password.trim() === "") {
-                return res.status(400).json({ success: 'error', message: "Password is required", value: 'password' });
+                return res.status(400).json({ success: 'error', message: "Password is required", values: 'password' });
             }
 
             if (password != confirmPassword) {
-                return res.status(400).json({ success: false, message: "password does not match" ,value:'confirm-paassword'});
+                return res.status(400).json({ success: false, message: "password does not match" ,values:'confirm-paassword'});
               }
 
             if (!username || username.trim() === "") {
-                return res.status(400).json({ success: 'error', message: "Username is required", value: 'username' });
+                return res.status(400).json({ success: 'error', message: "Username is required", values: 'username' });
             }
            
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email) ) {
-                return res.status(400).json({ success: 'error', message: "Invalid email format", value: 'email' });
+                return res.status(400).json({ success: 'error', message: "Invalid email format", values: 'email' });
             }
 
             if (!mobile || mobile.trim() === "" ) {
-                return res.status(400).json({ success: 'error', message: "mobile number is required", value: 'mobile' });
+                return res.status(400).json({ success: 'error', message: "mobile number is required", values: 'mobile' });
             }
 
 
             const cleanedMobile = mobile.replace(/\D/g, '');
     if (cleanedMobile.length < 10 || cleanedMobile.length > 15) {
-        return res.status(400).json({ success: 'error', message: "Mobile number must be between 10 and 15 digits", value: 'mobile' });
+        return res.status(400).json({ success: 'error', message: "Mobile number must be between 10 and 15 digits", values: 'mobile' });
     }
     
            
     
             if (!city || city.trim() === "") {
-                return res.status(400).json({ success: 'error', message: "City is required", value: 'city' });
+                return res.status(400).json({ success: 'error', message: "City is required", values: 'city' });
             }
             
 
@@ -58,16 +58,16 @@ export const loginErrorHandler = (req,res,next)=> {
         const {email,password} =req.body; 
 
         if (!email || email.trim() === "") {
-            return res.status(400).json({ success: 'error', message: "Email is required", value: 'email' });
+            return res.status(400).json({ success: 'error', message: "Email is required", values: 'email' });
         }
 
         if (!password || password.trim() === "") {
-            return res.status(400).json({ success: 'error', message: "Password is required", value: 'password' });
+            return res.status(400).json({ success: 'error', message: "Password is required", values: 'password' });
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email) ) {
-                return res.status(400).json({ success: 'error', message: "Invalid email format", value: 'email' });
+                return res.status(400).json({ success: 'error', message: "Invalid email format", values: 'email' });
             }
 
             next()
@@ -83,8 +83,8 @@ export const otpErroHandler = async (req,res,next) => {
 
     try {
         const { mobile,otp} = req.body;
-        if(!mobile || mobile.trim() == '' ) return res.json({success:false,message:"mobile requird",value: 'mobile' })
-        if(!otp || otp.trim() == '') return res.json({success:false,message:"otp requird",value: 'otp' })
+        if(!mobile || mobile.trim() == '' ) return res.json({success:false,message:"mobile requird",values: 'mobile' })
+        if(!otp || otp.trim() == '') return res.json({success:false,message:"otp requird",values: 'otp' })
           
           
             next()

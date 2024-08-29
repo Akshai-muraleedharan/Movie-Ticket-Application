@@ -70,12 +70,16 @@ export const userLogin = async (req, res, next) => {
     const passwordMatch = matchPassword(password, PasswordValue);
 
     if (!passwordMatch) {
-      return res.status(400).json({ success: false, message: "invalid password" });
+      return res.status(400).json({ success: false, message: "invalid password", values:"password" });
     }
 
     const token = createToken(email, "user");
 
-    res.cookie("token", token);
+    res.cookie("token", token,{
+      sameSite: "None",
+      secure: true,
+      httpOnly: true,
+    });
 
     res.status(200).json({ success: true, message: "user login successfully" });
   } catch (error) {
