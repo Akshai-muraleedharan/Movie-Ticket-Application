@@ -3,12 +3,13 @@ import RootLayout from "../layouts/RootLayout.jsx";
 import HomePage from "../pages/HomePage.jsx";
 import AboutPage from "../pages/AboutPage.jsx";
 import LoginPage from "../pages/LoginPage.jsx";
-import MovieSinglePage from "../pages/MovieSinglePage.jsx";
 import SignupPage from "../pages/SignupPage.jsx";
 import UserLayout from "../layouts/UserLayout.jsx";
 import MovieListPage from "../pages/userpage/MovieListPage.jsx";
 import UserProfile from "../pages/userpage/UserProfile.jsx";
 import BookedMovies from "../pages/userpage/BookedMovies.jsx";
+import { UserAuth } from "./protected routes/UserAuth.jsX";
+import MovieSinglePage from "../pages/userpage/MovieSinglePage.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -29,10 +30,6 @@ export const router = createBrowserRouter([
         element:<LoginPage/>
       },
       {
-        path:'name/:id',
-        element:<MovieSinglePage/>,
-      },
-      {
         path:'sign-up',
         element:<SignupPage />
       }
@@ -41,7 +38,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "user",
-    element:<UserLayout/>,
+    element:(
+      <UserAuth>
+      <UserLayout/>
+      </UserAuth>
+    ),
 
     children:[
       {
@@ -54,7 +55,7 @@ export const router = createBrowserRouter([
       },
 
       {
-        path:'single-page',
+        path:'single-page/:id',
         element:<MovieSinglePage/>
       },
       {

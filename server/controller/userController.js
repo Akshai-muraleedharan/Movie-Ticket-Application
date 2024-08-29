@@ -35,7 +35,11 @@ export const userSignup = async (req, res, next) => {
 
     const token = createToken(email, "user");
 
-    res.cookie("token", token);
+    res.cookie("token", token,{
+      sameSite: "None",
+      secure: true,
+      httpOnly: true,
+    });
 
     res.status(201).json({success: true,message: "user signup successfully",date: NewUser,});
   } catch (error) {
@@ -248,7 +252,7 @@ export const userLogout = async (req, res, next) => {
 export const checkUser = async (req, res, next) => {
   try {
     const verifiedUser = req.user;
-           console.log(verifiedUser)
+           
     if (!verifiedUser) {
       return res
         .status(400)

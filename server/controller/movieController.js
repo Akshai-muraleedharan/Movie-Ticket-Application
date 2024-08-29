@@ -48,6 +48,21 @@ export const movieCreate = async (req, res, next) => {
   }
 };
 
+
+export const singleMovie = async (req,res) => {
+  try {
+   
+    const {id} =req.params
+  console.log(id)
+    if(!id) return res.status(400).json({success:false,message:"id not found"})
+    const fetchSingleMovie = await NewMovieModel.findById(id)
+    
+    res.json({success:true,message:"data-fetched",data:fetchSingleMovie})
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const movieList = async (req, res) => {
   try {
     const allMovie = await NewMovieModel.find();

@@ -43,15 +43,12 @@ function HomePage() {
         <span className="text-slate-400 text-xs">{item.genres}</span>
         </div>
      
-       <h4 className="card-title">{item.title}</h4>
-  
-       
-
-      
+       <h4 className="card-title">{item.title}</h4> 
       </div>
     </div>
     )
   })
+
   return (
     <>
       <h1 className="text-center mt-24 font-bold text-4xl mb-14">
@@ -62,6 +59,7 @@ function HomePage() {
         {moviList}
         </div>
       </div>
+    
     </>
   );
 }

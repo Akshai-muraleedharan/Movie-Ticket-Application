@@ -10,7 +10,7 @@ import { axiosInstance } from "../config/axiosInstance";
 function LoginPage() {
   const [errorMessage, setErrorMessage] = useState("");
 
-   console.log(errorMessage)
+   
 
   const navigate = useNavigate()
   const {
