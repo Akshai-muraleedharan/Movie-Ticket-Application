@@ -20,14 +20,14 @@ export const OwnerAuth = ({ children }) => {
             setuser(true)
            
         } catch (error) {
-            navigate("login")
+            navigate("/client/login")
             console.log(error)
         }
     }
 
     useEffect(()=>{
         checkOwner()
-    },[])
+    },[location.pathname])
 
     return user ? children : null
   

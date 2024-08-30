@@ -90,7 +90,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "client",
+    path: "clients",
     element: (
       <OwnerAuth>
         <ClientSecuredLayout />

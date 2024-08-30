@@ -22,7 +22,7 @@ function LoginPageClient() {
         data
       })
       if(response.data.success == true){
-        navigate("/client")
+        navigate("/clients")
        }
       console.log(response)
     } catch (error) {

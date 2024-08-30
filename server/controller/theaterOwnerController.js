@@ -25,7 +25,11 @@ export const ownerSignup = async (req,res) => {
         const NewOwner = new OwnerModel({username,email,password:hashedPassword,profilePic,mobile,city}) 
         await NewOwner.save()
 
-        const token = createToken(email,"owner")
+        const token = createToken(email,"owner",{
+          sameSite: "None",
+          secure: true,
+          httpOnly: true,
+        })
  
         res.cookie('token',token)
         
@@ -46,7 +50,7 @@ export const ownerLogin = async (req,res,next) => {
 
         const ownerExist = await OwnerModel.findOne({email})
         
-    
+       
 
         if(!ownerExist ){
             return res.status(400).json({success:false,message:"owner doesn't exist"})
@@ -68,11 +72,10 @@ export const ownerLogin = async (req,res,next) => {
         }
         
         const token = createToken(email,"owner",{
-            sameSite: "None",
-            secure: true,
-            httpOnly: true,
-          }
-        )
+          sameSite: "None",
+          secure: true,
+          httpOnly: true,
+        })
  
         res.cookie('token',token)
         
