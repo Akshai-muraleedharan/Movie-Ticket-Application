@@ -27,7 +27,7 @@ export const OwnerAuth = ({ children }) => {
 
     useEffect(()=>{
         checkOwner()
-    },[[location.pathname]])
+    },[location.pathname])
 
     return user ? children : null
   
