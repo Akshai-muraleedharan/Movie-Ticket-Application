@@ -5,7 +5,7 @@ import { authUser } from "../../middleware/authUser.js";
 const Router = express.Router();
 
 Router.post("/:movieId", authUser, movieRatingCreate);
-Router.get("/:movieId", movieRatingGet);
+Router.get("/user/:movieId", movieRatingGet);
 Router.put("/:id", authUser, movieRatingUpdate);
 Router.delete("/:id", authUser, movieRatingDelete);
 

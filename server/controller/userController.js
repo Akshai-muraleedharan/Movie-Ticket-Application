@@ -134,7 +134,7 @@ export const userProfile = async (req, res,) => {
       return res.status(400).json({ success: false, message: "no account" });
     }
 
-    res.status(200).json({ success: true, message: userProfileData });
+    res.status(200).json({ success: true, message:"profile fetched",data:userProfileData });
   } catch (error) {
     res .status(error.status || 500) .json({ message: error || "internal server error" });
   }
@@ -240,7 +240,7 @@ export const SeatBooking = async (req,res) => {
 // user logout
 export const userLogout = async (req, res, next) => {
   try {
-    res.clearCookie("token");
+     res.clearCookie("token");
 
     res.json({ success: true, message: "logout successfully" });
   } catch (error) {

@@ -157,7 +157,7 @@ export const checkOwner= async (req,res,next) => {
     try {
        
       const verifiedOwner = req.owner;
-       console.log(verifiedOwner)
+      
       if(!verifiedOwner){
       return  res.status(400).json({success:false,message:"owner not authenticated"})
       }

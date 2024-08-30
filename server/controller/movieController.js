@@ -3,8 +3,11 @@ import NewMovieModel from "../models/newMovieModel.js";
 
 export const movieCreate = async (req, res, next) => {
   try {
-    const { title, desc, rating, duration, genres,language } = req.body;
+    const { title,  duration, genres,language } = req.body;
   
+    if(!title ||  !duration || !genres || !language){
+      return res.status(400).json({success:false,message:"All fields required"})
+    }
     const movieExist = await NewMovieModel.findOne({ title });
 
     if (!req.file) {
@@ -19,6 +22,9 @@ export const movieCreate = async (req, res, next) => {
         console.log(error);
       });
 
+
+      if(!uploadResult) return res.status(400).json({success:true,message:"image required"})
+
     if (movieExist) {
       return res
         .status(400)
@@ -31,7 +37,6 @@ export const movieCreate = async (req, res, next) => {
       title,
       desc,
       image: uploadResult.url,
-      rating,
       duration,
       genres,
       showTime: timeShedule,

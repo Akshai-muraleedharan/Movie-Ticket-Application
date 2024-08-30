@@ -10,6 +10,13 @@ import UserProfile from "../pages/userpage/UserProfile.jsx";
 import BookedMovies from "../pages/userpage/BookedMovies.jsx";
 import { UserAuth } from "./protected routes/UserAuth.jsX";
 import MovieSinglePage from "../pages/userpage/MovieSinglePage.jsx";
+import ClientLayout from "../layouts/ClientLayout.jsx";
+import LoginPageClient from "../pages/clientPage/LoginPageClient.jsx";
+import SignupPageClient from "../pages/clientPage/SignupPageClient.jsx";
+import ClientSecuredLayout from "../layouts/ClientSecuredLayout.jsx";
+import HomePageClient from "../pages/clientPage/HomePageClient.jsx";
+import { OwnerAuth } from "./protected routes/OwnerAuth.jsx";
+import CreateMoviePage from "../pages/clientPage/CreateMoviePage.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -18,54 +25,91 @@ export const router = createBrowserRouter([
 
     children: [
       {
-        path:'',
-        element:<HomePage/>
+        path: "",
+        element: <HomePage />,
       },
       {
-        path:'about',
-        element:<AboutPage />
+        path: "about",
+        element: <AboutPage />,
       },
       {
-        path:'login',
-        element:<LoginPage/>
+        path: "login",
+        element: <LoginPage />,
       },
       {
-        path:'sign-up',
-        element:<SignupPage />
-      }
-
+        path: "sign-up",
+        element: <SignupPage />,
+      },
     ],
   },
   {
     path: "user",
-    element:(
+    element: (
       <UserAuth>
-      <UserLayout/>
+        <UserLayout />
       </UserAuth>
     ),
 
-    children:[
+    children: [
       {
-        path:'movies',
-        element:<MovieListPage/>
+        path: "movies",
+        element: <MovieListPage />,
       },
       {
-        path:'about',
-       element: <AboutPage/>
+        path: "about",
+        element: <AboutPage />,
       },
 
       {
-        path:'single-page/:id',
-        element:<MovieSinglePage/>
+        path: "single-page/:id",
+        element: <MovieSinglePage />,
       },
       {
-        path:'profile',
-        element:<UserProfile/>
+        path: "profile",
+        element: <UserProfile />,
       },
       {
-        path:'booked-movies',
-        element:<BookedMovies/>
+        path: "booked-movies",
+        element: <BookedMovies />,
+      },
+    ],
+  },
+  {
+    path: "client",
+    element: <ClientLayout />,
+
+    children: [
+      {
+        path: "login",
+        element: <LoginPageClient />,
+      },
+      {
+        path: "signup",
+        element: <SignupPageClient />,
+      },
+    ],
+  },
+  {
+    path: "client",
+    element: (
+      <OwnerAuth>
+        <ClientSecuredLayout />
+      </OwnerAuth>
+    ),
+
+    children: [
+      {
+        path: "",
+        element: <HomePageClient />,
+      },
+      {
+        path: "about",
+        element: <AboutPage />,
+      },
+      {
+        path:"create-movie",
+        element:<CreateMoviePage/>
       }
-    ]
-  }
+    ],
+  },
 ]);

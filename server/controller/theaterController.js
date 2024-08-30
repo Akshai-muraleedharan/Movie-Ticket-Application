@@ -5,6 +5,7 @@ import TheaterModel from "../models/theaterModel.js"
 export const theaterCreate = async (req,res) => {
 
     try {
+      const verifiedOwner = req.owner.email
                
         const {screenName,city,screenType} =req.body;
 
@@ -14,7 +15,7 @@ export const theaterCreate = async (req,res) => {
 
 
     const newTheater =new TheaterModel({
-        screenName,city,screenType,movieSchedules:[]
+        screenName,city,screenType,movieSchedules:[],Ownermail:verifiedOwner
     })
 
     await newTheater.save()
@@ -130,11 +131,11 @@ export const theaterSingle = async (req,res) => {
 
     try {
         
-        const {id} =req.params
+        const verifiedOwner =req.owner.email
+             
+        const singleData = await TheaterModel.findOne({Ownermail:verifiedOwner}).populate({path:'movieSchedules.movieId', model:'movies'})
 
-        const singleData = await TheaterModel.findById(id).populate({path:'movieSchedules.movieId', model:'movies'})
-
-        res.json({success:true,message:"single data",singleData})
+        res.json({success:true,message:"single data",data:singleData})
     } catch (error) {
         res.status(error.status || 500).json({message:error || "internal server error"})
     }
@@ -143,12 +144,14 @@ export const theaterSingle = async (req,res) => {
 export const theaterSheduleDelete = async (req,res) => {
     try{
         const {id} =req.params;
+       
         const {movieId} =req.params
         await TheaterModel.findByIdAndUpdate({_id:id},{$pull:{movieSchedules:{_id:movieId}}},{new:true})
        
         res.json({success:true,message:"movie deleted"})
     }
     catch(error){
+        console.log(error)
           res.status(error.status || 500).json({message:error || "internal server error"})
     }
 }

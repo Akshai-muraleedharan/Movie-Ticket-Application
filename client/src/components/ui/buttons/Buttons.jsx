@@ -33,6 +33,16 @@ export function SignUpPageButton() {
 }
 
 
+export function AddMovieButton() {
+  return (
+    
+      <button className="bg-green-500 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
+        Add - movie
+      </button>
+    
+  );
+}
+
 export function GoogleSignup() {
   return (
     

@@ -7,6 +7,9 @@ import mongoose from 'mongoose';
             type:String,
             required:true
         },
+        Ownermail:{
+            type:String,
+        },
         city:{
             type:String,
             required:true
