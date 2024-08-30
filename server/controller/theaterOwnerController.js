@@ -67,7 +67,12 @@ export const ownerLogin = async (req,res,next) => {
             return res.status(400).json({success:false,message:"invalid password"})
         }
         
-        const token = createToken(email,"owner")
+        const token = createToken(email,"owner",{
+            sameSite: "None",
+            secure: true,
+            httpOnly: true,
+          }
+        )
  
         res.cookie('token',token)
         
