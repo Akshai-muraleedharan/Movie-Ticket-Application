@@ -25,13 +25,13 @@ export const ownerSignup = async (req,res) => {
         const NewOwner = new OwnerModel({username,email,password:hashedPassword,profilePic,mobile,city}) 
         await NewOwner.save()
 
-        const token = createToken(email,"owner",{
+        const token = createToken(email,"owner")
+ 
+        res.cookie('token',token,{
           sameSite: "None",
           secure: true,
           httpOnly: true,
         })
- 
-        res.cookie('token',token)
         
         res.status(200).json({success:true,message:"owner signup successfully"})
     } catch (error) {
@@ -71,13 +71,13 @@ export const ownerLogin = async (req,res,next) => {
             return res.status(400).json({success:false,message:"invalid password"})
         }
         
-        const token = createToken(email,"owner",{
+        const token = createToken(email,"owner")
+ 
+        res.cookie('token',token,{
           sameSite: "None",
           secure: true,
           httpOnly: true,
         })
- 
-        res.cookie('token',token)
         
         res.status(200).json({success:true,message:"owner login successfully"})
     } catch (error) {
