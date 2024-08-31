@@ -25,10 +25,10 @@ function ClientSecureHeader() {
         >
           <Link to={""}>Home</Link>
           <Link to={"about"}>About-us</Link>
-          <Link >Add-theater</Link>
+          <Link to={"create-theater"}>Add-theater</Link>
 
           <div>
-            <Link>   <CircleUserRound />  </Link>
+            <Link to={"profile"}>   <CircleUserRound />  </Link>
           </div>
         </nav>
         <span className="header_ham" onClick={toggle}>

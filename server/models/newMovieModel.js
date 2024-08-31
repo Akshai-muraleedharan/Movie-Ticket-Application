@@ -10,6 +10,10 @@ import mongoose from 'mongoose'
             type:String,
             default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaLGtEd0MJro4X9wDmT2vrvLT-HjKkyyWVmg&s",
         },
+        theaterId:{
+            type:mongoose.Types.ObjectId, 
+            ref:"theater"
+        },
       
         language:{
             type:String,

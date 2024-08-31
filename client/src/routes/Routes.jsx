@@ -17,6 +17,9 @@ import ClientSecuredLayout from "../layouts/ClientSecuredLayout.jsx";
 import HomePageClient from "../pages/clientPage/HomePageClient.jsx";
 import { OwnerAuth } from "./protected routes/OwnerAuth.jsx";
 import CreateMoviePage from "../pages/clientPage/CreateMoviePage.jsx";
+import CreateTheaterPageClient from "../pages/clientPage/CreateTheaterPageClient.jsx";
+import ProfilePageClient from "../pages/clientPage/ProfilePageClient.jsx";
+import BookSeat from "../pages/userpage/BookSeat.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -72,6 +75,10 @@ export const router = createBrowserRouter([
         path: "booked-movies",
         element: <BookedMovies />,
       },
+      {
+        path:"book-seat/:id",
+        element:<BookSeat/>
+      }
     ],
   },
   {
@@ -109,6 +116,14 @@ export const router = createBrowserRouter([
       {
         path:"create-movie",
         element:<CreateMoviePage/>
+      },
+      {
+        path:"create-theater",
+        element:<CreateTheaterPageClient />
+      },
+      {
+        path:"profile",
+        element:<ProfilePageClient/>
       }
     ],
   },

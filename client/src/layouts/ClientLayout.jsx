@@ -2,13 +2,14 @@ import React from 'react'
 
 import Footer from '../components/Footer'
 import { Outlet } from 'react-router-dom'
-import ClientHeader from '../components/clientComponents/ClientHeader'
+
+import ClientAndAdminHeader from '../components/client and adminComponents/ClientAndAdminHeader'
 
 function ClientLayout() {
   return (
     <>
     <div className='root_container'>
-    <ClientHeader/>
+    <ClientAndAdminHeader/>
         <Outlet />
         <Footer />
     </div>

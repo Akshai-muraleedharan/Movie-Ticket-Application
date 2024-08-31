@@ -2,7 +2,7 @@ import { SignUpPageButton } from '../ui/buttons/Buttons';
 import logo from "../../assets/image/movie-logo new.png";
 import { Link } from 'react-router-dom';
 
-function ClientHeader() {
+function ClientAndAdminHeader() {
     
     
     return (
@@ -26,4 +26,4 @@ function ClientHeader() {
   
 
 
-export default ClientHeader
+export default ClientAndAdminHeader

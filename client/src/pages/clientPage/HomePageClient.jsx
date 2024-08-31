@@ -24,7 +24,7 @@ const fetchSingleTheater = async () => {
 }
 
 const sheduleDelete = async (cardId)=> {
-  console.log(cardId)
+ 
   try {
   
     const response = await axiosInstance({
@@ -34,6 +34,18 @@ const sheduleDelete = async (cardId)=> {
       fetchSingleTheater()
 
       console.log(response)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const theaterDelete =async (id) => {
+  try {
+    await axiosInstance({
+      url:`theater/delete-theater/${id}`,
+      method:"DELETE"
+    })
+    fetchSingleTheater()
   } catch (error) {
     console.log(error)
   }
@@ -52,11 +64,13 @@ useEffect(()=> {
         <h2 className='text-center text-2xl font-semibold'>My theater</h2>
 
        {fetchTheater ?  <div>
+      <div className='flex justify-end cursor-pointer' onClick={()=> theaterDelete(fetchTheater._id)}>  <X /></div>
         <h4 className='mt-5 tracking-wide'>Theater Name : <span className='font-semibold capitalize'>{fetchTheater.screenName}</span></h4>
         <h4 className='mt-5 tracking-wide'>ScreenType : <span className='font-semibold capitalize'>{fetchTheater.screenType}</span></h4>
         <h4 className='mt-5 tracking-wide'>City : <span className='font-semibold capitalize'>{fetchTheater.city}</span></h4>
-        <div className='flex justify-end'>
-    <Link to={'create-movie'} > <button className='py-1 px-3 bg-green-600 rounded-md text-white font-semibold' >Create movies</button></Link>
+        <div className='flex justify-end gap-2'>
+    <Link to={'create-movie'} > <button className='py-1 px-3 bg-green-600 rounded-sm text-white font-semibold' >Create movies</button></Link>
+    <Link > <button className='py-1 px-3 bg-green-600 rounded-sm text-white font-semibold' >Shedule Movie</button></Link>
         </div>
         </div> : <p className='text-center mt-6 text-red-500'>please resgister theater</p>}
       </div>

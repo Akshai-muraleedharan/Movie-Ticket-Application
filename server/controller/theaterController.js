@@ -8,10 +8,21 @@ export const theaterCreate = async (req,res) => {
       const verifiedOwner = req.owner.email
                
         const {screenName,city,screenType} =req.body;
+         if(!screenName || !city || !screenType){
+            return res.status(400).json({success:false,message:"All fields required"})
+         }
 
-        const theaterExist = await TheaterModel.findOne({ city,screenName  });
+         const theaterOwnerExist = await TheaterModel.findOne({Ownermail:verifiedOwner})
 
-       if(theaterExist) return res.status(200).json({success:false,message:"This theater already exist"})
+         if(theaterOwnerExist){
+            return res.status(400).json({success:false,message:"You can only create one theater"})
+         }
+
+        const theaterExist = await TheaterModel.findOne({screenName,city,screenType});
+
+       if(theaterExist) {
+        return res.status(400).json({success:false,message:"This theater already exist"})
+       }
 
 
     const newTheater =new TheaterModel({
@@ -140,6 +151,28 @@ export const theaterSingle = async (req,res) => {
         res.status(error.status || 500).json({message:error || "internal server error"})
     }
 }
+
+
+
+export const theaterSingleUser = async (req,res) => {
+
+    try {
+        
+        const {id} = req.params;
+
+        if(!id){
+            return res.status(400).json({success:false,message:"theater id not get"})
+        }
+             
+        const singleData = await TheaterModel.findById(id).populate({path:'movieSchedules.movieId', model:'movies'}).select('-movieSchedules')
+
+        res.json({success:true,message:"single data",data:singleData})
+    } catch (error) {
+        res.status(error.status || 500).json({message:error || "internal server error"})
+    }
+}
+
+
 
 export const theaterSheduleDelete = async (req,res) => {
     try{

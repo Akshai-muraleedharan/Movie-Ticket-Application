@@ -1,6 +1,7 @@
 import express from 'express'
-import {   seatCreate, theaterCreate, theaterDelete, theaterList, theaterMovieShedule, theaterSheduleDelete, theaterSingle, theaterUpdate } from '../../controller/theaterController.js'
+import {   seatCreate, theaterCreate, theaterDelete, theaterList, theaterMovieShedule, theaterSheduleDelete, theaterSingle, theaterSingleUser, theaterUpdate } from '../../controller/theaterController.js'
 import { authOwner } from '../../middleware/authOwner.js'
+import { authUser } from '../../middleware/authUser.js'
 
 
 const router = express.Router()
@@ -21,6 +22,9 @@ router.delete('/delete-theater/:id',authOwner,theaterDelete);
 router.put('/delete-shedule/theaterId/:id/sheduleId/:movieId',authOwner,theaterSheduleDelete);
 
 router.get('/single-theater',authOwner,theaterSingle);
+
+// for user
+router.get('/user-theater/:id',authUser,theaterSingleUser);
 
 
  

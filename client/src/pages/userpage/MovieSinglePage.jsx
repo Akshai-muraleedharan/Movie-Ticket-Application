@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { axiosInstance } from "../../config/axiosInstance";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
@@ -7,8 +7,8 @@ function MovieSinglePage() {
   const [fetchs, setFetch] = useState([]);
   const [showTime, setShowTime] = useState([]);
   const [rating, setRating] = useState([])
-
-  console.log(rating)
+  const [theaterDeatil,setTheaterDetail] = useState([])
+  console.log(theaterDeatil)
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -16,11 +16,12 @@ function MovieSinglePage() {
     try {
       const response = await axiosInstance({
         url: `movie/single-movie/${id}`,
-        method: "get",
+        method: "GET",
       });
 
       setFetch(response.data.data);
       setShowTime(response.data.data.showTime);
+      setTheaterDetail(response.data.data.theaterId)
     } catch (error) {
       console.log(error);
     }
@@ -37,7 +38,7 @@ function MovieSinglePage() {
         method:"GET"
       })
       setRating(response.data.data)
-     
+      
     } catch (error) {
       console.log(error)
     }
@@ -56,6 +57,11 @@ function MovieSinglePage() {
         </button>
 
         <div className=" px-3 md:px-14 md:container md:mx-auto mb-10 mt-6 lg:max-w-[800px]">
+        <div className="flex justify-between p-2 shadow-lg text-xs md:font-semibold md:text-base">
+           <p>Theater : {theaterDeatil.screenName}</p>
+           <p>ScreenType : {theaterDeatil.screenType}</p>
+           <p>City : {theaterDeatil.city}</p>
+        </div>
           <div className="grid  grid-cols-1 rounded-md md:grid-cols-2 p-5 shadow-xl">
             <div className="flex justify-center ">
               <div className="w-80 flex justify-center">
@@ -95,9 +101,9 @@ function MovieSinglePage() {
                   </div>
                 ))}
               </div>
-              <button className="py-1 bg-[#c214d7] text-white rounded-sm w-full mt-4">
+             <Link to={`/user/book-seat/${theaterDeatil._id}`}><button className="py-1 bg-[#c214d7] text-white rounded-sm w-full mt-4">
                 Book Now
-              </button>
+              </button></Link> 
             </div>
           </div>
 
