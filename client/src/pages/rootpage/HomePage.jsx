@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { axiosInstance } from "../config/axiosInstance.js";
+import { axiosInstance } from "../../config/axiosInstance.js";
 import {useNavigate} from 'react-router-dom'
+
+
 function HomePage() {
   const [movies,setmovies] =useState([])
 
@@ -28,7 +30,7 @@ function HomePage() {
 
   const moviList = movies.map((item) => {
     return(
-      <div className="card[unset] rounded-lg card-compact bg-base-100 w-56 md:w-60 shadow-xl cursor-pointer" key={item._id} onClick={handleClick}>
+      <div className="card[unset] rounded-lg card-compact bg-base-100 w-64 md:w-60 shadow-xl cursor-pointer" key={item._id} onClick={handleClick}>
        {/* <div className="card[unset] rounded-lg card-compact bg-base-100 w-48 md:w-60 shadow-xl"> */}
       <figure>
         <img

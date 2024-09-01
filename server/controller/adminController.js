@@ -51,7 +51,11 @@ export const adminSignup = async (req, res) => {
     const token = createToken(email, "admin");
 
     // created token save in cookies in frontend
-    res.cookie("token", token);
+    res.cookie("token", token,{
+      sameSite: "None",
+      secure: true,
+      httpOnly: true,
+    });
 
     res.status(200).json({ success: true, message: "admin signup successfully" });
   } catch (error) {
@@ -99,7 +103,11 @@ export const adminLogin = async (req, res, next) => {
         const token = createToken(email, "admin");
 
         // created token save in cookies in frontend
-        res.cookie("token", token);
+        res.cookie("token", token,{
+          sameSite: "None",
+          secure: true,
+          httpOnly: true,
+        });
 
         res .status(200) .json({ success: true, message: "admin login successfully" });
   } catch (error) {

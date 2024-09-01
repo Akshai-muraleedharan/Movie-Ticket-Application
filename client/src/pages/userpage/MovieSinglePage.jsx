@@ -38,7 +38,7 @@ function MovieSinglePage() {
         method:"GET"
       })
       setRating(response.data.data)
-      
+  
     } catch (error) {
       console.log(error)
     }
@@ -116,7 +116,7 @@ function MovieSinglePage() {
           {rating.map((item)=> (
              <div key={item._id} className="bg-slate-100 p-2 mt-2">
              <div className="flex justify-between items-center">
-               <h4>{item.username.username }</h4>
+               <h4>{ item.username == null ? "user"  : item.username.username   }</h4>
 
                {/* rating */}
                <div className="rating">

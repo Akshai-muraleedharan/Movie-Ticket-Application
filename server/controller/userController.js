@@ -6,7 +6,7 @@ import { cloudinaryInstance } from "../config/cloudneryConfig.js";
 import { hashPassword } from "../utils/hashedPassword.js";
 import otpGenerator from "otp-generator";
 import TheaterModel from "../models/theaterModel.js";
-
+import twilio from 'twilio'
 
 
 
@@ -14,14 +14,14 @@ import TheaterModel from "../models/theaterModel.js";
 
 export const userSignup = async (req, res, next) => {
   try {
-    const { username,email,password,city, mobile, movieBooked, profilePic,} = req.body;
+    const { username,email,password, mobile, movieBooked, profilePic,} = req.body; 
 
      const userExist = await UserModel.findOne({ email  });
     const mobileExist = await UserModel.findOne({mobile})
 
 
      if (userExist) { 
-       return res.status(400).json({ success: false, message: "email already exist" });}
+       return res.status(400).json({ success: false, message: "user already exist" });}
 
       if(mobileExist) {
         return res.status(400).json({ success: false, message: "mobile number already exist" });
@@ -29,7 +29,7 @@ export const userSignup = async (req, res, next) => {
  
     const hashedPassword = hashPassword(password);
 
-    const NewUser = new UserModel({username,email,password: hashedPassword,city,mobile,movieBooked,profilePic});
+    const NewUser = new UserModel({username,email,password: hashedPassword,mobile,movieBooked,profilePic});
 
     await NewUser.save();
 
@@ -294,8 +294,9 @@ export const userDelete = async (req, res) => {
     if (!accountExist) {
       return res.status(400) .json({ success: false, message: "your account could not delete now" });
     } else {
-      res.clearCookie("token");
+      
       await UserModel.findOneAndDelete(verifiedUser);
+      res.clearCookie("token");
       res.json({ success: true, message: "your account permanently deleted successfully" });
     }
   } catch (error) {
@@ -334,11 +335,33 @@ export const otpGenerate = async (req, res) => {
   const validMobile = await UserModel.findOne({ mobile });
 
   if (!validMobile) {
-    return res.status(200).json({ success: false, message: "invalid number" });
+    return res.status(200).json({ success: false, message: "Not registered number " });
   }
   const otp = otpGenerator.generate(6, {digits: true, lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false,});
 
+  const accountSid = process.env.TWILIO_ACCOUNT_SID_NUMBER;
+  const authToken = process.env.TWILIO_AUTH_TOKEN_ID;
+  const client = twilio(accountSid, authToken);
+
+  if(otp){
+    createMessage();
+  }
+
+  async function createMessage() {
+    await client.messages.create({
+      body: `Your verification code is :${otp}`,
+      from: "+16506035413",
+      to: `+91${mobile}`,
+    });
+  }
+
+     
+
   const generatedOtp = await OtpModel({mobile,otp:otp})
+
+
+ 
+
 
   await generatedOtp.save()
 

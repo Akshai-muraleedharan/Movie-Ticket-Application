@@ -10,6 +10,9 @@ export const movieRatingCreate = async (req,res) => {
         const User = await UserModel.findOne({email:verifiedUser})    
         const userId = User._id
 
+        if(!movieId){
+            return res.status(400).json({success:false,message:"id not exist"})
+        }
 
         if(!rating ){
             return res.status(400).json({success:false,message:"rating is required"})
@@ -25,7 +28,7 @@ export const movieRatingCreate = async (req,res) => {
 
             res.status(200).json({success:true,message:"successfully created",data:data})
     } catch (error) {
-       
+       console.log(error)
         res.status(error.status || 500).json({ message: error || "internal server error" });
     }
 }

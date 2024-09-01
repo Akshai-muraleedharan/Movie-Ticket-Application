@@ -100,6 +100,10 @@ body {
   background-image: url('https://images.pexels.com/photos/7991318/pexels-photo-7991318.jpeg?auto=compress&cs=tinysrgb&w=600');
   background-size: cover;
 }
+.backGround_img_user{
+  background-image: url("https://images.pexels.com/photos/3709369/pexels-photo-3709369.jpeg?auto=compress&cs=tinysrgb&w=600");
+  background-size: cover;
+}
 
 .backGround_img_client{
   background-image: url('https://plus.unsplash.com/premium_photo-1709998957852-a6610a3cb329?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZmlsbSUyMHByb2plY3RvcnxlbnwwfHwwfHx8MA%3D%3D');
@@ -107,6 +111,15 @@ body {
  
 }
 
+.backGround_img_admin{
+  background-image: url("https://images.pexels.com/photos/6476589/pexels-photo-6476589.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-size: cover;
+}
+
+.background_gradient_admin{
+
+background: linear-gradient(178deg, rgba(2,0,36,1) 0%, rgba(1,1,1,0.5746673669467788) 58%, rgba(1,1,1,0.5746673669467788) 98%);
+}
 
 .login_box{
   height: 320px;
@@ -114,8 +127,8 @@ body {
 }
 
 
-.signup_box{
+/* .signup_box{
 
   width: 960px;
-}
+} */
 

@@ -1,17 +1,14 @@
-import React, { useState } from "react";
-import { GoogleSignup,LoginPageButton,
-} from "../components/ui/buttons/Buttons";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react'
 import { FaRegEyeSlash } from "react-icons/fa6";
+import {Link} from 'react-router-dom'
+import { LoginPageButton } from '../../components/ui/buttons/Buttons';
 import {useForm} from "react-hook-form"
-// import { UserLogin } from "../services/userApi";
-import { useNavigate } from "react-router-dom";
-import { axiosInstance } from "../config/axiosInstance";
-function LoginPage() {
+import { axiosInstance } from '../../config/axiosInstance';
+import { useNavigate } from 'react-router-dom';
+import { Toaster,toast } from 'react-hot-toast';
+
+function AdminLoginPage() {
   const [errorMessage, setErrorMessage] = useState("");
-
-   
-
   const navigate = useNavigate()
   const {
     register,
@@ -19,38 +16,36 @@ function LoginPage() {
     formState:{errors}
   } = useForm()
 
-  const onSubmit = async (data) => {
-
-    
+  const onSubmit =async (data) => {
     try {
-  
       const response = await axiosInstance({
-        url:"user/login",
-        method:"POST",
-        data
+       url:"admin/login",
+       method:"POST",
+       data,
       })
 
-     if(response.data.success == true){
-      navigate("/user/movies")
-     }
-     
+      toast.success("login Successfully")
+      if(response.data.success == true){
+         navigate("/admins")
+       }
+      
     } catch (error) {
-     
+      toast.error("something error")
       setErrorMessage(error.response.data)
+      console.log(error)
     }
   }
 
- 
-
   return (
     <>
-      <div className="w-full flex  justify-center mt-8 mb-4  items-center">
-        <div className="grid grid-cols-1 mb-8  md:grid-cols-2  login_box ">
-          <div className="hidden md:block backGround_img rounded-l-lg"></div>
+     <div className='backGround_img_admin h-[70vh]'>
+    <div className="w-full flex  justify-center  md:mt-8 mb-4  items-center ">
+        {/* <div className="grid grid-cols-1 mb-8  md:grid-cols-2  login_box "> */}
+          {/* <div className="hidden md:block backGround_img rounded-l-lg"></div> */}
 
           {/* validform */}
-          <div className="border-0 p-5 md:border-2 rounded-r-lg ">
-            <h2 className="text-center mb-2 font-bold text-2xl">Login</h2>
+          <div className="border-0 p-5 w-full h-[70vh] md:h-[320px] md:w-[50%] rounded-md shadow-lg background_gradient_admin">
+            <h2 className="text-center mb-2 font-bold text-2xl text-white">Welcome Admin</h2>
             <form className=" gap-3 flex flex-col " onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <label className="input input-bordered flex items-center gap-2">
@@ -73,19 +68,23 @@ function LoginPage() {
                   {errorMessage.values === "password" ? errorMessage.message : null}
                 </div>
               </div>
-              <p className="text-xs text-slate-500 mb-1">
+              <p className="text-xs  mb-1 text-white">
                 Don't have an account ?
-                <Link to={"/sign-up"}>
+                <Link to={"/client/signup"}>
                   <span className="text-blue-400">Signup</span>
                 </Link>
               </p>
-              <LoginPageButton type="submit" />
+              
+              <LoginPageButton type="submit"  />
+              <Toaster/>
             </form>
           </div>
-        </div>
+        {/* </div> */}
       </div>
+
+     </div>
     </>
-  );
+  )
 }
 
-export default LoginPage;
+export default AdminLoginPage

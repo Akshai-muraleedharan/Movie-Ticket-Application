@@ -1,25 +1,31 @@
 import { createBrowserRouter } from "react-router-dom";
-import RootLayout from "../layouts/RootLayout.jsx";
-import HomePage from "../pages/HomePage.jsx";
-import AboutPage from "../pages/AboutPage.jsx";
-import LoginPage from "../pages/LoginPage.jsx";
-import SignupPage from "../pages/SignupPage.jsx";
-import UserLayout from "../layouts/UserLayout.jsx";
+import HomePage from "../pages/rootpage/HomePage.jsx";
+import AboutPage from "../pages/rootpage/AboutPage.jsx";
 import MovieListPage from "../pages/userpage/MovieListPage.jsx";
 import UserProfile from "../pages/userpage/UserProfile.jsx";
 import BookedMovies from "../pages/userpage/BookedMovies.jsx";
 import { UserAuth } from "./protected routes/UserAuth.jsX";
 import MovieSinglePage from "../pages/userpage/MovieSinglePage.jsx";
-import ClientLayout from "../layouts/ClientLayout.jsx";
 import LoginPageClient from "../pages/clientPage/LoginPageClient.jsx";
 import SignupPageClient from "../pages/clientPage/SignupPageClient.jsx";
-import ClientSecuredLayout from "../layouts/ClientSecuredLayout.jsx";
 import HomePageClient from "../pages/clientPage/HomePageClient.jsx";
 import { OwnerAuth } from "./protected routes/OwnerAuth.jsx";
 import CreateMoviePage from "../pages/clientPage/CreateMoviePage.jsx";
 import CreateTheaterPageClient from "../pages/clientPage/CreateTheaterPageClient.jsx";
 import ProfilePageClient from "../pages/clientPage/ProfilePageClient.jsx";
 import BookSeat from "../pages/userpage/BookSeat.jsx";
+import RootLayout from "../layouts/user/RootLayout.jsx";
+import UserLayout from "../layouts/user/UserLayout.jsx";
+import ClientLayout from "../layouts/client/ClientLayout.jsx";
+import ClientSecuredLayout from "../layouts/client/ClientSecuredLayout.jsx";
+import AdminLayout from "../layouts/admin/AdminLayout.jsx";
+import LoginPage from "../pages/rootpage/LoginPage.jsx";
+import SignupPage from "../pages/rootpage/SignupPage.jsx";
+import AdminLoginPage from "../pages/AdminPage/AdminLoginPage.jsx";
+import AdminSecureLayout from "../layouts/admin/AdminSecureLayout.jsx";
+import { AdminAuth } from "./protected routes/AdminAuth.jsx";
+import AdminHomePage from "../pages/AdminPage/AdminHomePage.jsx";
+import AdminDashboard from "../pages/AdminPage/AdminDashboard.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -127,4 +133,39 @@ export const router = createBrowserRouter([
       }
     ],
   },
+  {
+    path:"admin",
+    element:<AdminLayout/>,
+
+    children:[
+      {
+        path:"login",
+        element:<AdminLoginPage />
+      }
+    ]
+  },
+  {
+    path:"admins",
+    element:(
+      <AdminAuth>
+      <AdminSecureLayout/>
+      </AdminAuth>
+    ),
+
+    children:[
+      {
+        path:'',
+        element:<AdminHomePage />
+      },
+      {
+        path: "about",
+        element: <AboutPage />,
+      },
+      {
+        path:"dashbord",
+        element:<AdminDashboard />
+      }
+    ]
+
+  }
 ]);

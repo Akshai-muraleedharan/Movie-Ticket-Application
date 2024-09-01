@@ -6,6 +6,10 @@ export const errorSignupHandler = (req,res,next) => {
             // console.log(req.body)
             const { email, username, password, city,confirmPassword,mobile } = req.body;
 
+            if (!username || username.trim() === "") {
+                return res.status(400).json({ success: 'error', message: "Username is required", values: 'username' });
+            }
+
             if (!email || email.trim() === "") {
                 return res.status(400).json({ success: 'error', message: "Email is required", values: 'email' });
             }
@@ -14,13 +18,15 @@ export const errorSignupHandler = (req,res,next) => {
                 return res.status(400).json({ success: 'error', message: "Password is required", values: 'password' });
             }
 
+            if (!confirmPassword || confirmPassword.trim() === "") {
+                return res.status(400).json({ success: 'error', message: "confirm-Password is required", values: 'confirm-password' });
+            }
+
             if (password != confirmPassword) {
-                return res.status(400).json({ success: false, message: "password does not match" ,values:'confirm-paassword'});
+                return res.status(400).json({ success: false, message: "password does not match" ,values:'confirm-password'});
               }
 
-            if (!username || username.trim() === "") {
-                return res.status(400).json({ success: 'error', message: "Username is required", values: 'username' });
-            }
+           
            
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email) ) {
@@ -33,15 +39,14 @@ export const errorSignupHandler = (req,res,next) => {
 
 
             const cleanedMobile = mobile.replace(/\D/g, '');
+            
     if (cleanedMobile.length < 10 || cleanedMobile.length > 15) {
         return res.status(400).json({ success: 'error', message: "Mobile number must be between 10 and 15 digits", values: 'mobile' });
     }
     
            
     
-            if (!city || city.trim() === "") {
-                return res.status(400).json({ success: 'error', message: "City is required", values: 'city' });
-            }
+           
             
 
             next();
