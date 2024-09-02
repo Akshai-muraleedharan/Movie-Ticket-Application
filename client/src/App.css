@@ -136,7 +136,7 @@ background: linear-gradient(178deg, rgba(2,0,36,1) 0%, rgba(1,1,1,0.574667366946
 
 /* book seat */
 
-
+/* 
 .non_activeColor{
   width: 24px;
   height: 24px;
@@ -145,15 +145,47 @@ background: linear-gradient(178deg, rgba(2,0,36,1) 0%, rgba(1,1,1,0.574667366946
   font-size: 10px;
   text-align: center;
   cursor: pointer;
-}
+} */
 
-.activeColor{
+.seat {
   width: 24px;
   height: 24px;
-  border-radius: 2px;
-  border: 1px solid green;
-  font-size: 10px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
   cursor: pointer;
-  background-color: green;
+  background-color: #e6e6e6;
+  border-radius: 4px;
+  font-weight: bold;
+  user-select: none; /* Prevent text selection on double click */
+  text-align: center;
+  border: 1px solid green;
+}
+
+
+
+
+.seat.selected {
+  background-color: #4caf50;
+  color: white;
+}
+
+.seat.booked{
+  background-color: rgb(107 114 128);
+  cursor: default;
+}
+
+
+.timeSelect{
+  color: red;
+  font-size: 12px;
+  cursor: pointer;
+
+}
+
+.timeselected{
+  color: green;
+  font-size: 12px;
+  cursor: pointer;
 }

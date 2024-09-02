@@ -30,6 +30,9 @@ import OtpRegisterPage from "../pages/rootpage/OtpRegisterPage.jsx";
 import AdminSignupPage from "../pages/AdminPage/AdminSignupPage.jsx";
 import TheaterDetailsPage from "../pages/clientPage/TheaterDetailsPage.jsx";
 import MovieShedulePage from "../pages/clientPage/MovieShedulePage.jsx";
+import TheaterList from "../pages/clientPage/TheaterList.jsx";
+import PaymentSuccessPage from "../pages/userpage/PaymentSuccessPage.jsx";
+import PaymentCancelPage from "../pages/userpage/PaymentCancelPage.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -92,7 +95,15 @@ export const router = createBrowserRouter([
       {
         path:"movie/:movieId/book-seat/:id",
         element:<BookSeat/>
-      }
+      },
+      {
+        path: "movie-ticket/movie/:movie/theater/:theater/success",
+        element: <PaymentSuccessPage />,
+    },
+    {
+      path: "user/cancel",
+      element: <PaymentCancelPage />,
+  },
     ],
   },
   {
@@ -146,6 +157,10 @@ export const router = createBrowserRouter([
       {
         path:"movie-shedule/:theaterId",
         element:<MovieShedulePage />
+      },
+      {
+        path:"theater-list",
+        element:<TheaterList />
       }
     ],
   },

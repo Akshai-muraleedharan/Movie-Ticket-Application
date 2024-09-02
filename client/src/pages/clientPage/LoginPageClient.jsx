@@ -5,8 +5,15 @@ import { LoginPageButton } from '../../components/ui/buttons/Buttons';
 import {useForm} from "react-hook-form"
 import { axiosInstance } from '../../config/axiosInstance';
 import { useNavigate } from 'react-router-dom';
+import { LuEye } from "react-icons/lu";
+
+
 function LoginPageClient() {
   const [errorMessage, setErrorMessage] = useState("");
+  const [type, setType] = useState('password');
+  const [icon, setIcon] = useState(FaRegEyeSlash);
+
+
   const navigate = useNavigate()
   const {
     register,
@@ -30,6 +37,16 @@ function LoginPageClient() {
       console.log(error)
     }
   }
+
+  const handleToggle  = () =>  {
+    if (type==='password'){
+      setIcon(<LuEye />);
+      setType('text')
+   } else {
+    setIcon(<FaRegEyeSlash />)
+    setType('password')
+   }
+   }
 
   return (
     <>
@@ -55,9 +72,11 @@ function LoginPageClient() {
 
               <div>
                 <label className="input input-bordered flex items-center gap-2">
-                  <input  type="password" {...register("password")} className="grow" placeholder="password"
+                  <input  type={type} {...register("password")} className="grow" placeholder="password"
                   />
-                   <FaRegEyeSlash />
+                   <span onClick={handleToggle}>
+                       {icon}
+                     </span>
                 </label>
                 <div className="h-4 text-xs text-end text-red-500 font-semibold">
                   {errorMessage.values === "password" ? errorMessage.message : null}
@@ -72,6 +91,9 @@ function LoginPageClient() {
               
               <LoginPageButton type="submit"  />
             </form>
+            <div className="h-4 text-xs text-end text-red-500 font-semibold">
+            {errorMessage.success === false ? errorMessage.message : null}
+            </div>
           </div>
         {/* </div> */}
       </div>

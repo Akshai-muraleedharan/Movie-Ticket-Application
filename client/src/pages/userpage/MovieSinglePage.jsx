@@ -8,6 +8,7 @@ import { CircleArrowRight } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Trash2 } from 'lucide-react';
 import { Pencil } from 'lucide-react';
+import {toast,Toaster} from "react-hot-toast"
 
 function MovieSinglePage() {
   const [fetchs, setFetch] = useState([]);
@@ -16,13 +17,11 @@ function MovieSinglePage() {
   const [theaterDeatil, setTheaterDetail] = useState([]);
   const [review, setReview] = useState(true);
   const [reviewUpdates, setReviewUpdate] = useState(true);
+  const [selectedValue, setSelectedValue] = useState(null);
+ 
   
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit} = useForm();
 
   console.log(review);
   const navigate = useNavigate();
@@ -43,9 +42,13 @@ function MovieSinglePage() {
     }
   };
 
-  const clickTime = () => {
-    console.log("hello");
+  const clickTime = (value) => {
+    setSelectedValue(value);
+   
+    
   };
+  
+ 
 
   const fetchReview = async () => {
     try {
@@ -152,22 +155,19 @@ function MovieSinglePage() {
               <p className="mt-3 text-xs">
                 <span className="font-bold">Genres</span>: {fetchs.genres}
               </p>
-
-              <div className="w-full flex mt-5 justify-around gap-3 flex-wrap">
+              {/* " text-red-500 text-xs cursor-pointer" */}
+              <div className="w-full flex mt-5 justify-around gap-3 flex-wrap ">
                 {showTime.map((item, index) => (
-                  <div
-                    key={index}
-                    className=" text-red-500 text-xs cursor-pointer"
-                    onClick={clickTime}
-                  >
+                  <div key={index}   className={selectedValue === item ? "timeSelect" : "timeselected" } onClick={() => clickTime(item)}>
                     {item}
                   </div>
                 ))}
               </div>
               <Link to={`/user/movie/${id}/book-seat/${theaterDeatil._id}`}>
-                <button className="py-1 bg-[#c214d7] text-white rounded-sm w-full mt-4">
-                  Book Now
-                </button>
+               <button disabled={selectedValue === null } className="py-1 bg-[#c214d7] d= text-white rounded-sm w-full mt-4 tooltip " data-tip={selectedValue === null ? "Please select time": null}>
+               Book Now
+             </button>
+             <Toaster/>
               </Link>
             </div>
           </div>

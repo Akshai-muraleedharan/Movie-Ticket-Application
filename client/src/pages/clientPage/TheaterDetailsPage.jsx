@@ -85,7 +85,7 @@ useEffect(()=> {
            <div className='w-full flex flex-wrap'>
                 
               {shedules.length > 0 ? shedules.map((item) => (
-                   <div key={item._id} className='mt-5 p-2 rounded-md shadow-md flex flex-col flex-wrap w-full md:w-4/12'>
+                   <div key={item._id} className='mt-5 p-2 rounded-md shadow-md flex flex-col flex-wrap w-full md:w-4/12 lg:w-3/12'>
                     <div className='flex justify-end' onClick={()=> sheduleDelete(item._id)}> <X /></div>
                      <div className=' flex justify-center'>
                      <img className='h-44 w-36' src={item.movieId.image} alt={item.movieId.title} />

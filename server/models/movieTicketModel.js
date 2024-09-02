@@ -13,20 +13,20 @@ const movieTicketSchema = new mongoose.Schema({
         type:mongoose.Types.ObjectId, 
         ref:"users"
     },
-    showTime: {
-        type: String, 
-        required: true 
-    },
+    // showTime: {
+    //     type: String, 
+    //     required: true 
+    // },
            
-    showDate: {
-        type: String, 
-        required: true 
-    },
+    // showDate: {
+    //     type: String, 
+    //     required: true 
+    // },
     seats:[],
-    totalPrice:{  type:String, required:true
-    },
-    paymentType:{  type:String, required:true
-    } 
+    // totalPrice:{  type:String, required:true
+    // },
+    // paymentType:{  type:String, required:true
+    // } 
 })
 const MovieTicket = mongoose.model('movieTicket',movieTicketSchema)
 

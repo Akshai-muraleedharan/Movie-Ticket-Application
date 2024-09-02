@@ -25,6 +25,7 @@ function ClientSecureHeader() {
         >
           <Link to={""}>Home</Link>
           <Link to={"about"}>About-us</Link>
+          <Link to={"theater-list"}>Theater-list</Link>
           <Link to={"theater-detail"}>Add-theater</Link>
 
           <div>

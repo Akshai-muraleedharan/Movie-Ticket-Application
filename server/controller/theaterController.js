@@ -97,7 +97,7 @@ export const seatCreate =async  (req,res) => {
         const seat = await TheaterModel.findById(id)
        
          for (let seatNumber = seatStart; seatNumber <= seatEndnumber; seatNumber++) {
-            seat.seats.push({ seatEndNumber:seatNumber, seatPayment:seatPayment,availableSeat:false });
+            seat.seats.push({ seatEndNumber:seatNumber, seatPayment:seatPayment,availableSeat:true });
         }
 
       await seat.save()

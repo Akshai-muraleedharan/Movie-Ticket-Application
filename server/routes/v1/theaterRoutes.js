@@ -31,7 +31,7 @@ router.get('/user-theater/:id',authUser,theaterSingleUser);
 
  
 
-router.get('/',authOwner ,theaterList)
+router.get('/list',authOwner ,theaterList)
 
 
 
