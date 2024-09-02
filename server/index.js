@@ -7,8 +7,8 @@ const app = express()
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
-    origin:"http://localhost:5173",
-    // origin:"https://movie-ticket-application-six.vercel.app",
+    // origin:"http://localhost:5173",
+     origin:"https://movie-ticket-application-six.vercel.app",
     credentials:true
 }))
 const port =process.env.PORT || 4001 

@@ -3,23 +3,32 @@ import {toast,Toaster }from "react-hot-toast";
 import { AddMovieButton,  } from '../../components/ui/buttons/Buttons';
 import {useForm} from "react-hook-form"
 import { axiosInstance } from '../../config/axiosInstance';
+import { useNavigate, useParams } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa6";
 
 
 function CreateMoviePage() {
-  const {
-    register,
-    handleSubmit,
-    formState:{errors}
-  } = useForm()
- 
+  const {id} = useParams()
+  const {register,handleSubmit} = useForm()
+ const navigate = useNavigate()
   const onSubmit =async (data) => {
     try {
-     console.log(data)
     
+     const formData = new FormData()
+     formData.append("image",data.image[0])
+     formData.append("title", data.title);
+     formData.append("duration", data.duration);
+     formData.append("language", data.language);
+     formData.append("genres", data.genres);
+   
+     
       await axiosInstance({
-      url:"movie/Movie-create/",
+      url:`/movie/Movie-create/${id}`,
       method:"POST",
-      data, 
+      data:formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
      })
      
      toast.success("Movie Successfully Added")
@@ -34,6 +43,9 @@ function CreateMoviePage() {
   return (
     <>
      <div className='backGround_img_client '>
+     <button className="mt-8 ml-8 text-[20px] text-white" onClick={() => navigate(-1)}>
+          <FaArrowLeft />
+        </button>
     <div className="w-full flex  justify-center mt-8 mb-4  items-center ">
       
 
@@ -51,10 +63,11 @@ function CreateMoviePage() {
 
               <div>
               <label className="input px-0 input-bordered flex items-center gap-2">
-  {/* <input type="file" {...register(name="movie-image")} className="file-input file-input-bordered file-input-success w-full " /> */}
-                  
+  
+              <input type="file" {...register("image")}  name="image"    className="file-input file-input-bordered file-input-success w-full " />
                 </label>
-                {/* <input type="file" {...register("movie-image")} className="file-input file-input-bordered file-input-success w-full " /> */}
+                
+               
               </div>
 
               <div>

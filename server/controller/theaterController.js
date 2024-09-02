@@ -1,3 +1,4 @@
+import NewMovieModel from "../models/newMovieModel.js";
 import TheaterModel from "../models/theaterModel.js"
 
 
@@ -46,6 +47,10 @@ export const theaterMovieShedule = async (req,res) => {
         const {movieId} =req.body
         const movie = await TheaterModel.findById(id)
 
+        console.log(movieId)
+    if(!movie){
+        return res.status(200).json({success:false,message:"movie id not get"})
+    }
         movie.movieSchedules.push({
             movieId,
              
@@ -59,6 +64,29 @@ export const theaterMovieShedule = async (req,res) => {
     }
 }
 
+
+export const theaterUserFind = async (req,res) => {
+    try {
+
+        const {theaterId} = req.params
+        if(!theaterId){
+            return res.status(400).json({success:false,message:"id not exist"})
+        }
+        const theater = await NewMovieModel.find({theaterId:theaterId})
+
+        if(theater.length < 1){
+            return res.status(400).json({success:false, message:"no movie added please create movies"})
+        }
+       
+        if(!theater){
+             return res.status(400).json({success:false,message:"no movie added"})
+        }
+        res.json({success:true,message:"fetched successfully",data:theater})
+    } catch (error) {
+        console.log(error)
+        res.status(error.status || 500).json({message:error || "internal server error"})
+    }
+}
 
 export const seatCreate =async  (req,res) => {
     try {

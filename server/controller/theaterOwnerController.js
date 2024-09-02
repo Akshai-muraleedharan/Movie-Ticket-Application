@@ -10,7 +10,7 @@ import OtpModel from '../models/otpModel.js'
 export const ownerSignup = async (req,res) => {
     try {
        
-        const {username,email,password,profilePic,city, mobile} = req.body
+        const {username,email,password,profilePic, mobile} = req.body
                   
     
         const userExist = await OwnerModel.findOne({email})
@@ -22,7 +22,7 @@ export const ownerSignup = async (req,res) => {
         
         const hashedPassword = hashPassword(password);
 
-        const NewOwner = new OwnerModel({username,email,password:hashedPassword,profilePic,mobile,city}) 
+        const NewOwner = new OwnerModel({username,email,password:hashedPassword,profilePic,mobile}) 
         await NewOwner.save()
 
         const token = createToken(email,"owner")

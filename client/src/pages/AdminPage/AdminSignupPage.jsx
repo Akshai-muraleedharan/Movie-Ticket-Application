@@ -7,7 +7,7 @@ import { Toaster,toast } from "react-hot-toast";
 import { axiosInstance } from "../../config/axiosInstance";
 import { LuEye } from "react-icons/lu";
 
-function SignupPageClient() {
+function AdminSignupPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [type, setType] = useState('password');
   const [icon, setIcon] = useState(FaRegEyeSlash);
@@ -23,12 +23,12 @@ function SignupPageClient() {
 
     try {
    const response  =   await axiosInstance({
-        url:"owner/siginup",
+        url:"/admin/siginup",
         method:"POST",
         data
       })
        if(response.data.success == true){
-         navigate("/clients")
+         navigate("/admins")
        }
       toast.success("signup successfully")
     } catch (error) {
@@ -138,4 +138,4 @@ function SignupPageClient() {
   );
 }
 
-export default SignupPageClient;
+export default AdminSignupPage;

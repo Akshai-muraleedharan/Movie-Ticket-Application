@@ -119,9 +119,11 @@ function SignupPage() {
           </div>
 
 
-<div className='flex gap-2 text-xs text-white'>
-        <p>Have an account ? </p>
-        <Link to={"/login"} className="text-blue-300">Login</Link>
+<div className='flex gap-2 justify-between align-item text-xs text-white'>
+        <p>Have an account ?  <Link to={"/login"} className="text-blue-300"> Login</Link> </p>
+       
+
+        <div className="text-blue-300"><Link to={"/account-restore"}>Account restore</Link></div>
       </div>
        <SignUpPageButton type="submit"/>
         <Toaster />

@@ -19,7 +19,7 @@ function CreateTheaterPageClient() {
   const onSubmit = async (data) => {
     try {
    await axiosInstance({
-        url:"theater/create-theater",
+        url:"/theater/create-theater",
         method:"POST",
         data
     })
@@ -46,7 +46,7 @@ function CreateTheaterPageClient() {
           {/* validform */}
           <div className="border-0 p-5 w-full md:w-[80%] rounded-md shadow-lg ">
             <h2 className="text-center mb-2 font-bold text-2xl text-white">
-              Login
+             Add Theater
             </h2>
             <form
               className=" gap-3 flex flex-col "

@@ -331,7 +331,9 @@ export const userSoftDelete = async (req, res) => {
 export const otpGenerate = async (req, res) => {
   try {
     const { mobile } = req.body;
-
+    if(!mobile){
+      return res.status(400).json({ success: false, message: "mobile number is required " });
+    }
   const validMobile = await UserModel.findOne({ mobile });
 
   if (!validMobile) {
@@ -388,7 +390,7 @@ export const accoutRestore = async (req, res) => {
     
 
     if (!validOtp) {
-      return res.status(200).json({ success: false, message: "invalid otp" });
+      return res.status(400).json({ success: false, message: "invalid otp" ,error:'otps' });
     }else{
       const accountRestored = await UserModel.findOneAndUpdate({mobile},{
         userDeleted: false,

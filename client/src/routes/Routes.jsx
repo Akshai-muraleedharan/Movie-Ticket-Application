@@ -26,6 +26,10 @@ import AdminSecureLayout from "../layouts/admin/AdminSecureLayout.jsx";
 import { AdminAuth } from "./protected routes/AdminAuth.jsx";
 import AdminHomePage from "../pages/AdminPage/AdminHomePage.jsx";
 import AdminDashboard from "../pages/AdminPage/AdminDashboard.jsx";
+import OtpRegisterPage from "../pages/rootpage/OtpRegisterPage.jsx";
+import AdminSignupPage from "../pages/AdminPage/AdminSignupPage.jsx";
+import TheaterDetailsPage from "../pages/clientPage/TheaterDetailsPage.jsx";
+import MovieShedulePage from "../pages/clientPage/MovieShedulePage.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +53,10 @@ export const router = createBrowserRouter([
         path: "sign-up",
         element: <SignupPage />,
       },
+      {
+        path:"account-restore",
+        element: <OtpRegisterPage />
+      }
     ],
   },
   {
@@ -82,7 +90,7 @@ export const router = createBrowserRouter([
         element: <BookedMovies />,
       },
       {
-        path:"book-seat/:id",
+        path:"movie/:movieId/book-seat/:id",
         element:<BookSeat/>
       }
     ],
@@ -120,16 +128,24 @@ export const router = createBrowserRouter([
         element: <AboutPage />,
       },
       {
-        path:"create-movie",
+        path:"create-movie/:id",
         element:<CreateMoviePage/>
       },
       {
-        path:"create-theater",
-        element:<CreateTheaterPageClient />
+        path:"theater-detail",
+        element:<TheaterDetailsPage/>
       },
       {
         path:"profile",
         element:<ProfilePageClient/>
+      },
+      {
+        path:"create-theater",
+        element:<CreateTheaterPageClient/>
+      },
+      {
+        path:"movie-shedule/:theaterId",
+        element:<MovieShedulePage />
       }
     ],
   },
@@ -141,6 +157,10 @@ export const router = createBrowserRouter([
       {
         path:"login",
         element:<AdminLoginPage />
+      },
+      {
+        path:"signup",
+        element:<AdminSignupPage />
       }
     ]
   },

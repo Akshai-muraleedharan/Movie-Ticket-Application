@@ -15,7 +15,7 @@ import OwnerModel from "../models/theaterOwnerModel.js";
 export const adminSignup = async (req, res) => {
   try {
 
-    const { username, email, password, profilePic, city,mobile } = req.body;
+    const { username, email, password, profilePic,mobile } = req.body;
 
 
     // check for admin already exist
@@ -42,7 +42,7 @@ export const adminSignup = async (req, res) => {
       email,
       password: hashedPassword,
       profilePic,
-      city,
+      
       mobile
     });
     await NewAdmin.save();

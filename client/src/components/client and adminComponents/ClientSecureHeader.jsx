@@ -25,7 +25,7 @@ function ClientSecureHeader() {
         >
           <Link to={""}>Home</Link>
           <Link to={"about"}>About-us</Link>
-          <Link to={"create-theater"}>Add-theater</Link>
+          <Link to={"theater-detail"}>Add-theater</Link>
 
           <div>
             <Link to={"profile"}>   <CircleUserRound />  </Link>

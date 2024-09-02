@@ -88,8 +88,8 @@ export const otpErroHandler = async (req,res,next) => {
 
     try {
         const { mobile,otp} = req.body;
-        if(!mobile || mobile.trim() == '' ) return res.json({success:false,message:"mobile requird",values: 'mobile' })
-        if(!otp || otp.trim() == '') return res.json({success:false,message:"otp requird",values: 'otp' })
+        if(!mobile || mobile.trim() == '' ) return res.status(400).json({success:false,message:"mobile requird",values: 'mobile' })
+        if(!otp || otp.trim() == '') return res.status(400).json({success:false,message:"otp requird",values: 'otp' })
           
           
             next()

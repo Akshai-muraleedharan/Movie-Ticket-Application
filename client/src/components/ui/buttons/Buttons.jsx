@@ -53,6 +53,26 @@ export function CreateTheater() {
   );
 }
 
+export function Otpgenerate() {
+  return (
+    
+      <button className="bg-green-500 text-white text-center w-full px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
+        Generate Otp
+      </button>
+    
+  );
+}
+
+export function AddSheduleButton() {
+  return (
+    
+      <button className="bg-green-500 text-white text-center w-full px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
+       Add shedule
+      </button>
+    
+  );
+}
+
 export function GoogleSignup() {
   return (
     

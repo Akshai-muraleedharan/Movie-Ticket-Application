@@ -6,23 +6,30 @@ export const movieRatingCreate = async (req,res) => {
     try {
         const {movieId} = req.params
         const verifiedUser = req.user.email;
-        const {rating,comment} =req.body
+        const {comment} =req.body
         const User = await UserModel.findOne({email:verifiedUser})    
         const userId = User._id
+        const usermail = User.email
+
+        console.log(usermail)
 
         if(!movieId){
             return res.status(400).json({success:false,message:"id not exist"})
         }
 
-        if(!rating ){
-            return res.status(400).json({success:false,message:"rating is required"})
+        if(!comment){
+            return res.status(400).json({success:false,message:"review required"})
         }
 
-        if(rating > 5 || rating <= 0){
-            return res.status(400).json({success:false,message:"rating min-1 max-5 required"})
-        }
+        // if(!rating ){
+        //     return res.status(400).json({success:false,message:"rating is required"})
+        // }
 
-        const UserRating = await RatingModel({ username:userId,rating,comment,movie:movieId })
+        // if(rating > 5 || rating <= 0){
+        //     return res.status(400).json({success:false,message:"rating min-1 max-5 required"})
+        // }
+
+        const UserRating = await RatingModel({ username:userId,comment,movie:movieId ,usermail})
 
       const data = await UserRating.save()
 
@@ -66,10 +73,9 @@ export  const movieRatingGetAll = async  (req,res) => {
 export  const movieRatingUpdate = async  (req,res) => {
     try{
         const {id} = req.params;
-        const {rating,comment} =req.body
+        const {comment} =req.body
     
         const ratingUpdate = await RatingModel.findByIdAndUpdate(id,{
-            rating,
             comment
         },{new:true})
         
@@ -87,11 +93,25 @@ export  const movieRatingUpdate = async  (req,res) => {
 export  const movieRatingDelete = async  (req,res) => {
     try{
         const {id} = req.params;
+        const verifiedUser = req.user.email;
+
+        
+ 
+  
+       const FindUser = await RatingModel.findOne({usermail:verifiedUser}) 
+
+    
+       if(!FindUser){
+        return res.status(400).json({success:'false',message:"could not delete"})
+       }
        
-        const ratingUpdate = await RatingModel.findByIdAndDelete(id)
+            const ratingUpdate = await RatingModel.findByIdAndDelete(id)
+              res.status(200).json({success:true,message:"deleted successfully",data:ratingUpdate})
+          
+        
         
 
-        res.status(200).json({success:true,message:"deleted successfully",data:ratingUpdate})
+      
 
     }catch(error){
       
