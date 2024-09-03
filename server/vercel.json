@@ -11,5 +11,13 @@
         "src": "/(.*)",
         "dest": "/"
       }
-    ]
+    ],
+    
+      "rewrites": [
+        {
+          "source": "/api/(.*)",
+          "destination": "https://movie-ticket-application-backend-beta.vercel.app/api/$1"
+        }
+      ]
+    
   }
