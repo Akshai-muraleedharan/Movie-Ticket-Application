@@ -123,7 +123,7 @@ function SignupPageClient() {
         <p>Have an account ?  <Link to={"/login"} className="text-blue-300"> Login</Link> </p>
        
 
-        <div className="text-blue-300"><Link to={"/account-restore"}>Account restore</Link></div>
+        <div className="text-blue-300"><Link to={"/client/account-client"}>Account restore</Link></div>
       </div>
        <SignUpPageButton type="submit"/>
         <Toaster />

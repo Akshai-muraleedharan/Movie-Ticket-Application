@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { axiosInstance } from "../../config/axiosInstance.js";
 import { Link } from 'react-router-dom';
-
+import Loader from "../../components/Loader.jsx";
 
 function MovieListPage() {
  
   const [movies,setMovies] = useState([])
+  const [loading, setLoading] = useState(true);
 
+  console.log(movies)
   const fetchMovieList = async () => {
     try {
       const respone = await axiosInstance({
@@ -20,7 +22,16 @@ function MovieListPage() {
 
   useEffect(() => {
     fetchMovieList();
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
   }, []);
+
+  if(loading){
+   return <Loader/>
+  }
 
   const moviList = movies.map((item) => {
     return(
@@ -41,7 +52,7 @@ function MovieListPage() {
         </div>
      
        <h6 className="card-title text-[17px] font-[700]">{item.title}</h6> 
-       <button className='py-1 bg-[#c214d7] text-white rounded-sm '>Book Now</button>
+      {/* <Link to={`/user/movie/${item._id}/book-seat/${item.theaterId}`}> <button className='py-1 px-1 bg-[#c214d7] text-white rounded-sm '>Book Now</button></Link> */}
       </div>
     </div>
     )

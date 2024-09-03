@@ -295,7 +295,7 @@ export const userDelete = async (req, res) => {
       return res.status(400) .json({ success: false, message: "your account could not delete now" });
     } else {
       
-      await UserModel.findOneAndDelete(verifiedUser);
+    await UserModel.findOneAndDelete({email: verifiedUser});
       res.clearCookie("token");
       res.json({ success: true, message: "your account permanently deleted successfully" });
     }

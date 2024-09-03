@@ -114,8 +114,8 @@ export const movieTicket = async(req,res) => {
               })),
            
             mode: "payment",
-            success_url: `http://localhost:4005/api/v1/user/movie/${encodeURIComponent(movie)}/theater/${encodeURIComponent(theater)}/success`,
-            cancel_url: `http://localhost:4005/api/v1/user/cancel`,
+            success_url: `http://localhost:5173/user/payment/success`,
+            cancel_url: `http://localhost:5173/user/payment/cancel`,
         });
 
         console.log('sessionId====',session.id);

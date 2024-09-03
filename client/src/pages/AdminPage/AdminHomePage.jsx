@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../../config/axiosInstance.js";
+import Loader from "../../components/Loader.jsx";
 
 
 
 function AdminHomePage() {
   const [movies,setmovies] =useState([])
-
+  const [loading, setLoading] = useState(true);
 
   const fetchMovieList = async () => {
       
@@ -22,7 +23,16 @@ function AdminHomePage() {
 
   useEffect(() => {
     fetchMovieList();
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000); 
+    
   }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   const moviList = movies.map((item) => {
     return(

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../../config/axiosInstance";
+import Loader from "../../components/Loader.jsx";
 
 function TheaterList() {
 const [theater,setTheater] = useState([])
+const [loading, setLoading] = useState(true);
+  
 
-  console.log(theater)
+
 
   const theaterFetch = async () => {
     try {
@@ -22,7 +25,16 @@ const [theater,setTheater] = useState([])
 
   useEffect(()=> {
     theaterFetch()
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
   },[])
+
+  if(loading){
+    return <Loader/>
+   }
 
   return (
     <>

@@ -2,7 +2,7 @@ import express from 'express'
 
 
 import { userGetALL } from '../../controller/userController.js'
-import { adminAccoutRestore, adminDelete, adminLogin, adminLogout, adminOtpGenerate, adminProfile, adminSignup, adminSoftDelete, AdminTheaterOwnerDelete, adminUpdate, checkAdmin, userDeleteByAdmin} from '../../controller/adminController.js'
+import { adminAccoutRestore, adminDelete, adminGet, adminLogin, adminLogout, adminOtpGenerate, adminProfile, adminSignup, adminSoftDelete, AdminTheaterOwnerDelete, adminUpdate, checkAdmin, userDeleteByAdmin} from '../../controller/adminController.js'
 import { authAdmin } from '../../middleware/authAdmin.js'
 import { theaterList } from '../../controller/theaterController.js'
 import { movieList } from '../../controller/movieController.js'
@@ -35,6 +35,7 @@ router.get('/check-admin',authAdmin,checkAdmin)
 
 // for dashboard
 router.get('/all-users',authAdmin,userGetALL)
+router.get('/all-admin',authAdmin,adminGet)
 router.get('/theater-list',authAdmin ,theaterList)
 router.get('/movie-list',authAdmin,movieList)
 router.get('/payment-list',authAdmin,totalPaymentList)

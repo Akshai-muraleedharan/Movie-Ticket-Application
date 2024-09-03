@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { Trash2 } from 'lucide-react';
 import { Pencil } from 'lucide-react';
 import {toast,Toaster} from "react-hot-toast"
+import Loader from "../../components/Loader.jsx";
 
 function MovieSinglePage() {
   const [fetchs, setFetch] = useState([]);
@@ -18,7 +19,7 @@ function MovieSinglePage() {
   const [review, setReview] = useState(true);
   const [reviewUpdates, setReviewUpdate] = useState(true);
   const [selectedValue, setSelectedValue] = useState(null);
- 
+  const [loading, setLoading] = useState(true);
   
 
   const { register, handleSubmit} = useForm();
@@ -113,7 +114,16 @@ function MovieSinglePage() {
   useEffect(() => {
     fetchSingleDetail();
     fetchReview();
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   }, [review]);
+
+  if(loading){
+    return <Loader/>
+   }
+ 
 
   return (
     <>

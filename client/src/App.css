@@ -127,25 +127,6 @@ background: linear-gradient(178deg, rgba(2,0,36,1) 0%, rgba(1,1,1,0.574667366946
 }
 
 
-/* .signup_box{
-
-  width: 960px;
-} */
-
-
-
-/* book seat */
-
-/* 
-.non_activeColor{
-  width: 24px;
-  height: 24px;
-  border-radius: 2px;
-  border: 1px solid green;
-  font-size: 10px;
-  text-align: center;
-  cursor: pointer;
-} */
 
 .seat {
   width: 24px;
@@ -189,3 +170,4 @@ background: linear-gradient(178deg, rgba(2,0,36,1) 0%, rgba(1,1,1,0.574667366946
   font-size: 12px;
   cursor: pointer;
 }
+

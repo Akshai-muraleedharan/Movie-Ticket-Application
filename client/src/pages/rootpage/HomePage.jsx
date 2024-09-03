@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../../config/axiosInstance.js";
 import {useNavigate} from 'react-router-dom'
-
+import Loader from "../../components/Loader.jsx";
 
 function HomePage() {
   const [movies,setmovies] =useState([])
-
+  const [loading, setLoading] = useState(true);
  const navigate = useNavigate()
   const fetchMovieList = async () => {
     
@@ -26,7 +26,15 @@ function HomePage() {
 
   useEffect(() => {
     fetchMovieList();
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000); 
+
   }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   const moviList = movies.map((item) => {
     return(

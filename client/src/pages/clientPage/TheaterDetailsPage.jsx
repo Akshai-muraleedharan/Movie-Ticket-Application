@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { axiosInstance } from '../../config/axiosInstance'
 import { X } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Loader from "../../components/Loader.jsx";
 
 function TheaterDetailsPage() {
  const [fetchTheater,setFetch] = useState("");
  const [shedules,setShedules] = useState([]);
+ const [loading, setLoading] = useState(true);
 
 const fetchId =fetchTheater ? fetchTheater._id : null
  
@@ -53,8 +55,16 @@ const theaterDelete =async (id) => {
 
 useEffect(()=> {
   fetchSingleTheater()
+
+  setTimeout(() => {
+    setLoading(false);
+  }, 2000);
+
 },[])
 
+if(loading){
+  return <Loader/>
+ }
 
   return (
     <>

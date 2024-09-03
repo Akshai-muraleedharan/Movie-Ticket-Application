@@ -3,13 +3,14 @@ import { axiosInstance } from '../../config/axiosInstance';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa6';
 import { loadStripe } from "@stripe/stripe-js";
+import Loader from "../../components/Loader.jsx";
 
 function BookSeat() {
   const [Theater, setFetchTheater] = useState({});
   const [TheaterSeat, setTheaterSeat] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [loading, setLoading] = useState(true);
 
- console.log(selectedSeats)
 
   const { id } = useParams();
   const { movieId } = useParams(); 
@@ -77,7 +78,14 @@ function BookSeat() {
 
   useEffect(() => {
     fetchTheater();
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   }, [id]); 
+
+  if(loading){
+    return <Loader/>
+   }
 
   return (
     <>
@@ -94,7 +102,7 @@ function BookSeat() {
           </div>
         </div>
         <div className='flex justify-center flex-col items-center'>
-          <div className='flex flex-wrap justify-evenly gap-2 md:gap-2 w-4/5 overflow-x-visible md:max-w-[700px]'>
+          <div className='flex flex-wrap justify-evenly gap-2 md:gap-2 w-4/5 md:max-w-[700px]'>
             {TheaterSeat.map((seat, index) => (
               <div
                 key={seat.seatEndNumber}
@@ -105,10 +113,10 @@ function BookSeat() {
               </div>
             ))}
           </div>
-          <div className='w-[50%] h-7 flex justify-around items-center mt-4 mb-3'>
-            <span className='flex text-xs items-center'><div className='w-6 h-6 bg-green-500 rounded-sm'> </div>   Selected seat</span>
-            <span className='flex text-xs items-center'><div className='w-6 h-6 bg-gray-500 rounded-sm'> </div>   Booked seat</span>
-            <span className='flex text-xs items-center'><div className='w-6 h-6 bg-gray-300 rounded-sm border-[1px] border-green-500'> </div>  Available seat</span>
+          <div className='w-full md:w-[50%] h-7 flex justify-between items-center p-1 mt-4 mb-3'>
+            <span className='flex text-xs items-center'><div className='w-6 h-6 bg-green-500 rounded-sm'> </div>   Selected </span>
+            <span className='flex text-xs items-center'><div className='w-6 h-6 bg-gray-500 rounded-sm'> </div>   Booked </span>
+            <span className='flex text-xs items-center'><div className='w-6 h-6 bg-gray-300 rounded-sm border-[1px] border-green-500'> </div>  Available </span>
           </div>
           <div className='w-[60%] bg-sky-300 h-5 mb-9'></div>
           <div className='h-12'>

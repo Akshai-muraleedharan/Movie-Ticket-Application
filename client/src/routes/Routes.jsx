@@ -33,6 +33,7 @@ import MovieShedulePage from "../pages/clientPage/MovieShedulePage.jsx";
 import TheaterList from "../pages/clientPage/TheaterList.jsx";
 import PaymentSuccessPage from "../pages/userpage/PaymentSuccessPage.jsx";
 import PaymentCancelPage from "../pages/userpage/PaymentCancelPage.jsx";
+import ClientOtp from "../components/client and adminComponents/ClientOtp.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -97,11 +98,11 @@ export const router = createBrowserRouter([
         element:<BookSeat/>
       },
       {
-        path: "movie-ticket/movie/:movie/theater/:theater/success",
+        path: "payment/success",
         element: <PaymentSuccessPage />,
     },
     {
-      path: "user/cancel",
+      path: "payment/cancel",
       element: <PaymentCancelPage />,
   },
     ],
@@ -118,6 +119,10 @@ export const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupPageClient />,
+      },
+      {
+        path: "account-client",
+        element: <ClientOtp />,
       },
     ],
   },

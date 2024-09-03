@@ -117,6 +117,21 @@ export const adminLogin = async (req, res, next) => {
 };
 
 
+export const adminGet = async(req,res) => {
+  try {
+    const adminFetch = await AdminModel.find();
+
+    if(!adminFetch){
+      return res.status(400).json({success:false,message:"could not fetch"})
+    }
+
+     res.json({success:true,message:"fetched successfully", data:adminFetch})
+  } catch (error) {
+    res.status(error.status || 500).json({ message: error || "internal server error" });
+  }
+}
+
+
 // admin profile updation
 export const adminUpdate = async (req, res) => {
     try {

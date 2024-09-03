@@ -6,7 +6,7 @@ function AdminDashboard() {
   return (
     <>
    <div className='flex'>
-   <SideBar className="absolute"/>
+   {/* <SideBar className="absolute"/> */}
    <TopSide/>
    </div>
   
