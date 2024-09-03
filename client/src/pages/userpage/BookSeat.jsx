@@ -51,13 +51,11 @@ function BookSeat() {
 
   const totalPayment = selectedSeats.reduce((total, seat) => total + parseFloat(seat.seatPayment), 0);
 
-
-  // const seatNumber = selectedSeats.map(item => {return item.seatEndNumber})
-  // console.log(seatNumber)
+ 
 
   const seatBook = async() => {
     try {
-       const stripe = await loadStripe(import.meta.env.VITE_STRIPE);
+       const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY_MY);
 
    const response =  await axiosInstance({
             url:`/movie-ticket/movie/${movieId}/theater/${id}`,
