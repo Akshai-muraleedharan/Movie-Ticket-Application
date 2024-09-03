@@ -1,63 +1,11 @@
 import MovieTicket from "../models/movieTicketModel.js"
 import NewMovieModel from "../models/newMovieModel.js"
+import SessionModel from "../models/sessionId.js";
 import TheaterModel from "../models/theaterModel.js"
-import UserModel from '../models/userModel.js'
 import Stripe from "stripe";
 
 const client_domain = process.env.CLIENT_DOMAIN
 
-// export const movieTicket = async (req,res) => {
-
-// try {
-   
-//     const {seatArry,payment,totalPrice,paymentType,showTime,showDate} = req.body
-//     // const {user} =req.params
-//     const  verifiedUser  = req.user.email;
-//     const {movie} =req.params
-//     const {theater} =req.params
-    
-//     if( !movie || !theater){
-//         return res.status(400).json({success:false,message:'user not valid'})
-//     }
-  
-//     const secureUser = await UserModel.findOne({email:verifiedUser})
-
-//     const user = secureUser._id
-    
-
-//     // if(!seatArry){
-//     //     return res.status(400).json({success:false,message:"seats not selected"})
-//     // }
-
-//     const newMovieTicket = new MovieTicket({
-        
-//         movieId:movie,
-//         theaterId:theater,
-//          userId:user,
-//         seats:seatArry,
-//         payment,
-//         totalPrice, 
-//         paymentType,
-//         showTime,
-//         showDate
-//     })
-//     await newMovieTicket.save() 
-
-//     secureUser.movieBooked.push(newMovieTicket)
-
-//     await secureUser.save()
-
-//     res.json({success:true,message:"payment successfully completed",data:newMovieTicket})
-  
-
-// } catch (error) {
-//      console.log(error)
-//     res.status(error.status || 500).json({message:error || "internal server error"})
-       
-// }
-
-
-// } 
 
 const stripe = new Stripe(process.env.Stripe_Private_Api_Key);
 
@@ -65,9 +13,9 @@ export const movieTicket = async(req,res) => {
     try {
         const {movie} =req.params;
         const {theater} = req.params;
-        const {seatArry} =req.body;
+        // const {seatArry} =req.body;
 
-        console.log(seatArry)
+       
         if(!movie){
             return res.status(400).json({success:false,message:"movie id not get"})
         }
@@ -76,6 +24,28 @@ export const movieTicket = async(req,res) => {
             return res.status(400).json({success:false,message:"theater id not get"})
         }
 
+        const seatArry = [
+            {
+                seatEndNumber:1,  
+                seatPayment:90,
+                availableSeat:true
+             },
+             {
+                seatEndNumber:1,  
+                seatPayment:90,
+                availableSeat:true
+             },
+             {
+                seatEndNumber:1,  
+                seatPayment:90,
+                availableSeat:true
+             },
+             {
+                seatEndNumber:1,  
+                seatPayment:90,
+                availableSeat:true
+             },
+        ]
        
         const findMovie = await NewMovieModel.findById(movie);
         const movieName =  findMovie.title
@@ -106,7 +76,15 @@ export const movieTicket = async(req,res) => {
             cancel_url: `${process.env.CLIENT_DOMAIN}/user/payment/cancel`,
         });
 
-        
+
+        if(!session.id) {
+            return res.status(400).json({success:false,message:"session id not get"})
+        }
+        const sessionId = await SessionModel({
+            sessionId: session.id
+        })
+
+        sessionId.save()
 
         res.json({ success: true, sessionId: session.id });
 

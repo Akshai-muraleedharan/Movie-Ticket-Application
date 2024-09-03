@@ -90,7 +90,9 @@ export const theaterUserFind = async (req,res) => {
 
 export const seatCreate =async  (req,res) => {
     try {
-        const{seatPayment,seatEndnumber}= req.body
+        
+        const seatEndnumber = parseInt(req.body.seatEndnumber)
+        const seatPayment = parseInt(req.body.seatPayment)
         const seatStart = parseInt(req.body.seatStart)
         const {id} =req.params
         
