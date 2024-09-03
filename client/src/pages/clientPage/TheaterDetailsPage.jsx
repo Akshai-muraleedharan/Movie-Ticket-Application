@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { axiosInstance } from '../../config/axiosInstance'
 import { X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Loader from "../../components/Loader.jsx";
+import { FaArrowLeft } from 'react-icons/fa6';
 
 function TheaterDetailsPage() {
  const [fetchTheater,setFetch] = useState("");
  const [shedules,setShedules] = useState([]);
  const [loading, setLoading] = useState(true);
+
+ const navigate = useNavigate()
 
 const fetchId =fetchTheater ? fetchTheater._id : null
  
@@ -68,6 +71,11 @@ if(loading){
 
   return (
     <>
+    <div>
+    <button className="mt-8 ml-8 text-[20px] "  onClick={() => navigate(-1)}>
+          <FaArrowLeft />
+        </button>
+   
     <div className='w-full flex justify-center flex-col items-center'>
     <div className='container  rounded-md shadow-xl  p-5 mt-5'> 
       <div>
@@ -111,6 +119,8 @@ if(loading){
 
            </div>
     </div>
+    </div>
+
     </div>
     </>
   )

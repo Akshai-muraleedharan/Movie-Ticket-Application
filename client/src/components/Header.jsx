@@ -24,7 +24,7 @@ function Header() {
           ref={navRef}
         >
           <Link to={"/"}>Home</Link>
-          <Link to={"about"}>About-us</Link>
+        
 
           <div>
             <Link to={"login"}> <LoginButton /> </Link>

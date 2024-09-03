@@ -135,8 +135,8 @@ export const adminGet = async(req,res) => {
 // admin profile updation
 export const adminUpdate = async (req, res) => {
     try {
-      const { username } = req.body;
-      const { verifiedAdmin } = req.admin.email;
+      const { username,email } = req.body;
+      const  verifiedAdmin  = req.admin.email;
       let image;
 
       
@@ -155,7 +155,7 @@ export const adminUpdate = async (req, res) => {
         });
         
         // update the admin profile
-      await AdminModel.findOneAndUpdate({email:verifiedAdmin},{ username, profilePic: uploadResult.url,},{ new: true });
+      await AdminModel.findOneAndUpdate({email:verifiedAdmin},{ username, profilePic: uploadResult.url,email},{ new: true });
 
       res.json({success: true,message: "updated successessfully", });
     } catch (error) {
@@ -186,9 +186,10 @@ export const adminProfile = async (req, res, next) => {
 export const adminLogout = async (req, res, next) => {
   try {
    
-    res.json({ success: true, message: "admin logout" });
+  
     // to clear cookie
     res.clearCookie("token");
+    res.json({ success: true, message: "admin logout" });
   } catch (error) {
     res.status(error.status || 500).json({ message: error || "internal server error" });
   }
@@ -257,6 +258,7 @@ export const adminSoftDelete = async (req, res) => {
 export const adminOtpGenerate = async (req, res) => {
   try {
     const { mobile } = req.body;
+    
 // the mobile number for check admin exist
   const validMobile = await AdminModel.findOne({ mobile });
 

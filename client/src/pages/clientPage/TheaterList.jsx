@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../../config/axiosInstance";
 import Loader from "../../components/Loader.jsx";
+import { FaArrowLeft } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 function TheaterList() {
 const [theater,setTheater] = useState([])
 const [loading, setLoading] = useState(true);
   
-
+const navigate = useNavigate()
 
 
   const theaterFetch = async () => {
@@ -38,6 +40,11 @@ const [loading, setLoading] = useState(true);
 
   return (
     <>
+    <div>
+    <button className="mt-8 ml-8 text-[20px] "  onClick={() => navigate(-1)}>
+          <FaArrowLeft />
+        </button>
+   
      <h2 className="text-center mt-3 text-2xl font-semibold">Theater List</h2>
       <div className="w-full flex justify-center flex-col items-center">
      
@@ -74,6 +81,7 @@ const [loading, setLoading] = useState(true);
           </div>
         </div>
       </div>
+    </div>
     </>
   );
 }

@@ -34,7 +34,7 @@ function HomePageClient() {
 
   const moviList = movies.map((item) => {
     return(
-      <div className="card[unset] rounded-lg card-compact bg-base-100 w-64 md:w-60 shadow-xl cursor-pointer" key={item._id} >
+      <div className="card[unset] rounded-lg card-compact bg-base-100 w-64 md:w-60 shadow-xl " key={item._id} >
       
       <figure>
         <img

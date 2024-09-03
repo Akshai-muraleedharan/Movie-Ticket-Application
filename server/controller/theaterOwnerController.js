@@ -92,14 +92,13 @@ export const ownerLogin = async (req,res,next) => {
 export const ownerUpdate = async (req,res)=>{
     try {
         
-        const {verifiedOwner} = req.owner;
-        const {username,mobile} =req.body
+        const verifiedOwner = req.owner.email;
+        const {username,mobile,email} =req.body
         let image;
 
-        const owner = await OwnerModel.findOne(verifiedOwner)
+        const owner = await OwnerModel.findOne({email:verifiedOwner})
 
 
-        
 
         if(!req.file ){
             image = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png'
@@ -112,8 +111,11 @@ export const ownerUpdate = async (req,res)=>{
         const updatedData = await OwnerModel.findOneAndUpdate(owner,{
             username,
             profilePic:uploadResult.url,
-            mobile
+            mobile,
+            email
         },{new:true})
+
+        await updatedData.save()
 
         res.json({success:true,message:'successfully updated',data:updatedData})
 

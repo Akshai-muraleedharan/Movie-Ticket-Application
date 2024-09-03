@@ -1,5 +1,7 @@
+
+
 import React, { useEffect, useRef, useState } from "react";
-import { axiosInstance } from "../../config/axiosInstance";
+import { axiosInstance } from "../../config/axiosInstance.js";
 import { useNavigate } from "react-router-dom";
 import {toast,Toaster} from "react-hot-toast";
 import Loader from "../../components/Loader.jsx";
@@ -10,7 +12,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 
 
 
-function ProfilePageClient() {
+function AdminProfilePage() {
   const [profile, setProfile] = useState({});
   const [loading, setLoading] = useState(true);
   const [disable,setDisable] = useState(false)
@@ -62,9 +64,10 @@ function ProfilePageClient() {
   const fetchProfile = async () => {
     try {
       const response = await axiosInstance({
-        url: "/owner/profile",
+        url: "/admin/profile",
         method: "GET",
       });
+    
 
       setProfile(response.data.data);
     } catch (error) {
@@ -75,12 +78,12 @@ function ProfilePageClient() {
   const logOutHandle = async () => {
     try {
       const response = await axiosInstance({
-        url: "/owner/logout",
+        url: "/admin/logout",
         method: "GET",
       });
 
       if (response.data.success === true) {
-        navigate("/client/login")
+        navigate("/admin/login")
       }
     } catch (error) {
       console.log(error);
@@ -90,14 +93,14 @@ function ProfilePageClient() {
   const hardDelete =async () => {
     try {
     const response =  await axiosInstance({
-          url:"/owner/account-delete",
+          url:"/admin/account-delete",
           method:"DELETE"
       })
       
       toast.success("Deleted successfully")
 
       if (response.data.success === true) {
-        navigate("/client/login")
+        navigate("/admin/login")
       }
      
     } catch (error) {
@@ -110,14 +113,14 @@ function ProfilePageClient() {
     try {
 
    const response =   await axiosInstance({
-        url:"owner/soft-delete",
+        url:"admin/soft-delete",
         method:"PUT"
       })  
 
       toast.success("Deleted successfully")
 
       if (response.data.success === true) {
-        navigate("/login")
+        navigate("/admin/login")
       }
 
       
@@ -133,8 +136,8 @@ function ProfilePageClient() {
   const submit =async (data) => {
   try {
 
-    const response = await axiosInstance({
-      url:"/owner/update",
+     await axiosInstance({
+      url:"/admin/update",
       method:"PUT",
       data
     })
@@ -241,4 +244,4 @@ function ProfilePageClient() {
   );
 }
 
-export default ProfilePageClient;
+export default AdminProfilePage;

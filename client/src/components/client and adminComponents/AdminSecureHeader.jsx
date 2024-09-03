@@ -24,7 +24,6 @@ function AdminSecureHeader() {
           ref={navRef}
         >
           <Link to={""}>Home</Link>
-          <Link to={"about"}>About-us</Link>
           <Link to={"dashbord"}>Dashboard</Link>
 
           <div>

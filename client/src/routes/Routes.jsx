@@ -34,6 +34,8 @@ import TheaterList from "../pages/clientPage/TheaterList.jsx";
 import PaymentSuccessPage from "../pages/userpage/PaymentSuccessPage.jsx";
 import PaymentCancelPage from "../pages/userpage/PaymentCancelPage.jsx";
 import ClientOtp from "../components/client and adminComponents/ClientOtp.jsx";
+import AdminProfilePage from "../pages/AdminPage/AdminProfilePage.jsx";
+import AdminOtp from "../components/Admin/admincomponents/AdminOtp.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -181,7 +183,11 @@ export const router = createBrowserRouter([
       {
         path:"signup",
         element:<AdminSignupPage />
-      }
+      },
+      {
+        path: "account-admin",
+        element: <AdminOtp />,
+      },
     ]
   },
   {
@@ -204,6 +210,10 @@ export const router = createBrowserRouter([
       {
         path:"dashbord",
         element:<AdminDashboard />
+      },
+      {
+        path:"profile",
+        element:<AdminProfilePage />
       }
     ]
 

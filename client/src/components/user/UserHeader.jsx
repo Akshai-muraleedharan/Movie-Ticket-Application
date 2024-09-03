@@ -24,7 +24,7 @@ function UserHeader() {
           ref={navRef}
         >
           <Link to={"movies"}>Home</Link>
-          <Link to={"about"}>About-us</Link>
+     
 
           <div>
             <Link to={"profile"}>   <CircleUserRound />  </Link>
