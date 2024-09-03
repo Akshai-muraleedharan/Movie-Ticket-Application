@@ -13,7 +13,7 @@ export const movieTicket = async(req,res) => {
     try {
         const {movie} =req.params;
         const {theater} = req.params;
-        // const {seatArry} =req.body;
+        const {seatArry} =req.body;
 
        
         if(!movie){
@@ -24,29 +24,7 @@ export const movieTicket = async(req,res) => {
             return res.status(400).json({success:false,message:"theater id not get"})
         }
 
-        const seatArry = [
-            {
-                seatEndNumber:1,  
-                seatPayment:90,
-                availableSeat:true
-             },
-             {
-                seatEndNumber:1,  
-                seatPayment:90,
-                availableSeat:true
-             },
-             {
-                seatEndNumber:1,  
-                seatPayment:90,
-                availableSeat:true
-             },
-             {
-                seatEndNumber:1,  
-                seatPayment:90,
-                availableSeat:true
-             },
-        ]
-       
+      
         const findMovie = await NewMovieModel.findById(movie);
         const movieName =  findMovie.title
 
@@ -72,10 +50,11 @@ export const movieTicket = async(req,res) => {
               })),
            
             mode: "payment",
-            success_url: `${process.env.CLIENT_DOMAIN}/user/payment/success`,
-            cancel_url: `${process.env.CLIENT_DOMAIN}/user/payment/cancel`,
+            success_url: `${client_domain}/user/payment/success`,
+            cancel_url: `${client_domain}/user/payment/cancel`,
         });
 
+   
 
         if(!session.id) {
             return res.status(400).json({success:false,message:"session id not get"})

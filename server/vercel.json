@@ -1,23 +1,15 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "./index.js",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/"
-      }
-    ],
-    
-      "rewrites": [
-        {
-          "source": "/api/(.*)",
-          "destination": "https://movie-ticket-application-backend-beta.vercel.app/api/$1"
-        }
-      ]
-    
-  }
+  "version": 2,
+  "builds": [
+    {
+      "src": "./index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    }
+  ]
+}
