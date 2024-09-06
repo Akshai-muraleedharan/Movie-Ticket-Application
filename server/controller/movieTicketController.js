@@ -5,7 +5,7 @@ import TheaterModel from "../models/theaterModel.js"
 import Stripe from "stripe";
 
 const client_domain = process.env.CLIENT_DOMAIN
-
+let movieId
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY_MY);
 
@@ -16,6 +16,8 @@ export const movieTicket = async(req,res) => {
         const {seatArry} =req.body;
 
        
+         movieId = movie
+
         if(!movie){
             return res.status(400).json({success:false,message:"movie id not get"})
         }
@@ -50,9 +52,10 @@ export const movieTicket = async(req,res) => {
               })),
            
             mode: "payment",
-            success_url: `${client_domain}/user/payment/success`,
+            success_url: `${client_domain}/user/payment/success/${movie}/${theater}`,
             cancel_url: `${client_domain}/user/payment/cancel`,
         });
+
 
    
 
@@ -67,6 +70,9 @@ export const movieTicket = async(req,res) => {
 
         res.json({ success: true, sessionId: session.id });
 
+        const sessionStatus = await stripe.checkout.sessions.retrieve(session.id );
+        console.log(sessionStatus.status)
+
     } catch (error) {
         console.log(error)
     }
@@ -76,10 +82,13 @@ export const movieTicket = async(req,res) => {
 
 export const ticketTest = async (req,res) => {
     try {
-       const {user} = req.params
-       const {theater} =req.params
-       console.log(user)
-       console.log(theater,'theater')
+        const sessionId = req.query.session_id;
+        const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+        res.json({
+            status: session?.status,
+          
+        });
        
     } catch (error) {
         console.log(error)

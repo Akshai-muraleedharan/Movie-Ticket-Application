@@ -6,7 +6,7 @@ import { cloudinaryInstance } from "../config/cloudneryConfig.js";
 import { hashPassword } from "../utils/hashedPassword.js";
 import otpGenerator from "otp-generator";
 import TheaterModel from "../models/theaterModel.js";
-import twilio from 'twilio'
+import twilio from 'twilio';
 
 
 
@@ -14,7 +14,7 @@ import twilio from 'twilio'
 
 export const userSignup = async (req, res, next) => {
   try {
-    const { username,email,password, mobile, movieBooked, profilePic,} = req.body; 
+    const { username,email,password, mobile,  profilePic,} = req.body; 
 
      const userExist = await UserModel.findOne({ email  });
     const mobileExist = await UserModel.findOne({mobile})
@@ -29,7 +29,7 @@ export const userSignup = async (req, res, next) => {
  
     const hashedPassword = hashPassword(password);
 
-    const NewUser = new UserModel({username,email,password: hashedPassword,mobile,movieBooked,profilePic});
+    const NewUser = new UserModel({username,email,password: hashedPassword,mobile,profilePic});
 
     await NewUser.save();
 
@@ -146,7 +146,7 @@ export const bookedMovies = async (req, res) => {
     const  verifiedUser  = req.user.email;
 
     if(!verifiedUser) {
-      return status(400)
+      return res.status(400).json({success:false,message:"user id did not get"})
     }
  
     const user = await UserModel.findOne({email:verifiedUser}).select('-password').select('-profilePic').select('-userDeleted')
@@ -155,7 +155,9 @@ export const bookedMovies = async (req, res) => {
           path: "movieBooked",
           populate: {
             path: "movieId",
-            model: "movies", 
+            select:['-showTime','-duration','-rating'] ,
+            model: "movies",
+          
           },
         },
       ])
@@ -164,7 +166,7 @@ export const bookedMovies = async (req, res) => {
           path: "movieBooked",
           populate: {
             path: "theaterId",
-            select: '-seats',
+            select: ['-seats','-Ownermail','-movieSchedules'],
             model: "theater",
           },
         },
@@ -176,9 +178,7 @@ export const bookedMovies = async (req, res) => {
 
     const movieBooked = user.movieBooked;
 
-    if (movieBooked.length === 0) {
-      return res .status(400).json({ success: false, message: "No movie booked" });
-    }
+   
 
     res.json({ success: true, message: "successfully fetched", data:user });
   } catch (error) {
@@ -222,7 +222,7 @@ export const SeatBooking = async (req,res) => {
       const updatePromises = seatNumber.map(seats =>
           TheaterModel.findByIdAndUpdate(
               theaterId,
-              { $set: { 'seats.$[elem].availableSeat': true } },
+              { $set: { 'seats.$[elem].availableSeat': false } },
               { arrayFilters: [{ 'elem.seatEndNumber': seats }], new: true }
           )
       );
@@ -236,6 +236,64 @@ export const SeatBooking = async (req,res) => {
       res.status(error.status || 500).json({message:error || "internal server error"})
   }
 }
+
+
+export const userMovies =async (req,res) => {
+  try {
+    const {movieTime} = req.body;
+    const {moviePayment} =req.body
+    const {movieSeat} = req.body
+    const  verifiedUser  = req.user.email;
+    const {movieId} = req.params
+    const {theaterId} = req.params
+    const user = await UserModel.findOne({email:verifiedUser})
+
+  
+   user.movieBooked.push(
+      {
+        moviePayment,
+        movieTime,
+        movieSeat,
+        movieId,
+        theaterId
+      }
+    )
+
+    await user.save()
+
+    res.json({success:true,message:"movie added successfully"})
+    
+  } catch (error) {
+    console.log(error)
+    res.status(error.status || 500).json({message:error || "internal server error"})
+  }
+}
+
+
+// user booked movie delete
+
+
+export const userBookedDelete = async (req,res) => {
+  try{
+     
+     
+       const {CardId} =req.params
+  
+      const  verifiedUser  = req.user.email;
+       await UserModel.findOneAndUpdate({email:verifiedUser},{$pull:{movieBooked:{_id:CardId}}},{new:true})
+
+     res.status(200).json({success:true,message:"deleted successfully"})
+
+  }
+  catch(error){
+      console.log(error)
+        res.status(error.status || 500).json({message:error || "internal server error"})
+  }
+}
+
+
+
+
 
 // user logout
 export const userLogout = async (req, res, next) => {

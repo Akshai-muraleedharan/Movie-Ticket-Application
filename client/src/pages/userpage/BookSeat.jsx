@@ -4,17 +4,27 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa6';
 import { loadStripe } from "@stripe/stripe-js";
 import Loader from "../../components/Loader.jsx";
-
+import {  useDispatch, useSelector } from 'react-redux'
+import {moviePayment, seatNumber} from '../../Redux/Slice/showTimeSlice'
 function BookSeat() {
+
+
+
   const [Theater, setFetchTheater] = useState({});
   const [TheaterSeat, setTheaterSeat] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const dispatch = useDispatch()
 
   const { id } = useParams();
   const { movieId } = useParams(); 
   const navigate = useNavigate();
+
+
+
+
+
 
   const fetchTheater = async () => {
     try {
@@ -50,11 +60,21 @@ function BookSeat() {
   };
 
   const totalPayment = selectedSeats.reduce((total, seat) => total + parseFloat(seat.seatPayment), 0);
+  const seatNumbers  = selectedSeats.map(item => item.seatEndNumber)
 
- 
+ const paymentAmount = () => {
+  return dispatch(moviePayment(totalPayment))
+ }
+
+ const seatNumbres = () => {
+  return dispatch(seatNumber(seatNumbers))
+ }
+
 
   const seatBook = async() => {
     try {
+      paymentAmount()
+      seatNumbres()
        const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY_MY);
 
    const response =  await axiosInstance({
@@ -65,9 +85,11 @@ function BookSeat() {
         console.log(response)
 
         const sessionId = response?.data?.sessionId;
-
+        
         const result = stripe.redirectToCheckout({
             sessionId: sessionId,
+
+          
         });
     } catch (error) {
         console.log(error)
@@ -111,12 +133,12 @@ function BookSeat() {
               </div>
             ))}
           </div>
-          <div className='w-full md:w-[50%] h-7 flex justify-between items-center p-1 mt-4 mb-3'>
+          <div className='w-full md:w-[50%] h-7 flex justify-between items-center p-1 mt-4 mb-5'>
             <span className='flex text-xs items-center'><div className='w-6 h-6 bg-green-500 rounded-sm'> </div>   Selected </span>
             <span className='flex text-xs items-center'><div className='w-6 h-6 bg-gray-500 rounded-sm'> </div>   Booked </span>
             <span className='flex text-xs items-center'><div className='w-6 h-6 bg-gray-300 rounded-sm border-[1px] border-green-500'> </div>  Available </span>
           </div>
-          <div className='w-[60%] bg-sky-300 h-5 mb-9'></div>
+          <div className='w-[60%] bg-sky-300 h-5 mb-9 text-xs text-center font-semibold text-blue-500'>Screen</div>
           <div className='h-12'>
             {totalPayment > 0 ? <button className='px-6 py-1 bg-[#c214d7] text-white rounded' onClick={seatBook}>{`Total payment : ${totalPayment.toFixed(2)}`}</button> : ''}
           </div>

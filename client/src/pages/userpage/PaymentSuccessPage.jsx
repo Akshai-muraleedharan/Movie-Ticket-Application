@@ -1,16 +1,63 @@
-import React, { useEffect } from 'react'
+
 import image from '../../assets/image/payment.png'
-import { useNavigate } from 'react-router-dom'
+import {  useParams } from 'react-router-dom'
+import { axiosInstance } from '../../config/axiosInstance';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+
+
 function PaymentSuccessPage() {
+  const time = useSelector((state) => state.payment.value)
+  const payment = useSelector((state) => state.payment.payment)
+  const selectedSeat = useSelector((state) => state.payment.seat)
 
- const navigate = useNavigate()
+  console.log(selectedSeat,'seats')
+  console.log(payment,"total amount");
+  console.log(time);
 
- useEffect(()=> {
-  setTimeout(() => {
-   navigate('/user/movies')
-  }, 4000);
- },[]) 
 
+const {movie} = useParams()
+const {theater} = useParams()
+ 
+console.log(movie,"movie id")
+console.log(theater,"theater id")
+
+
+ const paymentGet = async () => {
+  try {
+    const response = await axiosInstance({
+      url:`/user/book-seat/${theater}`,
+      method:"PUT",
+      data:{seatNumber:selectedSeat}
+    })
+    console.log(response)
+  } catch (error) {
+    console.log(error)
+  }
+ }
+
+ const paymentSuccess = async () => {
+  try {
+    const response = await axiosInstance({
+          url:`/user/payment-movie/movie/${movie}/theater/${theater}`,
+          method:"POST",
+          data:{
+            moviePayment:payment,
+            movieTime:time,
+            movieSeat:selectedSeat
+          }
+    })
+      console.log(response)
+
+  } catch (error) {
+    console.log(error)
+  }
+ } 
+
+useEffect(()=>{
+  paymentSuccess()
+  paymentGet()
+})
 
   return (
    <>

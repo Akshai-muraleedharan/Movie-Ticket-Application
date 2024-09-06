@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 
+
 const userSchema = new mongoose.Schema({
     username:{
         type:String,  
@@ -30,7 +31,33 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,  
     },
-    movieBooked:[{type:mongoose.Types.ObjectId,ref :"movieTicket"}]
+    movieBooked:[
+      {
+        moviePayment: {
+            type: String, // Should be a string, e.g., '200'
+            required: true
+          },
+          movieSeat: {
+            type: [Number], // Should be an array of numbers, e.g., [2, 4, 6, 5]
+            required: true
+          },
+          movieTime: {
+            type: String, // Should be a string, e.g., '2:30pm'
+            required: true
+          },
+          movieId:{
+            type:mongoose.Types.ObjectId,
+            ref:"movies"
+        },
+        theaterId:{
+            type:mongoose.Types.ObjectId,
+            ref:"theater"
+        },
+         
+
+           
+      }
+    ]   
 },
   {timestamps:true}
 )

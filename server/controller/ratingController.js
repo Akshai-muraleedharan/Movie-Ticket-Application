@@ -56,6 +56,20 @@ export  const movieRatingGet = async  (req,res) => {
 }
 
 // for admin
+
+export  const movieRatingGetAdmin = async  (req,res) => {
+    try{
+        const {id} = req.params;
+
+        const allComment = await RatingModel.find({movie:id})
+        .populate( {  path: "username",select:['-password','-profilePic','-movieBooked','-userDeleted','-mobile','-city']})
+
+        res.json({success:true,message:"fetched",data:allComment})
+
+    }catch(error){
+        res.status(error.status || 500).json({ message: error || "internal server error" });
+    }
+}
 export  const movieRatingGetAll = async  (req,res) => {
     try{
 

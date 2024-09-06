@@ -9,7 +9,7 @@ import { movieList } from '../../controller/movieController.js'
 import { totalPaymentList } from '../../controller/movieTicketController.js'
 import { upload } from '../../middleware/imageUploadMiddleware.js'
 import { errorSignupHandler, loginErrorHandler } from '../../middleware/error.js'
-import { movieRatingDelete, movieRatingGetAll } from '../../controller/ratingController.js'
+import { movieRatingDelete, movieRatingGetAdmin, movieRatingGetAll } from '../../controller/ratingController.js'
 import { ownerGetALL } from '../../controller/theaterOwnerController.js'
 
 
@@ -40,6 +40,7 @@ router.get('/theater-list',authAdmin ,theaterList)
 router.get('/movie-list',authAdmin,movieList)
 router.get('/payment-list',authAdmin,totalPaymentList)
 router.get('/rating-All',authAdmin,movieRatingGetAll)
+router.get('/movie-rating/:id',authAdmin,movieRatingGetAdmin)
 router.get('/owner-All',authAdmin,ownerGetALL)
 
 router.delete("rating/:id", authAdmin, movieRatingDelete);

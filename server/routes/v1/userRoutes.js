@@ -1,5 +1,5 @@
 import express from "express";
-import { accoutRestore, bookedMovieDelete, bookedMovies, checkUser, otpGenerate, SeatBooking, userDelete, userLogin, userLogout, userProfile, userSignup,userSoftDelete, userUpdate,} from "../../controller/userController.js";
+import { accoutRestore, bookedMovieDelete, bookedMovies, checkUser, otpGenerate, SeatBooking, userBookedDelete, userDelete, userLogin, userLogout, userMovies, userProfile, userSignup,userSoftDelete, userUpdate,} from "../../controller/userController.js";
 import { authUser } from "../../middleware/authUser.js";
 import { upload } from "../../middleware/imageUploadMiddleware.js";
 import {  errorSignupHandler, loginErrorHandler, otpErroHandler } from "../../middleware/error.js";
@@ -25,9 +25,10 @@ Router.put("/update/", authUser, upload.single("profile-pic"), userUpdate);
 Router.get("/logout", userLogout);
 Router.get("/check-user", authUser, checkUser);
 Router.get("/profile", authUser, userProfile);
+Router.post("/payment-movie/movie/:movieId/theater/:theaterId", authUser, userMovies);
 
 Router.get("/booked-movies", authUser, bookedMovies);
-Router.put("/booked-delete/:ticketId", authUser, bookedMovieDelete);
+Router.put("/booked-delete/:CardId", authUser, userBookedDelete);
 
 export default Router;
  

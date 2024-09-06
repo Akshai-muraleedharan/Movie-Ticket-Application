@@ -36,6 +36,11 @@ import PaymentCancelPage from "../pages/userpage/PaymentCancelPage.jsx";
 import ClientOtp from "../components/client and adminComponents/ClientOtp.jsx";
 import AdminProfilePage from "../pages/AdminPage/AdminProfilePage.jsx";
 import AdminOtp from "../components/Admin/admincomponents/AdminOtp.jsx";
+import UserList from "../components/Admin/Dashboard/UserList.jsx";
+import OwnerList from "../components/Admin/Dashboard/OwnerList.jsx";
+import AdminList from "../components/Admin/Dashboard/AdminList.jsx";
+import MovieList from "../components/Admin/Dashboard/MovieList.jsx";
+import MovieRating from "../components/Admin/Dashboard/MovieRating.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -100,7 +105,7 @@ export const router = createBrowserRouter([
         element:<BookSeat/>
       },
       {
-        path: "payment/success",
+        path: "payment/success/:movie/:theater",
         element: <PaymentSuccessPage />,
     },
     {
@@ -209,13 +214,59 @@ export const router = createBrowserRouter([
       },
       {
         path:"dashbord",
-        element:<AdminDashboard />
+        element:<AdminDashboard />,
+
+        children:[
+          {
+            path:"",
+            element:<AdminList/>
+          },
+          {
+            path:"user-list",
+              element:<UserList/>
+          },
+          {
+            path:"owner-list",
+            element:<OwnerList/>
+          },
+          {
+            path:"movie-list",
+            element:<MovieList/>
+          },
+          {
+            path:"movie-list/movie-rating/:id",
+            element:<MovieRating/>
+          },
+
+         
+        ]
       },
+ 
       {
         path:"profile",
         element:<AdminProfilePage />
       }
     ]
 
-  }
+  },
+  // {
+  //   path:"list",
+  //   element:(
+  //     <AdminAuth>
+  //   <AdminDashboard />
+  //   </AdminAuth>
+  // ),
+
+  // children:[
+  //  {
+  //   path:"user-list",
+  //   element:<UserList/>
+  //  }
+  // ]
+  // }
+
+ 
+  
+
 ]);
+

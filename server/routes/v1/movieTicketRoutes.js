@@ -6,8 +6,8 @@ const router = express.Router()
 // payement route
 
 router.post('/movie/:movie/theater/:theater',authUser,movieTicket)
-router.get('/:user/:theater',authUser,ticketTest)
+router.get('/session-status',authUser,ticketTest)
 
-
-
+ 
+ 
 export default router

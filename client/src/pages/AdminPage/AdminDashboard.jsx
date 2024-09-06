@@ -1,13 +1,17 @@
 import React from 'react'
-import SideBar from '../../components/Admin/Dashboard/SideBar'
+
 import TopSide from '../../components/Admin/Dashboard/TopSide'
+import { Outlet } from 'react-router-dom'
+
 
 function AdminDashboard() {
   return (
     <>
-   <div className='flex'>
-   {/* <SideBar className="absolute"/> */}
+
+ 
    <TopSide/>
+   <div className="w-[90%] mx-auto p-2 gap-5 flex justify-around flex-wrap">
+   <Outlet/>
    </div>
   
     </>
