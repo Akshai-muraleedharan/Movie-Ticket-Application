@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { axiosInstance } from '../../config/axiosInstance'
 import { X } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import Loader from "../../components/Loader.jsx";
 import { FaArrowLeft } from 'react-icons/fa6';
 
@@ -10,6 +10,8 @@ function TheaterDetailsPage() {
  const [shedules,setShedules] = useState([]);
  const [loading, setLoading] = useState(true);
 
+
+console.log(shedules.map(item => console.log(item.movieId.showTime.map(item => console.log(item.timeShedule)))))
  const navigate = useNavigate()
 
 const fetchId =fetchTheater ? fetchTheater._id : null
@@ -51,6 +53,7 @@ const theaterDelete =async (id) => {
       method:"DELETE"
     })
     fetchSingleTheater()
+    sheduleDelete()
   } catch (error) {
     console.log(error)
   }
@@ -77,7 +80,7 @@ if(loading){
         </button>
    
     <div className='w-full flex justify-center flex-col items-center'>
-    <div className='container  rounded-md shadow-xl  p-5 mt-5'> 
+    <div className='container  rounded-md shadow-xl  p-5  mt-5'> 
       <div>
         <h2 className='text-center text-2xl font-semibold'>My theater</h2>
 
@@ -85,12 +88,14 @@ if(loading){
       <div className='flex justify-end cursor-pointer' onClick={()=> theaterDelete(fetchTheater._id)}>  <X /></div>
         <h4 className='mt-5 tracking-wide'>Theater Name : <span className='font-semibold capitalize'>{fetchTheater.screenName}</span></h4>
         <h4 className='mt-5 tracking-wide'>ScreenType : <span className='font-semibold capitalize'>{fetchTheater.screenType}</span></h4>
-        <h4 className='mt-5 tracking-wide'>City : <span className='font-semibold capitalize'>{fetchTheater.city}</span></h4>
-        <div className='flex justify-end gap-2'>
-    <Link to={`/clients/create-movie/${fetchTheater._id}`} > <button className='py-1 px-3 bg-green-600 rounded-sm text-white font-semibold' >Create movies</button></Link>
-    <Link to={`/clients/movie-shedule/${fetchTheater._id}`}> <button className='py-1 px-3 bg-green-600 rounded-sm text-white font-semibold' >Shedule Movie</button></Link>
+        <h4 className='mt-5 tracking-wide mb-4'>City : <span className='font-semibold capitalize'>{fetchTheater.city}</span></h4>
+        <div className='flex justify-end gap-2 flex-wrap'>
+        <Link to={`/clients/theater-seat/${fetchTheater._id}`}> <button className='py-1 px-3 text-[14px] bg-green-600 rounded-sm text-white font-semibold' >Create Seat</button></Link>
+    <Link to={`/clients/create-movie/${fetchTheater._id}`} > <button className='py-1 px-3 text-[14px] bg-green-600 rounded-sm text-white font-semibold' >Create movies</button></Link>
+    <Link to={`/clients/movie-shedule/${fetchTheater._id}`}> <button className='py-1 px-3 text-[14px] bg-green-600 rounded-sm text-white font-semibold' >Shedule Movie</button></Link>
+   
         </div>
-        </div> : <Link to={"/clients/create-theater"}><p className='text-center mx-auto w-[20%] mt-6 p-2 rounded-md bg-green-600 text-white'>Create theater</p> </Link> }
+        </div> : <Link to={"/clients/create-theater"}><p className='text-center mx-auto w-[44%] md:w-[20%] mt-6 p-2 rounded-md bg-green-600 text-white'>Create theater</p> </Link> }
       </div>
       
     </div>
@@ -106,18 +111,22 @@ if(loading){
                    <div key={item._id} className='mt-5 p-2 rounded-md shadow-md flex flex-col flex-wrap w-full md:w-4/12 lg:w-3/12'>
                     <div className='flex justify-end' onClick={()=> sheduleDelete(item._id)}> <X /></div>
                      <div className=' flex justify-center'>
-                     <img className='h-44 w-36' src={item.movieId.image} alt={item.movieId.title} />
+                     <img className='h-44 w-36' src={item.movieId.image ? item.movieId.image  : ''} alt={item.movieId.title} />
                      </div>
                       <div className='mt-5'>
                         <h2>Titile : {item.movieId.title}</h2>
-                        <h3 className='text-sm'>Show-time</h3>
-                        <h2 className='text-xs text-red-400'>{item.movieId.showTime.join(' , ')}</h2>
+                        <h3 className='text-sm underline'>Show-time</h3>
+                        <h2 className='text-xs text-red-400'>{item.movieId.showTime.map(item => item.timeShedule).join(' , ')}</h2>
                       </div>
+                      <Link to={`theater-showTime/${item.movieId._id}`}>
+                      <button className='w-full mt-4 bg-[#c214d7] py-2 text-white'>Add Time</button>
+                      </Link>
                    </div>
                
               )) : <p className='text-red-500 w-full text-center mt-5'> No movies found</p>}  
 
            </div>
+           <Outlet/>
     </div>
     </div>
 

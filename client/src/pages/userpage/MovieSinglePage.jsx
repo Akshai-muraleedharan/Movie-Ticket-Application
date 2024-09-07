@@ -179,7 +179,7 @@ function MovieSinglePage() {
               </div>
              
               <Link to={`/user/movie/${id}/book-seat/${theaterDeatil._id}`}>
-               <button disabled={selectedValue === null }  onClick={()=> dispatch(movieTime(selectedValue))}  className="py-1 bg-[#c214d7]  text-white rounded-sm w-full mt-4 tooltip " >
+               <button disabled={selectedValue === null }  onClick={()=> dispatch(movieTime(selectedValue))}  className="py-1 bg-[#c214d7]  text-white rounded-sm w-full mt-4 " >
                   {selectedValue === null ? "Please select Time" : "book now"}
              </button>
              <Toaster/>
@@ -198,23 +198,6 @@ function MovieSinglePage() {
               </span>
             </div>
 
-            {/* {rating.map((item) => (
-              <div key={item._id} className="bg-slate-100 p-2 mt-2">
-                <div className="flex justify-between items-center">
-                  <h4>
-                    {item.username == null ? "user" : item.username.username}
-                  </h4>
-
-                  <div className="flex gap-2">
-                 <span onClick={()=> updateReview(item._id)}> <Pencil /></span>
-                  <span onClick={()=> deleteReview(item._id)}> <Trash2 /></span> 
-                  
-                  </div>
-                  
-                </div>
-               <p className="text-[14px] mt-2">{item.comment}</p>
-              </div>
-            ))} */}
 
 
 {rating.map((item) => (
@@ -230,7 +213,7 @@ function MovieSinglePage() {
 
                   <div className="flex gap-2">
                  
-                 {userCheck === item.usermail ?  <span  onClick={()=> deleteReview(item._id)}> <X /></span>  : ""} 
+                 {userCheck === item.usermail ?  <span className="cursor-pointer"  onClick={()=> deleteReview(item._id)}> <X /></span>  : ""} 
                   
                   </div>
                   
@@ -241,17 +224,20 @@ function MovieSinglePage() {
 ))}
 
             {review === false ? (
-              <label className="input input-bordered flex items-center gap-2 mt-2">
+             <div className="flex items-center w-full relative">
+               <label className="input input-bordered w-full  justify-between flex items-center gap-2 mt-2">
                 <input
                   type="text"
                   {...register("comment")}
                   className="grow"
-                  placeholder="password"
+                  placeholder="Review"
                 />
-                <span className="mr-2" onClick={handleSubmit(reviewPost)}>
+               
+              </label>
+              <span className="mr-2 absolute right-0" onClick={handleSubmit(reviewPost)}>
                   <CircleArrowRight />
                 </span>
-              </label>
+             </div>
             ) : (
               ""
             )}

@@ -4,6 +4,10 @@ import NewMovieModel from "../models/newMovieModel.js";
 export const movieCreate = async (req, res, next) => {
   try {
     const { title,  duration, genres,language } = req.body;
+
+
+
+  
     const {theaterId} = req.params;
     
     if(!title ||  !duration || !genres || !language){
@@ -34,7 +38,7 @@ export const movieCreate = async (req, res, next) => {
         .json({ success: false, message: "movie already exist" });
     }
 
-    const timeShedule = ["12:00pm", "03:00pm", "06:00:pm", "12:00pm"];
+   
 
     const newMovie = new NewMovieModel({
       title,
@@ -42,8 +46,8 @@ export const movieCreate = async (req, res, next) => {
       duration,
       theaterId,
       genres,
-      showTime: timeShedule,
-      language
+      language,
+      showTime:[]
     });
 
     await newMovie.save();
@@ -55,6 +59,30 @@ export const movieCreate = async (req, res, next) => {
     console.log(error);
   }
 };
+
+export const movieTime = async (req,res) => {
+  try {
+    // const { timeShedule} =req.body
+    const {movieId} = req.params
+   
+
+
+    const newMovieTime = await NewMovieModel.findByIdAndUpdate(movieId)
+    const timeShedule = ['12:30pm','6:30pm']
+
+if(newMovieTime.showTime.length >= 1){
+  return res.status(400).json({success:false,message:"you can add only one  time"})
+}
+    newMovieTime.showTime.push({
+     timeShedule
+    })
+
+    newMovieTime.save()
+res.status(200).json({success:true,message:"successfully added"})
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 
 export const singleMovie = async (req,res) => {

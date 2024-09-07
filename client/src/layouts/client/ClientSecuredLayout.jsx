@@ -7,7 +7,7 @@ import ClientSecureHeader from '../../components/client and adminComponents/Clie
 function ClientSecuredLayout() {
   return (
     <>
-    <div className='root_container'>
+    <div className='root_container '>
     <ClientSecureHeader/>
         <Outlet />
         <Footer />

@@ -116,7 +116,7 @@ export  const movieRatingDelete = async  (req,res) => {
 
     
        if(!FindUser){
-        return res.status(400).json({success:'false',message:"could not delete"})
+        return res.status(400).json({success:'false',message:"could not delete no user"})
        }
        
             const ratingUpdate = await RatingModel.findByIdAndDelete(id)

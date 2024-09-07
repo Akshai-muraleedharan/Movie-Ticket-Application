@@ -127,8 +127,7 @@ function BookSeat() {
               <div
                 key={seat.seatEndNumber}
                 className={`seat ${seat.availableSeat ? (seat.selected ? 'selected' : 'available') : 'booked'}`}
-                onClick={seat.availableSeat ? () => handleClick(index) : undefined}
-              >
+                onClick={seat.availableSeat ? () => handleClick(index) : undefined}>
                 {/* Optionally, you could display seat information here */}
               </div>
             ))}

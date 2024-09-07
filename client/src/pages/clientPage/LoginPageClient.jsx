@@ -56,7 +56,7 @@ function LoginPageClient() {
           {/* <div className="hidden md:block backGround_img rounded-l-lg"></div> */}
 
           {/* validform */}
-          <div className="border-0 p-5 w-full md:w-[80%] rounded-md shadow-lg ">
+          <div className="border-0 p-5 w-full md:w-[50%] rounded-md shadow-lg ">
             <h2 className="text-center mb-2 font-bold text-2xl text-white">Login</h2>
             <form className=" gap-3 flex flex-col " onSubmit={handleSubmit(onSubmit)}>
               <div>

@@ -2,21 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { axiosInstance } from "../../config/axiosInstance.js";
 import { Link } from 'react-router-dom';
 import Loader from "../../components/Loader.jsx";
-
 function MovieListPage() {
  
   const [movies,setMovies] = useState([])
   const [loading, setLoading] = useState(true);
 
-  console.log(movies)
+ 
   const fetchMovieList = async () => {
     try {
+      setLoading(true)
       const respone = await axiosInstance({
         url: "/movie/list",
         method: "GET",
       });
       setMovies(respone.data.movies)
-      
+      setLoading(false)
     } catch (error) {}
   };
 
@@ -35,17 +35,26 @@ function MovieListPage() {
 
   const moviList = movies.map((item) => {
     return(
-      <div className="card[unset] rounded-lg card-compact bg-base-100 w-64 md:w-60 shadow-xl " key={item._id} >
+      <div className="card static rounded-lg card-compact bg-base-100 w-64 md:w-60 shadow-xl " key={item._id} >
       <Link to={`/user/single-page/${item._id}`}>
       <figure>
-        <img
+
+      {loading ? (
+          <Skeleton height={"50vh"} width={"30vw"} className="skeleton" />
+        ) : (
+          <img
           className="rounded-t-lg w-full max-h-[200px] md:max-h-[250px] cursor-pointer"
           src={item.image}
           alt="Shoes"
         />
+        )}
+
+
+        
       </figure>
       </Link>
-      <div className="card-body">
+    
+       <div className="card-body">
       <div className="flex items-center justify-between">
         <span className="text-xs border-2 border-blue-200 p-1 text-center rounded-lg text-slate-500" >{item.language}</span>
         <span className="text-slate-400 text-xs">{item.genres}</span>
@@ -68,7 +77,7 @@ function MovieListPage() {
       {/* max-width1000px */}
       <div className="container  md:max-w-[900px] mx-auto mb-10">
         <div className="flex flex-wrap justify-center gap-5">
-        {moviList}    
+        { moviList}    
         </div>
       </div>
      

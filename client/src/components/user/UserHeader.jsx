@@ -6,6 +6,7 @@ import logo from "../../assets/image/movie-logo new.png";
 import { CircleUserRound } from 'lucide-react';
 import { axiosInstance } from "../../config/axiosInstance";
 import { RiMovie2Line } from "react-icons/ri";
+import { DarkMode } from "../ui/Header/DarkMode";
 function UserHeader() {
   const [toggles, setToggles] = useState(false);
   const [name,setName] = useState([])
@@ -45,7 +46,7 @@ function UserHeader() {
 
   return (
     <>
-      <div className="w-full flex justify-between items-center p-3 bg-white px-10 h-20 shadow-lg sticky top-0">
+      <div className="w-full flex justify-between items-center p-3 bg-primary-content px-10 h-20 shadow-lg sticky top-0">
         <div>
           <img className="w-10" src={logo} alt="logo" />
         </div>
@@ -69,7 +70,12 @@ function UserHeader() {
         </span>
        
       </div>
-      <div className="flex justify-end mr-8 p-3 text-4xl sticky top-20 ">
+      <div className="flex justify-between md:mr-8 p-3 text-4xl sticky top-20 ">
+
+      <div className="sticky top-24 flex justify-end md:p-3">
+      <DarkMode/>
+      </div>
+
         <Link to={"booked-movies"} className="rotate">
         <span >
           <RiMovie2Line/>

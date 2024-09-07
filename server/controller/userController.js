@@ -15,7 +15,7 @@ import twilio from 'twilio';
 export const userSignup = async (req, res, next) => {
   try {
     const { username,email,password, mobile,  profilePic,} = req.body; 
-
+     
      const userExist = await UserModel.findOne({ email  });
     const mobileExist = await UserModel.findOne({mobile})
 

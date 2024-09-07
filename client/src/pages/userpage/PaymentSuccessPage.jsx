@@ -1,6 +1,6 @@
 
 import image from '../../assets/image/payment.png'
-import {  useParams } from 'react-router-dom'
+import {  useNavigate, useParams } from 'react-router-dom'
 import { axiosInstance } from '../../config/axiosInstance';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -11,9 +11,7 @@ function PaymentSuccessPage() {
   const payment = useSelector((state) => state.payment.payment)
   const selectedSeat = useSelector((state) => state.payment.seat)
 
-  console.log(selectedSeat,'seats')
-  console.log(payment,"total amount");
-  console.log(time);
+ const navigate = useNavigate()
 
 
 const {movie} = useParams()
@@ -57,6 +55,10 @@ console.log(theater,"theater id")
 useEffect(()=>{
   paymentSuccess()
   paymentGet()
+
+  setTimeout(()=>{
+    navigate('/user/movies')
+  },7000)
 })
 
   return (

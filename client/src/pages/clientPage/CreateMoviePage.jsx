@@ -7,10 +7,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa6";
 
 
+
 function CreateMoviePage() {
   const {id} = useParams()
   const {register,handleSubmit} = useForm()
  const navigate = useNavigate()
+
+
+
+
   const onSubmit =async (data) => {
     try {
     
@@ -20,12 +25,18 @@ function CreateMoviePage() {
      formData.append("duration", data.duration);
      formData.append("language", data.language);
      formData.append("genres", data.genres);
-   
      
+   
+    
+
+
+   
+
       await axiosInstance({
       url:`/movie/Movie-create/${id}`,
       method:"POST",
       data:formData,
+      
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -39,6 +50,8 @@ function CreateMoviePage() {
       console.log(error)
     }
   }
+
+
 
   return (
     <>
@@ -89,10 +102,18 @@ function CreateMoviePage() {
               </div>
 
 
+       
+          
 
               <AddMovieButton />
               <Toaster/>
             </form>
+            <div >
+                   
+
+
+          </div>
+
           </div>
         {/* </div> */}
       </div>

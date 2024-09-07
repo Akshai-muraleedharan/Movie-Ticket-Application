@@ -95,7 +95,7 @@ export const seatCreate =async  (req,res) => {
         const seatPayment = parseInt(req.body.seatPayment)
         const seatStart = parseInt(req.body.seatStart)
         const {id} =req.params
-        
+        console.log( seatPayment)
         const seat = await TheaterModel.findById(id)
        
          for (let seatNumber = seatStart; seatNumber <= seatEndnumber; seatNumber++) {

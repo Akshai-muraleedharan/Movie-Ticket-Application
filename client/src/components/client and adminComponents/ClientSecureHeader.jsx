@@ -4,6 +4,7 @@ import { Menu } from "lucide-react";
 import { X } from "lucide-react";
 import logo from "../../assets/image/movie-logo new.png";
 import { CircleUserRound } from 'lucide-react';
+import { DarkMode } from "../ui/Header/DarkMode";
 
 function ClientSecureHeader() {
   const [toggles, setToggles] = useState(false);
@@ -14,7 +15,7 @@ function ClientSecureHeader() {
   }
   return (
     <>
-      <div className="w-full flex justify-between items-center p-3 bg-white px-10 h-20 shadow-lg sticky top-0">
+      <div className="w-full flex justify-between items-center p-3 bg-primary-content px-10 h-20 shadow-lg sticky top-0">
         <div>
           <img className="w-10" src={logo} alt="logo" />
         </div>
@@ -32,10 +33,16 @@ function ClientSecureHeader() {
             <Link to={"profile"}>   <CircleUserRound />  </Link>
           </div>
         </nav>
+       
         <span className="header_ham" onClick={toggle}>
           {!toggles ? <Menu /> : <X />}
         </span>
+        
+      </div >
+      <div className="sticky top-24 flex justify-end px-4">
+      <DarkMode/>
       </div>
+      
     </>
   );
 }

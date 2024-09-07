@@ -41,6 +41,8 @@ import OwnerList from "../components/Admin/Dashboard/OwnerList.jsx";
 import AdminList from "../components/Admin/Dashboard/AdminList.jsx";
 import MovieList from "../components/Admin/Dashboard/MovieList.jsx";
 import MovieRating from "../components/Admin/Dashboard/MovieRating.jsx";
+import MovieTime from "../components/Clients/MovieTime.jsx";
+import TheaterSeat from "../pages/clientPage/TheaterSeat.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -156,7 +158,12 @@ export const router = createBrowserRouter([
       },
       {
         path:"theater-detail",
-        element:<TheaterDetailsPage/>
+        element:<TheaterDetailsPage/>,
+
+        children:[{
+          path:"theater-showTime/:movieId",
+          element:<MovieTime/>
+        }]
       },
       {
         path:"profile",
@@ -173,6 +180,10 @@ export const router = createBrowserRouter([
       {
         path:"theater-list",
         element:<TheaterList />
+      },
+      {
+        path:"theater-seat/:theaterId",
+        element:<TheaterSeat/>
       }
     ],
   },

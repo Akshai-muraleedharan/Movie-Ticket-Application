@@ -3,6 +3,7 @@ import { axiosInstance } from '../../config/axiosInstance'
 import {  useNavigate, useParams } from "react-router-dom";
 import { AddSheduleButton } from '../../components/ui/buttons/Buttons';
 import { X } from 'lucide-react';
+import { FaArrowLeft } from 'react-icons/fa6';
 
 
 
@@ -94,6 +95,9 @@ function MovieShedulePage() {
   })
   return (
    <>
+    <button className="mt-8 ml-8 text-[20px] " onClick={() => navigate(-1)}>
+          <FaArrowLeft />
+        </button>
     <div className='w-full flex justify-center flex-col items-center'>
       
   
