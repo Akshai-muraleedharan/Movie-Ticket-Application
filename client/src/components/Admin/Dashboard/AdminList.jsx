@@ -10,13 +10,13 @@ function AdminList() {
             url: "/admin/all-admin",
             method: "GET",
           });
-          console.log(response);
+        
           setAdmin(response?.data?.data);
         } catch (error) {
           console.log(error);
         }
       };
-      console.log(admin)
+    
 
       useEffect(()=> {
         allAdmin()

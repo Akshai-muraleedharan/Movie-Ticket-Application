@@ -56,17 +56,10 @@ function TopSide() {
     TotalUser();
     TotalOwner();
     TotalMovie();
-  
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000); 
     
   }, []);
 
-  if (loading) {
-    return <Loader />;
-  }
+  
 
   
   return (

@@ -149,16 +149,9 @@ function ProfilePageClient() {
 
   useEffect(() => {
     fetchProfile();
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
   }, []);
 
   
-  if(loading){
-    return <Loader/>
-   }
 
   return (
     <><div>

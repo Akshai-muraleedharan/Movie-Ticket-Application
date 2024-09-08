@@ -28,15 +28,12 @@ const navigate = useNavigate()
   useEffect(()=> {
     theaterFetch()
 
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+    
+
 
   },[])
 
-  if(loading){
-    return <Loader/>
-   }
+
 
   return (
     <>

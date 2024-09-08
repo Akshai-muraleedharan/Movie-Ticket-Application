@@ -152,17 +152,10 @@ function AdminProfilePage() {
 
   useEffect(() => {
     fetchProfile();
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
   }, []);
 
   
-  if(loading){
-    return <Loader/>
-   }
-
+ 
   return (
     <><div>
        <button className="mt-8 ml-8 text-[20px] "  onClick={() => navigate(-1)}>

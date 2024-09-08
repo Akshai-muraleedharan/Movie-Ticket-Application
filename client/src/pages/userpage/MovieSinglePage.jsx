@@ -18,13 +18,15 @@ function MovieSinglePage() {
   const [rating, setRating] = useState([]);
   const [theaterDeatil, setTheaterDetail] = useState([]);
   const [review, setReview] = useState(true);
-  const [loading, setLoading] = useState(true);
+
   const [userCheck,setUserCheck] =useState([])
   const [selectedValue, setSelectedValue] = useState(null);
 
- 
+
   const dispatch = useDispatch()
 
+
+ let times =  showTime.map((item) => item.timeShedule)
 
 
   const { register, handleSubmit} = useForm();
@@ -117,16 +119,10 @@ function MovieSinglePage() {
   useEffect(() => {
     fetchSingleDetail();
     fetchReview();
-    usermail()
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+    usermail()  
   }, [review]);
 
-  if(loading){
-    return <Loader/>
-   }
+ 
  
 
   return (
@@ -169,13 +165,24 @@ function MovieSinglePage() {
               <p className="mt-3 text-xs">
                 <span className="font-bold">Genres</span>: {fetchs.genres}
               </p>
-              {/* " text-red-500 text-xs cursor-pointer" */}
+             
               <div className="w-full flex mt-5 justify-around gap-3 flex-wrap ">
-                {showTime.map((item, index) => (
-                  <div key={index}   className={selectedValue === item ? "timeSelect" : "timeselected" } onClick={() => clickTime(item)}>
-                    {item}
-                  </div>
-                ))}
+              
+
+
+{times.map((item, itemIndex) =>
+    item.map((val, index) => (
+      <div
+        key={`${itemIndex}-${index}`} 
+        className={selectedValue === val ? "timeSelect" : "timeselected"}
+        onClick={() => clickTime(val)}
+      >
+       
+        {val}
+      </div>
+    ))
+  )}
+
               </div>
              
               <Link to={`/user/movie/${id}/book-seat/${theaterDeatil._id}`}>

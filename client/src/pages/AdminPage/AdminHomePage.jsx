@@ -23,16 +23,10 @@ function AdminHomePage() {
 
   useEffect(() => {
     fetchMovieList();
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000); 
     
   }, []);
 
-  if (loading) {
-    return <Loader />;
-  }
+ 
 
   const moviList = movies.map((item) => {
     return(

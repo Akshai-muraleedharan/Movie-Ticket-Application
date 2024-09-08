@@ -13,7 +13,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 
 function UserProfile() {
   const [profile, setProfile] = useState({});
-  const [loading, setLoading] = useState(true);
+  
   const [disable,setDisable] = useState(false)
   const [disableEmail,setDisableEmail] = useState(false)
   const [disableMobile,setDisableMobile] = useState(false)
@@ -151,16 +151,10 @@ function UserProfile() {
 
   useEffect(() => {
     fetchProfile();
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
   }, []);
 
   
-  if(loading){
-    return <Loader/>
-   }
+ 
 
   return (
     <><div>

@@ -1,58 +1,83 @@
 import { createBrowserRouter } from "react-router-dom";
-import HomePage from "../pages/rootpage/HomePage.jsx";
 import AboutPage from "../pages/rootpage/AboutPage.jsx";
-import MovieListPage from "../pages/userpage/MovieListPage.jsx";
-import UserProfile from "../pages/userpage/UserProfile.jsx";
-import BookedMovies from "../pages/userpage/BookedMovies.jsx";
 import { UserAuth } from "./protected routes/UserAuth.jsX";
-import MovieSinglePage from "../pages/userpage/MovieSinglePage.jsx";
-import LoginPageClient from "../pages/clientPage/LoginPageClient.jsx";
-import SignupPageClient from "../pages/clientPage/SignupPageClient.jsx";
-import HomePageClient from "../pages/clientPage/HomePageClient.jsx";
 import { OwnerAuth } from "./protected routes/OwnerAuth.jsx";
-import CreateMoviePage from "../pages/clientPage/CreateMoviePage.jsx";
-import CreateTheaterPageClient from "../pages/clientPage/CreateTheaterPageClient.jsx";
-import ProfilePageClient from "../pages/clientPage/ProfilePageClient.jsx";
-import BookSeat from "../pages/userpage/BookSeat.jsx";
+import { AdminAuth } from "./protected routes/AdminAuth.jsx";
 import RootLayout from "../layouts/user/RootLayout.jsx";
 import UserLayout from "../layouts/user/UserLayout.jsx";
 import ClientLayout from "../layouts/client/ClientLayout.jsx";
 import ClientSecuredLayout from "../layouts/client/ClientSecuredLayout.jsx";
-import AdminLayout from "../layouts/admin/AdminLayout.jsx";
-import LoginPage from "../pages/rootpage/LoginPage.jsx";
-import SignupPage from "../pages/rootpage/SignupPage.jsx";
-import AdminLoginPage from "../pages/AdminPage/AdminLoginPage.jsx";
 import AdminSecureLayout from "../layouts/admin/AdminSecureLayout.jsx";
-import { AdminAuth } from "./protected routes/AdminAuth.jsx";
-import AdminHomePage from "../pages/AdminPage/AdminHomePage.jsx";
-import AdminDashboard from "../pages/AdminPage/AdminDashboard.jsx";
-import OtpRegisterPage from "../pages/rootpage/OtpRegisterPage.jsx";
-import AdminSignupPage from "../pages/AdminPage/AdminSignupPage.jsx";
-import TheaterDetailsPage from "../pages/clientPage/TheaterDetailsPage.jsx";
-import MovieShedulePage from "../pages/clientPage/MovieShedulePage.jsx";
-import TheaterList from "../pages/clientPage/TheaterList.jsx";
-import PaymentSuccessPage from "../pages/userpage/PaymentSuccessPage.jsx";
-import PaymentCancelPage from "../pages/userpage/PaymentCancelPage.jsx";
-import ClientOtp from "../components/client and adminComponents/ClientOtp.jsx";
-import AdminProfilePage from "../pages/AdminPage/AdminProfilePage.jsx";
-import AdminOtp from "../components/Admin/admincomponents/AdminOtp.jsx";
-import UserList from "../components/Admin/Dashboard/UserList.jsx";
-import OwnerList from "../components/Admin/Dashboard/OwnerList.jsx";
-import AdminList from "../components/Admin/Dashboard/AdminList.jsx";
-import MovieList from "../components/Admin/Dashboard/MovieList.jsx";
-import MovieRating from "../components/Admin/Dashboard/MovieRating.jsx";
-import MovieTime from "../components/Clients/MovieTime.jsx";
-import TheaterSeat from "../pages/clientPage/TheaterSeat.jsx";
+import AdminLayout from "../layouts/admin/AdminLayout.jsx";
+import { lazy,Suspense } from 'react';
+import Loader from "../components/Loader.jsx";
+
+
+// root layout
+const HomePage = lazy(() => import('../pages/rootpage/HomePage.jsx'));
+const LoginPage = lazy(() => import('../pages/rootpage/LoginPage.jsx'));
+const SignupPage = lazy(() => import('../pages/rootpage/SignupPage.jsx'));
+const OtpRegisterPage = lazy(() => import('../pages/rootpage/OtpRegisterPage.jsx'));
+
+
+
+// userPage
+const MovieListPage = lazy(() => import('../pages/userpage/MovieListPage.jsx'));
+const MovieSinglePage = lazy(() => import('../pages/userpage/MovieSinglePage.jsx'));
+const UserProfile = lazy(() => import('../pages/userpage/UserProfile.jsx'));
+const BookedMovies = lazy(() => import('../pages/userpage/BookedMovies.jsx'));
+const BookSeat = lazy(() => import('../pages/userpage/BookSeat.jsx'));
+const PaymentSuccessPage = lazy(() => import('../pages/userpage/PaymentSuccessPage.jsx'));
+const PaymentCancelPage = lazy(() => import('../pages/userpage/PaymentCancelPage.jsx'));
+
+
+// Owner
+const LoginPageClient = lazy(() => import('../pages/clientPage/LoginPageClient.jsx'));
+const SignupPageClient = lazy(() => import('../pages/clientPage/SignupPageClient.jsx'));
+const ClientOtp = lazy(() => import('../components/client and adminComponents/ClientOtp.jsx'));
+const HomePageClient = lazy(() => import('../pages/clientPage/HomePageClient.jsx'));
+const CreateMoviePage = lazy(() => import('../pages/clientPage/CreateMoviePage.jsx'));
+const CreateTheaterPageClient = lazy(() => import('../pages/clientPage/CreateTheaterPageClient.jsx'));
+const ProfilePageClient = lazy(() => import('../pages/clientPage/ProfilePageClient.jsx'));
+const TheaterDetailsPage = lazy(() => import('../pages/clientPage/TheaterDetailsPage.jsx'));
+const MovieShedulePage = lazy(() => import('../pages/clientPage/MovieShedulePage.jsx'));
+const TheaterList = lazy(() => import('../pages/clientPage/TheaterList.jsx'));
+const MovieTime = lazy(() => import('../components/Clients/MovieTime.jsx'));
+const TheaterSeat = lazy(() => import('../pages/clientPage/TheaterSeat.jsx'));
+
+// admin
+const AdminHomePage = lazy(() => import('../pages/AdminPage/AdminHomePage.jsx'));
+const AdminLoginPage = lazy(() => import('../pages/AdminPage/AdminLoginPage.jsx'));
+const AdminSignupPage = lazy(() => import('../pages/AdminPage/AdminSignupPage.jsx'));
+const AdminProfilePage = lazy(() => import('../pages/AdminPage/AdminProfilePage.jsx'));
+const AdminOtp = lazy(() => import('../components/Admin/admincomponents/AdminOtp.jsx'));
+
+// admin dashboard
+const AdminDashboard  = lazy(() => import('../pages/AdminPage/AdminDashboard.jsx'));
+const UserList  = lazy(() => import('../components/Admin/Dashboard/UserList.jsx'));
+const OwnerList  = lazy(() => import('../components/Admin/Dashboard/OwnerList.jsx'));
+const AdminList  = lazy(() => import('../components/Admin/Dashboard/AdminList.jsx'));
+const MovieList  = lazy(() => import('../components/Admin/Dashboard/MovieList.jsx'));
+const MovieRating  = lazy(() => import('../components/Admin/Dashboard/MovieRating.jsx'));
+
+
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    element:( 
+      <Suspense fallback={<Loader/>}>
+    <RootLayout />
+    </Suspense>
+    ),
 
     children: [
       {
         path: "",
-        element: <HomePage />,
+
+        element: <HomePage />
+      
+        
       },
       {
         path: "about",
@@ -76,7 +101,9 @@ export const router = createBrowserRouter([
     path: "user",
     element: (
       <UserAuth>
+           <Suspense fallback={<Loader/>}> 
         <UserLayout />
+        </Suspense>
       </UserAuth>
     ),
 
@@ -118,7 +145,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "client",
-    element: <ClientLayout />,
+    element: (
+      <Suspense fallback={<Loader/>}>
+    <ClientLayout />
+    </Suspense> 
+    ),
 
     children: [
       {
@@ -139,7 +170,9 @@ export const router = createBrowserRouter([
     path: "clients",
     element: (
       <OwnerAuth>
+         <Suspense fallback={<Loader/>}>
         <ClientSecuredLayout />
+        </Suspense>
       </OwnerAuth>
     ),
 
@@ -189,7 +222,11 @@ export const router = createBrowserRouter([
   },
   {
     path:"admin",
-    element:<AdminLayout/>,
+    element:(
+      <Suspense fallback={<Loader/>}>
+       <AdminLayout/>
+       </Suspense>
+    ),
 
     children:[
       {
@@ -210,7 +247,9 @@ export const router = createBrowserRouter([
     path:"admins",
     element:(
       <AdminAuth>
+         <Suspense fallback={<Loader/>}>
       <AdminSecureLayout/>
+      </Suspense>
       </AdminAuth>
     ),
 

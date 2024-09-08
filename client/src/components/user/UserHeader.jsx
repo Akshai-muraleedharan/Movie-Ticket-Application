@@ -12,7 +12,6 @@ function UserHeader() {
   const [name,setName] = useState([])
  const[display,setDisplay] = useState(false)
 
-  console.log(display)
 
   const navRef = useRef();
   function toggle() {
@@ -70,16 +69,16 @@ function UserHeader() {
         </span>
        
       </div>
-      <div className="flex justify-between md:mr-8 p-3 text-4xl sticky top-20 ">
+      <div className="flex justify-between md:mr-8 p-3 items-center text-4xl sticky top-20 ">
 
       <div className="sticky top-24 flex justify-end md:p-3">
       <DarkMode/>
       </div>
 
-        <Link to={"booked-movies"} className="rotate">
-        <span >
-          <RiMovie2Line/>
-        </span>
+        <Link to={"booked-movies"} >
+     
+          <RiMovie2Line  className="rotate"/>
+        
         </Link>
       </div>
     </>

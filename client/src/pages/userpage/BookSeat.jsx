@@ -98,14 +98,9 @@ function BookSeat() {
 
   useEffect(() => {
     fetchTheater();
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
   }, [id]); 
 
-  if(loading){
-    return <Loader/>
-   }
+
 
   return (
     <>

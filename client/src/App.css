@@ -56,11 +56,7 @@ body {
   }
 }
 
-
-
 /* footer */
-
-
 .instagram{
   background-image: linear-gradient(to right, #f9ce34, #ee2a7b, #6228d7);
   color: #fff;
@@ -68,8 +64,6 @@ body {
   padding: 5px;
  opacity: 0.5;
 }
-
-
 
 .facebook{
   font-size: 38px;
@@ -111,12 +105,6 @@ body {
   
 }
 
-
-
-
-
-
-
 /* login page */
 
 .backGround_img{
@@ -149,8 +137,6 @@ background: linear-gradient(178deg, rgba(2,0,36,1) 0%, rgba(1,1,1,0.574667366946
   width: 730px;
 }
 
-
-
 .seat {
   width: 24px;
   height: 24px;
@@ -167,9 +153,6 @@ background: linear-gradient(178deg, rgba(2,0,36,1) 0%, rgba(1,1,1,0.574667366946
   border: 1px solid green;
 }
 
-
-
-
 .seat.selected {
   background-color: #4caf50;
   color: white;
@@ -179,7 +162,6 @@ background: linear-gradient(178deg, rgba(2,0,36,1) 0%, rgba(1,1,1,0.574667366946
   background-color: rgb(107 114 128);
   cursor: default;
 }
-
 
 .timeSelect{
   color: red;

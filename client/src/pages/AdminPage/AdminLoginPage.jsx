@@ -40,8 +40,7 @@ function AdminLoginPage() {
     <>
      <div className='backGround_img_admin h-[70vh]'>
     <div className="w-full flex  justify-center  md:mt-8 mb-4  items-center ">
-        {/* <div className="grid grid-cols-1 mb-8  md:grid-cols-2  login_box "> */}
-          {/* <div className="hidden md:block backGround_img rounded-l-lg"></div> */}
+        
 
           {/* validform */}
           <div className="border-0 p-5 w-full h-[70vh] md:h-[320px] md:w-[50%] rounded-md shadow-lg background_gradient_admin">

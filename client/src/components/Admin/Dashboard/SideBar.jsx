@@ -7,7 +7,7 @@ function SideBar() {
   const navRef = useRef();
   function toggle() {
     setToggles(navRef.current.classList.toggle("nav_responsive"));
-    console.log("hello")
+   
   }
   return (
    <>

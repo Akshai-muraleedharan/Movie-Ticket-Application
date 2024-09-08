@@ -8,7 +8,7 @@ import { FaArrowLeft } from 'react-icons/fa6';
 function TheaterDetailsPage() {
  const [fetchTheater,setFetch] = useState("");
  const [shedules,setShedules] = useState([]);
- const [loading, setLoading] = useState(true);
+
 
 
 console.log(shedules.map(item => console.log(item.movieId.showTime.map(item => console.log(item.timeShedule)))))
@@ -62,15 +62,11 @@ const theaterDelete =async (id) => {
 useEffect(()=> {
   fetchSingleTheater()
 
-  setTimeout(() => {
-    setLoading(false);
-  }, 2000);
+ 
 
 },[])
 
-if(loading){
-  return <Loader/>
- }
+
 
   return (
     <>

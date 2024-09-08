@@ -40,10 +40,7 @@ function CreateTheaterPageClient() {
           <FaArrowLeft />
         </button>
         <div className="w-full flex  justify-center mt-8 mb-4  items-center ">
-          {/* <div className="grid grid-cols-1 mb-8  md:grid-cols-2  login_box "> */}
-          {/* <div className="hidden md:block backGround_img rounded-l-lg"></div> */}
-
-          {/* validform */}
+      
           <div className="border-0 p-5 w-full md:w-[80%] rounded-md shadow-lg ">
             <h2 className="text-center mb-2 font-bold text-2xl text-white">
              Add Theater
