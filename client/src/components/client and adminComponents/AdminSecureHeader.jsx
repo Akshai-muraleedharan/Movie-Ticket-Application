@@ -1,41 +1,54 @@
-import React, { useRef, useState } from "react";
+
+import React, { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
-import { Menu } from "lucide-react";
-import { X } from "lucide-react";
-import logo from "../../assets/image/movie-logo new.png";
 import { CircleUserRound } from 'lucide-react';
+import { axiosInstance } from '../../config/axiosInstance';
+
+
 
 function AdminSecureHeader() {
-  const [toggles, setToggles] = useState(false);
+  const [profile, setProfile] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const navRef = useRef();
-  function toggle() {
-    setToggles(navRef.current.classList.toggle("nav_responsive"));
-  }
+  const fetchProfile = async () => {
+    try {
+
+      setLoading(true)
+      const response = await axiosInstance({
+        url: "/admin/profile",
+        method: "GET",
+      });
+    
+       
+      setProfile(response.data.data.username);
+      setLoading(false)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+ useEffect(()=>{
+  fetchProfile()
+ },[])
+  
+
+ 
+  
   return (
-    <>
-      <div className="w-full flex justify-between items-center p-3 bg-white px-10 h-20 shadow-lg sticky top-0">
-        <div>
-          <img className="w-10" src={logo} alt="logo" />
-        </div>
+    <div className='flex justify-between p-3 items-center'>
+          {loading === false ? (
+            <div> 
+                  <h1 className='text-xs'>Welcome</h1>
+                  <p className='font-semibold'>{profile}</p>
+                </div> 
+          ): ""}
+                
 
-        <nav
-          className="flex items-center capitalize gap-4 font-semibold header-responsive"
-          ref={navRef}
-        >
-          <Link to={""}>Home</Link>
-          <Link to={"dashbord"}>Dashboard</Link>
-
-          <div>
-            <Link to={"profile"}>   <CircleUserRound />  </Link>
-          </div>
-        </nav>
-        <span className="header_ham" onClick={toggle}>
-          {!toggles ? <Menu /> : <X />}
-        </span>
+      <div>
+      <Link to={"profile"}>   <CircleUserRound />  </Link>
       </div>
-    </>
-  );
+    </div>
+  )
 }
 
-export default AdminSecureHeader;
+export default AdminSecureHeader
