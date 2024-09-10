@@ -3,7 +3,6 @@ import { axiosInstance } from "../../config/axiosInstance";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
-import "./Booked.css";
 function BookedMovies() {
   const [movies, setMovies] = useState([]);
   const navigate = useNavigate();
