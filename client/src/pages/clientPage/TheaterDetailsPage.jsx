@@ -10,7 +10,7 @@ function TheaterDetailsPage() {
  const [shedules,setShedules] = useState([]);
 
 
-
+console.log(shedules)
 
  const navigate = useNavigate()
 
@@ -111,7 +111,7 @@ useEffect(()=> {
                       <div className='mt-5'>
                         <h2>Titile : {item.movieId.title}</h2>
                         <h3 className='text-sm underline'>Show-time</h3>
-                        <h2 className='text-xs text-red-400'>{item.movieId.showTime.map(item => item.timeShedule).join(' , ')}</h2>
+                     <h2 className='text-xs text-red-400'>{item.movieId.showTime.map(item => item.timeShedule).join(' , ')}</h2>
                       </div>
                       <Link to={`theater-showTime/${item.movieId._id}`}>
                       <button className='w-full mt-4 bg-[#c214d7] py-2 text-white'>Add Time</button>

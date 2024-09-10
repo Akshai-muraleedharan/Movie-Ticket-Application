@@ -7,7 +7,7 @@ body {
 .header-responsive {
   position: absolute;
   flex-direction: column;
-  left: -160px;
+  left: -180px;
   top: 80px;
   background-color: #fff;
   box-shadow: -1px 6px 13px -5px;
