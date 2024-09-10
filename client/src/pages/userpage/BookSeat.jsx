@@ -77,12 +77,12 @@ function BookSeat() {
       seatNumbres()
        const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY_MY);
 
-   const response =  await axiosInstance({
+    await axiosInstance({
             url:`/movie-ticket/movie/${movieId}/theater/${id}`,
             method:"POST",
             data:{seatArry:selectedSeats}
         })
-        console.log(response)
+       
 
         const sessionId = response?.data?.sessionId;
         
@@ -123,7 +123,7 @@ function BookSeat() {
                 key={seat.seatEndNumber}
                 className={`seat ${seat.availableSeat ? (seat.selected ? 'selected' : 'available') : 'booked'}`}
                 onClick={seat.availableSeat ? () => handleClick(index) : undefined}>
-                {/* Optionally, you could display seat information here */}
+               
               </div>
             ))}
           </div>
