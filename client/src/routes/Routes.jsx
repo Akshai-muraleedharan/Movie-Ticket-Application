@@ -12,6 +12,7 @@ import AdminLayout from "../layouts/admin/AdminLayout.jsx";
 import { lazy,Suspense } from 'react';
 import Loader from "../components/Loader.jsx";
 import PaymentPage from "../pages/clientPage/PaymentPage.jsx";
+import UserListPage from "../pages/AdminPage/AdminUserListPage.jsx";
 
 
 // root layout
@@ -54,12 +55,12 @@ const AdminProfilePage = lazy(() => import('../pages/AdminPage/AdminProfilePage.
 const AdminOtp = lazy(() => import('../components/Admin/admincomponents/AdminOtp.jsx'));
 
 // admin dashboard
-const AdminDashboard  = lazy(() => import('../pages/AdminPage/AdminDashboard.jsx'));
-const UserList  = lazy(() => import('../components/Admin/Dashboard/UserList.jsx'));
-const OwnerList  = lazy(() => import('../components/Admin/Dashboard/OwnerList.jsx'));
-const AdminList  = lazy(() => import('../components/Admin/Dashboard/AdminList.jsx'));
-const MovieList  = lazy(() => import('../components/Admin/Dashboard/MovieList.jsx'));
-const MovieRating  = lazy(() => import('../components/Admin/Dashboard/MovieRating.jsx'));
+// const AdminDashboard  = lazy(() => import('../pages/AdminPage/AdminDashboard.jsx'));
+// const UserList  = lazy(() => import('../components/Admin/Dashboard/UserList.jsx'));
+// const OwnerList  = lazy(() => import('../components/Admin/Dashboard/OwnerList.jsx'));
+// const AdminList  = lazy(() => import('../components/Admin/Dashboard/AdminList.jsx'));
+// const MovieList  = lazy(() => import('../components/Admin/Dashboard/MovieList.jsx'));
+// const MovieRating  = lazy(() => import('../components/Admin/Dashboard/MovieRating.jsx'));
 
 
 
@@ -264,38 +265,10 @@ export const router = createBrowserRouter([
         element:<AdminHomePage />
       },
       {
-        path: "about",
-        element: <AboutPage />,
+        path: "users",
+        element: <UserListPage />,
       },
-      {
-        path:"dashbord",
-        element:<AdminDashboard />,
-
-        children:[
-          {
-            path:"",
-            element:<AdminList/>
-          },
-          {
-            path:"user-list",
-              element:<UserList/>
-          },
-          {
-            path:"owner-list",
-            element:<OwnerList/>
-          },
-          {
-            path:"movie-list",
-            element:<MovieList/>
-          },
-          {
-            path:"movie-list/movie-rating/:id",
-            element:<MovieRating/>
-          },
-
-         
-        ]
-      },
+     
  
       {
         path:"profile",

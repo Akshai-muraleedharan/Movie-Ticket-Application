@@ -1,19 +1,25 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import Footer from '../../components/Footer'
-import AdminSecureHeader from '../../components/client and adminComponents/AdminSecureHeader'
-
+import React from "react";
+import { Outlet } from "react-router-dom";
+import AdminSecureHeader from "../../components/client and adminComponents/AdminSecureHeader";
+import SideBar from "../../components/Admin/Dashboard/SideBar.jsx";
 
 function AdminSecureLayout() {
   return (
     <>
-    <div className='root_container'>
-    <AdminSecureHeader/>
-        <Outlet />
-        <Footer />
-    </div>
+
+      <div className="flex">
+        <SideBar />
+
+        <div className="w-full ml-16 md:ml-56">
+          <AdminSecureHeader />
+          <Outlet />
+          <div></div>
+        </div>
+        
+      </div>
+    
     </>
-  )
+  );
 }
 
-export default AdminSecureLayout
+export default AdminSecureLayout;
