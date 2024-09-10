@@ -12,7 +12,7 @@ function LoginPageClient() {
   const [errorMessage, setErrorMessage] = useState("");
   const [type, setType] = useState('password');
   const [icon, setIcon] = useState(FaRegEyeSlash);
-
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate()
   const {
@@ -23,6 +23,7 @@ function LoginPageClient() {
 
   const onSubmit =async (data) => {
     try {
+      setLoading(true)
       const response = await axiosInstance({
         url:'/owner/login',
         method:'POST',
@@ -31,7 +32,7 @@ function LoginPageClient() {
       if(response.data.success == true){
         navigate("/clients")
        }
-      console.log(response)
+       setLoading(false)
     } catch (error) {
       setErrorMessage(error.response.data)
       console.log(error)
@@ -52,10 +53,7 @@ function LoginPageClient() {
     <>
      <div className='backGround_img_client h-[70vh]'>
     <div className="w-full flex  justify-center mt-8 mb-4  items-center ">
-        {/* <div className="grid grid-cols-1 mb-8  md:grid-cols-2  login_box "> */}
-          {/* <div className="hidden md:block backGround_img rounded-l-lg"></div> */}
 
-          {/* validform */}
           <div className="border-0 p-5 w-full md:w-[50%] rounded-md shadow-lg ">
             <h2 className="text-center mb-2 font-bold text-2xl text-white">Login</h2>
             <form className=" gap-3 flex flex-col " onSubmit={handleSubmit(onSubmit)}>
@@ -89,7 +87,7 @@ function LoginPageClient() {
                 </Link>
               </p>
               
-              <LoginPageButton type="submit"  />
+              <LoginPageButton loadings={loading} type="submit"  />
             </form>
             <div className="h-4 text-xs text-end text-red-500 font-semibold">
             {errorMessage.success === false ? errorMessage.message : null}

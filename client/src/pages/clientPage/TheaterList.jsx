@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../../config/axiosInstance";
-import Loader from "../../components/Loader.jsx";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
 function TheaterList() {
 const [theater,setTheater] = useState([])
-const [loading, setLoading] = useState(true);
+
   
 const navigate = useNavigate()
 
@@ -60,11 +59,11 @@ const navigate = useNavigate()
               </thead>
 
               <tbody>
-              {theater.map((item)=> (
+              {theater.map((item,index)=> (
               
               <>
-                {/* row 1 */}
-                <tr>
+               
+                <tr key={index}>
                   
                   <td>{item.screenName}</td>
                   <td> {item.screenType} </td>

@@ -21,7 +21,7 @@ function MovieShedulePage() {
                 method:"GET"
             })
             
-            console.log(response)
+            
             setMovies(response.data.data)
         } catch (error) {
             console.log(error)
@@ -86,18 +86,18 @@ function MovieShedulePage() {
      
        <h4 className="card-title">{item.title}</h4> 
        
-       <button onClick={() => sheduleMovie(item._id)}>
+       <span onClick={() => sheduleMovie(item._id)}>
        <AddSheduleButton/>
-       </button>
+       </span>
       </div>
     </div>
     )
   })
   return (
    <>
-    <button className="mt-8 ml-8 text-[20px] " onClick={() => navigate(-1)}>
+    <span className="mt-8 ml-8 text-[20px] " onClick={() => navigate(-1)}>
           <FaArrowLeft />
-        </button>
+        </span>
     <div className='w-full flex justify-center flex-col items-center'>
       
   

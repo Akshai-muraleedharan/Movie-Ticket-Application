@@ -173,8 +173,8 @@ export const theaterSingle = async (req,res) => {
     try {
         
         const verifiedOwner =req.owner.email
-             
-        const singleData = await TheaterModel.findOne({Ownermail:verifiedOwner}).populate({path:'movieSchedules.movieId', model:'movies'})
+            
+        const singleData = await TheaterModel.findOne({Ownermail:verifiedOwner}).populate({path:'userPayment.movieId', model:'movies', select:['-image','-showTime']})
 
         res.json({success:true,message:"single data",data:singleData})
     } catch (error) {

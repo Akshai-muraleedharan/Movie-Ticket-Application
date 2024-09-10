@@ -12,32 +12,41 @@ export function LoginButton() {
 }
 
 
-export function LoginPageButton() {
+export function LoginPageButton({loadings}) {
+ 
   return (
     
-      <button className="bg-blue-500 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
+     loadings === false ? <button className="bg-blue-500 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
+        login
+      </button> : <button disabled className=" bg-blue-400 cursor-not-allowed text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
         login
       </button>
     
   );
 }
 
-export function SignUpPageButton() {
+export function SignUpPageButton({loadings}) {
   return (
     
-      <button className="bg-blue-500 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
+    loadings === false ? <button className="bg-blue-500 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
         sign-up
+      </button> : <button disabled className=" bg-blue-400 cursor-not-allowed text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
+       Loading....
       </button>
     
   );
 }
 
 
-export function AddMovieButton() {
+export function AddMovieButton({loadings}) {
+
+
   return (
-    
-      <button className="bg-green-500 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
+         
+     loadings === false ?  <button className="bg-green-500 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
         Add - movie
+      </button> : <button disabled  className="bg-green-300 cursor-not-allowed text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
+       Loading....
       </button>
     
   );
@@ -73,11 +82,13 @@ export function AddSheduleButton() {
   );
 }
 
-export function CreateSeatButton() {
+export function CreateSeatButton({loadings}) {
   return (
     
-      <button className="bg-green-500 text-white text-center w-full px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
+    loadings === false ?   <button className="bg-green-500 text-white text-center w-full px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
      Create Seat
+      </button> : <button disabled className="bg-green-300 cursor-not-allowed text-white text-center w-full px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
+     Loading ... 
       </button>
     
   );

@@ -8,7 +8,7 @@ import { FaArrowLeft } from 'react-icons/fa6';
 function TheaterSeat() {
     
     const [seats, setSeat] = useState([]);
-
+    const [loading, setLoading] = useState(false);
     
     const navigate =useNavigate(-1)
     const { register, handleSubmit} = useForm()
@@ -17,6 +17,7 @@ function TheaterSeat() {
 
     const onSubmit = async (data) => {
         try {
+          setLoading(true)
             await axiosInstance({
                 url:`theater/create-seat/${theaterId}`,
                 method:"POST",
@@ -24,6 +25,7 @@ function TheaterSeat() {
             })
             seat()
             toast.success("Seat created Successfully")
+            setLoading(false)
         } catch (error) {
             toast.error("Something Error")
             console.log(error)
@@ -105,7 +107,7 @@ function TheaterSeat() {
                   
                 </div>
 
-              <CreateSeatButton type="submit" />
+              <CreateSeatButton loadings={loading} type="submit" />
                 <Toaster/>
             </form>
           </div>

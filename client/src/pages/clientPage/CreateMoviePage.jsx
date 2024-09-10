@@ -3,9 +3,11 @@ import { AddMovieButton } from "../../components/ui/buttons/Buttons";
 import { useForm } from "react-hook-form";
 import { axiosInstance } from "../../config/axiosInstance";
 import { useNavigate, useParams } from "react-router-dom";
-import { FaArrowLeft } from "react-icons/fa6";
+import { FaArrowLeft, FaGalacticSenate } from "react-icons/fa6";
+import { useState } from "react";
 
 function CreateMoviePage() {
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
@@ -19,7 +21,8 @@ function CreateMoviePage() {
       formData.append("language", data.language);
       formData.append("genres", data.genres);
 
-      await axiosInstance({
+      setLoading(true)
+      await axiosInstance({  
         url: `/movie/Movie-create/${id}`,
         method: "POST",
         data: formData,
@@ -28,7 +31,7 @@ function CreateMoviePage() {
           "Content-Type": "multipart/form-data",
         },
       });
-
+      setLoading(false)
       toast.success("Movie Successfully Added");
     } catch (error) {
       toast.error("all fields required");
@@ -111,7 +114,7 @@ function CreateMoviePage() {
                 </label>
               </div>
 
-              <AddMovieButton />
+              <AddMovieButton loadings={loading} />
               <Toaster />
             </form>
             <div></div>

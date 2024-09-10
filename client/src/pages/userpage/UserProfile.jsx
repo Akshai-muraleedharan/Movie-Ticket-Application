@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { axiosInstance } from "../../config/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import {toast,Toaster} from "react-hot-toast";
-import Loader from "../../components/Loader.jsx";
 import { useForm } from "react-hook-form";
 import { UserPen } from 'lucide-react';
 import { CircleArrowRight } from 'lucide-react';
@@ -66,7 +65,7 @@ function UserProfile() {
         url: "/user/profile",
         method: "GET",
       });
-      console.log(response)
+      
 
       setProfile(response.data.data);
     } catch (error) {

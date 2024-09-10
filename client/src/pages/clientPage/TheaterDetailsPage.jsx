@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { axiosInstance } from '../../config/axiosInstance'
 import { X } from 'lucide-react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import Loader from "../../components/Loader.jsx";
+
 import { FaArrowLeft } from 'react-icons/fa6';
 
 function TheaterDetailsPage() {
@@ -11,7 +11,7 @@ function TheaterDetailsPage() {
 
 
 
-console.log(shedules.map(item => console.log(item.movieId.showTime.map(item => console.log(item.timeShedule)))))
+
  const navigate = useNavigate()
 
 const fetchId =fetchTheater ? fetchTheater._id : null

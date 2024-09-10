@@ -23,7 +23,36 @@ import mongoose from 'mongoose';
            
         },
         userPayment:{
-            type:[]
+            type:[
+               {
+                moviePayment: {
+                    type: String, // Should be a string, e.g., '200'
+                    required: true,
+                  },
+                  movieSeat: {
+                    type: [Number],
+                    required: true,
+                  },
+                  movieTime: {
+                    type: String,
+                    required: true,
+                  },
+                  userbookedId: {
+                    type: String,
+                  },
+                  movieId: {
+                    type: mongoose.Types.ObjectId,
+                    ref: "movies",
+                  },
+                  date: {
+                    type: String,
+                  },
+                  theaterId: {
+                    type: mongoose.Types.ObjectId,
+                    ref: "theater",
+                  },
+               }
+            ]
         },
         movieSchedules:[{
             movieId: {

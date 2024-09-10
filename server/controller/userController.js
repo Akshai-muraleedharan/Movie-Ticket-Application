@@ -247,10 +247,10 @@ export const userMovies =async (req,res) => {
     const {movieId} = req.params
     const {theaterId} = req.params
 
-    const user = await UserModel.findOne({email:verifiedUser})
+    const user = await UserModel.findOne({email:verifiedUser}).select('-password')
     const theater = await TheaterModel.findById(theaterId)
 
-    console.log(theater)
+    
     const otp = otpGenerator.generate(6, {digits: true, lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false,});
 
     const dates = new Date()
@@ -275,7 +275,15 @@ export const userMovies =async (req,res) => {
       }
     )
     theater.userPayment.push(
-      user
+     {
+      moviePayment,
+      movieTime,
+      movieSeat,
+      movieId,
+      theaterId,
+      userbookedId:otp,
+      date:formatedDate
+     }
     )
     await theater.save()
     await user.save()
