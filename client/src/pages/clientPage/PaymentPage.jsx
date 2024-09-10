@@ -43,7 +43,7 @@ const navigate = useNavigate()
     <h1 className='text-center text-2xl font-semibold mb-10'>Payment List</h1>
   <div className='w-full p-2 md:w-5/6  max-auto'>
   
-{ theater.length < 1 ? <div className="text-red-500 text-center">No Booking Now </div> : <div className="overflow-x-auto">
+ <div className="overflow-x-auto">
   <table className="table table-sm">
     <thead>
       <tr className="text-center">
@@ -79,7 +79,7 @@ const navigate = useNavigate()
     </tbody>
    
   </table>
-</div>}
+</div>
   
   </div>
 
