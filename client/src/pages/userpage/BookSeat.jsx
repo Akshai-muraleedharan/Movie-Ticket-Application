@@ -77,7 +77,7 @@ function BookSeat() {
       seatNumbres()
        const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY_MY);
 
-    await axiosInstance({
+   const response = await axiosInstance({
             url:`/movie-ticket/movie/${movieId}/theater/${id}`,
             method:"POST",
             data:{seatArry:selectedSeats}
