@@ -62,13 +62,13 @@ export const movieCreate = async (req, res, next) => {
 
 export const movieTime = async (req,res) => {
   try {
-    // const { timeShedule} =req.body
+    const { timeShedule} =req.body
     const {movieId} = req.params
    
 
 
     const newMovieTime = await NewMovieModel.findByIdAndUpdate(movieId)
-    const timeShedule = ['12:30pm','6:30pm']
+    
 
 if(newMovieTime.showTime.length >= 1){
   return res.status(400).json({success:false,message:"you can add only one  time"})

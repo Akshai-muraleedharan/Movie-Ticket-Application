@@ -132,7 +132,7 @@ function MovieSinglePage() {
           <FaArrowLeft />
         </button>
 
-        <div className=" px-3 md:px-14 md:container md:mx-auto mb-10 mt-6 lg:max-w-[800px]">
+        <div className=" px-3 md:px-14 md:container md:mx-auto mb-10 mt-6 cursor-default lg:max-w-[800px]">
           <div className="flex justify-between p-2 shadow-lg text-xs md:font-semibold md:text-base">
             <p>Theater : {theaterDeatil.screenName}</p>
             <p>ScreenType : {theaterDeatil.screenType}</p>

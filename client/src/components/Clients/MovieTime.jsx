@@ -13,7 +13,7 @@ function MovieTime() {
     const navigate = useNavigate()
     const {movieId} =useParams()
 
-
+console.log(myArray)
    
 
     const handleAddValue = () => {
@@ -27,7 +27,8 @@ function MovieTime() {
         try {
             const response = await axiosInstance({
                 url:`/movie/movie-timeShedules/${movieId}`,
-                method:"PUT"
+                method:"PUT",
+                data:{timeShedule:myArray}
             })
 
             setSucess(response?.data?.message)
@@ -56,12 +57,15 @@ function MovieTime() {
         {/* <input type="text" placeholder="Type here" onChange={(e) => setInputValue(e.target.value)} className="input input-bordered w-full " />
         <button onClick={handleAddValue} className='cursor-pointer absolute top-0 right-0 bottom-0 mr-2'> <ArrowRight /></button> */}
 
-<select className="select select-bordered w-full "  onChange={(e) => setInputValue(e.target.value)}>
-  <option disabled selected>Who shot first?</option>
-  <option>6:00 PM</option>
+<select className="select select-bordered w-full " defaultValue={'DEFAULT'} onChange={(e) => setInputValue(e.target.value)}>
+  <option disabled selected>Time</option>
+  <option>11:45 AM</option>
+  <option>03:00 PM</option>
+  <option>6:30 PM</option>
+  <option>6:15 PM</option>
+  <option>9:45 PM</option>
+  <option>9:30 PM</option>
   <option>12:00 PM</option>
-  <option>6:00 PM</option>
-  <option>9:00 PM</option>
   
 
  </select>

@@ -86,7 +86,7 @@ function BookSeat() {
 
         const sessionId = response?.data?.sessionId;
         
-        const result = stripe.redirectToCheckout({
+         stripe.redirectToCheckout({
             sessionId: sessionId,
 
           
@@ -109,7 +109,7 @@ function BookSeat() {
           <FaArrowLeft />
         </button>
 
-        <div className="px-3 md:px-14 md:container md:mx-auto mb-10 mt-6 lg:max-w-[800px]">
+        <div className="px-3 md:px-14 cursor-default md:container md:mx-auto mb-10 mt-6 lg:max-w-[800px]">
           <div className='flex justify-between shadow-lg p-2 rounded-md text-lg font-semibold'>
             <p>{Theater.screenName}</p>
             <p>{Theater.screenType}</p>

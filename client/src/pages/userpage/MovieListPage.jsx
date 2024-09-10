@@ -28,7 +28,7 @@ function MovieListPage() {
 
   const moviList = movies.map((item) => {
     return(
-      <div className="card static rounded-lg card-compact bg-base-100 w-64 md:w-60 shadow-xl " key={item._id} >
+      <div className="card static rounded-lg cursor-default card-compact bg-base-100 w-64 md:w-60 shadow-xl " key={item._id} >
       <Link to={`/user/single-page/${item._id}`}>
       <figure>
 

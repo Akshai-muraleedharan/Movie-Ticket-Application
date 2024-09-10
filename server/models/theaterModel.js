@@ -22,6 +22,9 @@ import mongoose from 'mongoose';
             type:[]
            
         },
+        userPayment:{
+            type:[]
+        },
         movieSchedules:[{
             movieId: {
                 type: mongoose.Schema.Types.ObjectId,

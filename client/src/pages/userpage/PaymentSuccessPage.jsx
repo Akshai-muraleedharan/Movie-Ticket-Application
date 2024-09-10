@@ -17,8 +17,7 @@ function PaymentSuccessPage() {
 const {movie} = useParams()
 const {theater} = useParams()
  
-console.log(movie,"movie id")
-console.log(theater,"theater id")
+
 
 
  const paymentGet = async () => {
@@ -28,7 +27,7 @@ console.log(theater,"theater id")
       method:"PUT",
       data:{seatNumber:selectedSeat}
     })
-    console.log(response)
+    
   } catch (error) {
     console.log(error)
   }
@@ -36,7 +35,7 @@ console.log(theater,"theater id")
 
  const paymentSuccess = async () => {
   try {
-    const response = await axiosInstance({
+    await axiosInstance({
           url:`/user/payment-movie/movie/${movie}/theater/${theater}`,
           method:"POST",
           data:{
@@ -45,7 +44,7 @@ console.log(theater,"theater id")
             movieSeat:selectedSeat
           }
     })
-      console.log(response)
+     
 
   } catch (error) {
     console.log(error)

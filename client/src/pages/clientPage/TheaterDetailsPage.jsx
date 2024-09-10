@@ -40,7 +40,6 @@ const sheduleDelete = async (cardId)=> {
       })
       fetchSingleTheater()
 
-      console.log(response)
   } catch (error) {
     console.log(error)
   }
@@ -91,7 +90,7 @@ useEffect(()=> {
     <Link to={`/clients/movie-shedule/${fetchTheater._id}`}> <button className='py-1 px-3 text-[14px] bg-green-600 rounded-sm text-white font-semibold' >Shedule Movie</button></Link>
    
         </div>
-        </div> : <Link to={"/clients/create-theater"}><p className='text-center mx-auto w-[44%] md:w-[20%] mt-6 p-2 rounded-md bg-green-600 text-white'>Create theater</p> </Link> }
+        </div> : <Link to={"/clients/create-theater"}><p className='text-center mx-auto w-[50%] md:w-[20%] mt-6 p-2 rounded-md bg-green-600 text-white'>Create theater</p> </Link> }
       </div>
       
     </div>

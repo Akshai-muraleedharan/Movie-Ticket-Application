@@ -246,20 +246,41 @@ export const userMovies =async (req,res) => {
     const  verifiedUser  = req.user.email;
     const {movieId} = req.params
     const {theaterId} = req.params
-    const user = await UserModel.findOne({email:verifiedUser})
 
+    const user = await UserModel.findOne({email:verifiedUser})
+    const theater = await TheaterModel.findById(theaterId)
+
+    console.log(theater)
+    const otp = otpGenerator.generate(6, {digits: true, lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false,});
+
+    const dates = new Date()
+    
+   const year = dates.getFullYear();
+   const month = dates.getMonth() + 1
+   const day = dates.getDate()
+   
   
+  const formatedDate = `${day}/${month}/${year}`
+
    user.movieBooked.push(
       {
         moviePayment,
         movieTime,
         movieSeat,
         movieId,
-        theaterId
+        theaterId,
+        bookedId:otp,
+        date:formatedDate
+       
       }
     )
-
+    theater.userPayment.push(
+      user
+    )
+    await theater.save()
     await user.save()
+
+  
 
     res.json({success:true,message:"movie added successfully"})
     
