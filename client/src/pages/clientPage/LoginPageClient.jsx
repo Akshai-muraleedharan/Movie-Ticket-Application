@@ -12,7 +12,7 @@ function LoginPageClient() {
   const [errorMessage, setErrorMessage] = useState("");
   const [type, setType] = useState('password');
   const [icon, setIcon] = useState(FaRegEyeSlash);
-  const [loading, setLoading] = useState(false);
+
 
   const navigate = useNavigate()
   const {
@@ -23,7 +23,7 @@ function LoginPageClient() {
 
   const onSubmit =async (data) => {
     try {
-      setLoading(true)
+    
       const response = await axiosInstance({
         url:'/owner/login',
         method:'POST',
@@ -32,7 +32,7 @@ function LoginPageClient() {
       if(response.data.success == true){
         navigate("/clients")
        }
-       setLoading(false)
+      
     } catch (error) {
       setErrorMessage(error.response.data)
       console.log(error)
@@ -87,7 +87,7 @@ function LoginPageClient() {
                 </Link>
               </p>
               
-              <LoginPageButton loadings={loading} type="submit"  />
+              <LoginPageButton  type="submit"  />
             </form>
             <div className="h-4 text-xs text-end text-red-500 font-semibold">
             {errorMessage.success === false ? errorMessage.message : null}
