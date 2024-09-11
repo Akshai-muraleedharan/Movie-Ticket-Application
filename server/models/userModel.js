@@ -33,16 +33,16 @@ const userSchema = new mongoose.Schema(
     movieBooked: [
       {
         moviePayment: {
-          type: String, // Should be a string, e.g., '200'
-          required: true,
+          type: String, 
+       
         },
         movieSeat: {
           type: [Number],
-          required: true,
+         
         },
         movieTime: {
           type: String,
-          required: true,
+         
         },
         bookedId: {
           type: String,

@@ -22,20 +22,20 @@ import mongoose from 'mongoose';
             type:[]
            
         },
-        userPayment:{
-            type:[
+        userPayment:[
+           
                {
                 moviePayment: {
                     type: String, // Should be a string, e.g., '200'
-                    required: true,
+                   
                   },
                   movieSeat: {
                     type: [Number],
-                    required: true,
+                  
                   },
                   movieTime: {
                     type: String,
-                    required: true,
+                  
                   },
                   userbookedId: {
                     type: String,
@@ -52,8 +52,8 @@ import mongoose from 'mongoose';
                     ref: "theater",
                   },
                }
-            ]
-        },
+            
+              ],
         movieSchedules:[{
             movieId: {
                 type: mongoose.Schema.Types.ObjectId,

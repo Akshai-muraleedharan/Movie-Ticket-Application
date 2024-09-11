@@ -15,7 +15,7 @@ function ClientAndAdminHeader() {
           <nav className="flex items-center capitalize gap-4 font-semibold ">
         
             <div>
-              <Link > <SignUpPageButton/> </Link>
+              <Link  > <SignUpPageButton/> </Link>
             </div>
           </nav>
          

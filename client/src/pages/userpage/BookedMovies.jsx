@@ -39,7 +39,7 @@ function BookedMovies() {
   return (
     <>
       <button
-        className="mt-8 ml-8 text-[20px] sticky top-[200px]"
+        className="mt-8 ml-8 text-[20px] "
         onClick={() => navigate(-1)}
       >
         <FaArrowLeft />
@@ -70,9 +70,7 @@ function BookedMovies() {
                 <div>
                   <div className="m-1 text-xs  font-semibold">{`Theater name : ${item.theaterId.screenName}`}</div>
                   <div className="m-1 text-xs  font-semibold">{`Screen type : ${item.theaterId.screenType}`}</div>  
-                  <div className="m-1 text-xs  font-semibold">{`Seat No : ${item.movieSeat.join(
-                    " , "
-                  )}`}</div>
+                  <div className="m-1 text-xs  font-semibold">{`Seat No : ${item.movieSeat.join(" , ")}`}</div>
                   <div className="m-1 text-xs  font-semibold">{`Movie Time: ${item.movieTime}`}</div>
                   <div className="m-1 text-xs font-semibold">{`Date : ${item.date}`}</div>
                 </div>

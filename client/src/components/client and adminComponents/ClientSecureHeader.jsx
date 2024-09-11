@@ -13,6 +13,9 @@ function ClientSecureHeader() {
   function toggle() {
     setToggles(navRef.current.classList.toggle("nav_responsive"));
   }
+  function  toggleRemove(){
+    setToggles(navRef.current.classList.remove("nav_responsive"))
+  }
   return (
     <>
       <div className="w-full flex justify-between items-center p-3 bg-primary-content px-10 h-20 shadow-lg sticky top-0">
@@ -24,14 +27,14 @@ function ClientSecureHeader() {
           className="flex items-center capitalize gap-4 font-semibold header-responsive"
           ref={navRef}
         >
-          <Link to={""}>Home</Link>
+          <Link to={""} onClick={toggleRemove}>Home</Link>
   
-          <Link to={"theater-list"}>Theater-list</Link>
-          <Link to={"theater-payment"}>Movie payment</Link>
-          <Link to={"theater-detail"}>My-theater</Link>
+          <Link to={"theater-list"} onClick={toggleRemove}>Theater-list</Link>
+          <Link to={"theater-payment"} onClick={toggleRemove}>Movie payment</Link>
+          <Link to={"theater-detail"} onClick={toggleRemove}>My-theater</Link>
 
           <div>
-            <Link to={"profile"}>   <CircleUserRound />  </Link>
+            <Link to={"profile"} onClick={toggleRemove}>   <CircleUserRound />  </Link>
           </div>
         </nav>
        
@@ -40,7 +43,7 @@ function ClientSecureHeader() {
         </span>
         
       </div >
-      <div className="sticky top-24 flex justify-end px-4">
+      <div className="sticky top-24 w-16 ml-auto md:p-3">
       <DarkMode/>
       </div>
       

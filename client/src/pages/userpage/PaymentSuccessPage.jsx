@@ -12,7 +12,7 @@ function PaymentSuccessPage() {
   const selectedSeat = useSelector((state) => state.payment.seat)
 
  const navigate = useNavigate()
-
+console.log(time,"====time",payment,"====payment",selectedSeat,"=====seat")
 
 const {movie} = useParams()
 const {theater} = useParams()
@@ -55,9 +55,9 @@ useEffect(()=>{
   paymentSuccess()
   paymentGet()
 
-  setTimeout(()=>{
-    navigate('/user/movies')
-  },7000)
+  // setTimeout(()=>{
+  //   navigate('/user/movies')
+  // },7000)
 })
 
   return (

@@ -26,6 +26,7 @@ function AdminSecureHeader() {
       console.log(error);
     }
   };
+ 
 
  useEffect(()=>{
   fetchProfile()
@@ -45,7 +46,7 @@ function AdminSecureHeader() {
                 
 
       <div>
-      <Link to={"profile"}>   <CircleUserRound />  </Link>
+      <Link to={"profile"}  >   <CircleUserRound />  </Link>
       </div>
     </div>
   )

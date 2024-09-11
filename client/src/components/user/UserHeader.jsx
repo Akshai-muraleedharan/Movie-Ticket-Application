@@ -18,7 +18,10 @@ function UserHeader() {
     setToggles(navRef.current.classList.toggle("nav_responsive"));
   }
 
-
+function  toggleRemove(){
+  setToggles(navRef.current.classList.remove("nav_responsive"))
+}
+    
 
   const profileName = async () => {
     try {
@@ -56,11 +59,11 @@ function UserHeader() {
         >
 
 
-          <Link to={"movies"}>Home</Link>
-     
+          <Link to={"movies"} onClick={toggleRemove}>Home</Link>
+           <Link to={"booked-movies"} onClick={toggleRemove}>Booked Movies</Link>
 
           <div>
-            <Link to={"profile"}>   <CircleUserRound />  </Link>
+            <Link to={"profile"} onClick={toggleRemove}>   <CircleUserRound />  </Link>
           </div>
         </nav>
 
@@ -69,18 +72,13 @@ function UserHeader() {
         </span>
        
       </div>
-      <div className="flex justify-between md:mr-8 p-3 items-center text-4xl sticky top-20 ">
+     
 
-      <div className="sticky top-24 flex justify-end md:p-3">
+      <div className="sticky top-24 w-16 ml-auto md:p-3">
       <DarkMode/>
       </div>
 
-        <Link to={"booked-movies"} >
      
-          <RiMovie2Line  className="rotate"/>
-        
-        </Link>
-      </div>
     </>
   );
 }
