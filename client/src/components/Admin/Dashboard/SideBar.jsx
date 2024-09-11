@@ -18,10 +18,10 @@ const handleClick = (index) => {
     const sideBar_link =[
       {id:1, path:'',name:"Dashboard", icon:LuBox},
       {id:2, path:'users',name:"Users", icon:TbUsers},
-      {id:3, path:'/message',name:"Message", icon:LuMessageSquare},
-      {id:4, path:'/project',name:"Project", icon:FaSuitcase},
-      {id:5, path:'/clients',name:"Clients", icon:LuUser},
-      {id:6, path:'/work',name:"Work plan", icon:SlCalender}
+      {id:3, path:'owners',name:"Owners", icon:TbUsers},
+      {id:4, path:'review',name:"Reviews", icon:LuMessageSquare},
+      // {id:5, path:'/clients',name:"Clients", icon:LuUser},
+      // {id:6, path:'/work',name:"Work plan", icon:SlCalender}
     ]
 
   return (

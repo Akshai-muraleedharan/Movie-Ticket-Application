@@ -60,7 +60,7 @@ export  const movieRatingGet = async  (req,res) => {
 export  const movieRatingGetAdmin = async  (req,res) => {
     try{
         const {id} = req.params;
-
+         console.log("hitted")
         const allComment = await RatingModel.find({movie:id})
         .populate( {  path: "username",select:['-password','-profilePic','-movieBooked','-userDeleted','-mobile','-city']})
 
@@ -75,7 +75,7 @@ export  const movieRatingGetAll = async  (req,res) => {
 
         const allComment = await RatingModel.find()
         .populate( {  path: "username",select:['-password','-profilePic','-movieBooked','-userDeleted','-mobile','-city']})
-
+        .populate({path:'movie',model:'movies',select:['-showTime','-duration','-genres','-image','-theaterId','-language']})
         res.json({success:true,message:"fetched",data:allComment})
 
     }catch(error){
@@ -107,17 +107,7 @@ export  const movieRatingUpdate = async  (req,res) => {
 export  const movieRatingDelete = async  (req,res) => {
     try{
         const {id} = req.params;
-        const verifiedUser = req.user.email;
-
-        
- 
-  
-       const FindUser = await RatingModel.findOne({usermail:verifiedUser}) 
-
-    
-       if(!FindUser){
-        return res.status(400).json({success:'false',message:"could not delete no user"})
-       }
+       
        
             const ratingUpdate = await RatingModel.findByIdAndDelete(id)
               res.status(200).json({success:true,message:"deleted successfully",data:ratingUpdate})
@@ -128,7 +118,7 @@ export  const movieRatingDelete = async  (req,res) => {
       
 
     }catch(error){
-      
+     
        res.status(error.status || 500).json({ message: error || "internal server error" });
     } 
 }
