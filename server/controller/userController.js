@@ -248,7 +248,7 @@ export const userMovies =async (req,res) => {
     const {theaterId} = req.params
 
 
-    console.log(movieTime,moviePayment,movieSeat)
+   
 
     const user = await UserModel.findOne({email:verifiedUser}).select('-password')
     const theater = await TheaterModel.findById(theaterId)
