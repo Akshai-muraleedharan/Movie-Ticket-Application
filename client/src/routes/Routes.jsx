@@ -11,6 +11,7 @@ import AdminSecureLayout from "../layouts/admin/AdminSecureLayout.jsx";
 import AdminLayout from "../layouts/admin/AdminLayout.jsx";
 import { lazy,Suspense } from 'react';
 import Loader from "../components/Loader.jsx";
+import AdminTheaterPayment from "../pages/AdminPage/AdminTheaterPayment.jsx";
 
 
 
@@ -278,6 +279,10 @@ export const router = createBrowserRouter([
       {
         path:"profile",
         element:<AdminProfilePage />
+      },
+      {
+        path:"payment",
+        element:<AdminTheaterPayment />
       }
     ]
 

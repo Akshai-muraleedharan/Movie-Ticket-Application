@@ -28,12 +28,14 @@ function BookSeat() {
 
   const fetchTheater = async () => {
     try {
+      setLoading(true)
       const response = await axiosInstance({
         url: `theater/user-theater/${id}`,
         method: 'GET'
       });
       setFetchTheater(response.data.data);
       setTheaterSeat(response.data.data.seats);
+      setLoading(false)
     } catch (error) {
       console.log(error);
     }
@@ -116,6 +118,7 @@ function BookSeat() {
             <p>{Theater.city}</p>
           </div>
         </div>
+        
         <div className='flex justify-center flex-col items-center'>
           <div className='flex flex-wrap justify-evenly gap-2 md:gap-2 w-4/5 md:max-w-[700px]'>
             {TheaterSeat.map((seat, index) => (
@@ -134,9 +137,11 @@ function BookSeat() {
           </div>
           <div className='w-[60%] bg-sky-300 h-5 mb-9 text-xs text-center font-semibold text-blue-500'>Screen</div>
           <div className='h-12'>
-            {totalPayment > 0 ? <button className='px-6 py-1 bg-[#c214d7] text-white rounded' onClick={seatBook}>{`Total payment : ${totalPayment.toFixed(2)}`}</button> : ''}
+            {totalPayment > 0 ? <button className='px-6 py-1 bg-[#c214d7] text-white rounded' onClick={seatBook}> {`Total payment : ${totalPayment.toFixed(2)}`}</button> : ''}
           </div>
         </div>
+
+
       </div>
     </>
   );

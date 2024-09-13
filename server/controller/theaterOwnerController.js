@@ -5,6 +5,7 @@ import { cloudinaryInstance } from '../config/cloudneryConfig.js'
 import { hashPassword } from '../utils/hashedPassword.js'
 import { matchPassword } from '../utils/comparePassword.js'
 import OtpModel from '../models/otpModel.js'
+import TheaterModel from '../models/theaterModel.js'
 
 
 export const ownerSignup = async (req,res) => {
@@ -187,23 +188,23 @@ export const ownerDelete = async (req,res) => {
 
     try {
 
-      const {verifiedOwner} = req.owner.email;
-   
-      console.log(verifiedOwner)
-   
-        const accountExist = await OwnerModel.findOne(verifiedOwner)
+       const verifiedOwner = req.owner.email;
+       
+        const accountExist = await OwnerModel.findOne({email:verifiedOwner})
 
         if(!accountExist){
             return res.status(400).json({success:false,message:"your account could not delete now"})
         }else{
             res.clearCookie('token')
-            await OwnerModel.findOneAndDelete(verifiedOwner)
+            await OwnerModel.findOneAndDelete({email:verifiedOwner})
+            await TheaterModel.findOneAndDelete({Ownermail:verifiedOwner})
             res.json({success:true,message:"your account deleted successfully"})
         }
 
       
 
     } catch (error) {
+      console.log(error)
         res.status(error.status || 500).json({message:error || "internal server error"})
     }
 

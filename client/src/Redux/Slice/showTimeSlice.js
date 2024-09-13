@@ -4,10 +4,12 @@ import { createSlice } from '@reduxjs/toolkit'
 let time
 let payment
 let seat
+let movie
 const initialState = {
   value:time,
   payment:payment,
-  seat:seat
+  seat:seat,
+  movieName:movie
 }
 
 export const showTimeSlice = createSlice({
@@ -23,11 +25,14 @@ export const showTimeSlice = createSlice({
         },
         seatNumber:(state,action) => {
           state.seat = action.payload
+        },
+        movieName:(state,action) => {
+          state.movie = action.payload
         }
     }
 })
 
 
-export const { movieTime,moviePayment,seatNumber} =showTimeSlice.actions
+export const { movieTime,moviePayment,seatNumber,movieName} =showTimeSlice.actions
 
 export default showTimeSlice.reducer

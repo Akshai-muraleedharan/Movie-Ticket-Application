@@ -51,6 +51,9 @@ const userSchema = new mongoose.Schema(
           type: mongoose.Types.ObjectId,
           ref: "movies",
         },
+        movieName: {
+          type:String
+        },
         date: {
           type: String,
         },

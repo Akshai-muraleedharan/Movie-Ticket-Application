@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import {toast,Toaster} from "react-hot-toast"
 import Loader from "../../components/Loader.jsx";
 import {  useDispatch } from 'react-redux'
-import {movieTime} from '../../Redux/Slice/showTimeSlice'
+import {movieTime,movieName} from '../../Redux/Slice/showTimeSlice'
 
 function MovieSinglePage() {
 
@@ -25,6 +25,7 @@ function MovieSinglePage() {
 
   const dispatch = useDispatch()
 
+  
 
  let times =  showTime.map((item) => item.timeShedule)
 
@@ -45,6 +46,7 @@ function MovieSinglePage() {
       setFetch(response.data.data);
       setShowTime(response.data.data.showTime);
       setTheaterDetail(response.data.data.theaterId);
+      dispatch(movieName(response?.data?.data?.title))
     } catch (error) {
       console.log(error);
     }

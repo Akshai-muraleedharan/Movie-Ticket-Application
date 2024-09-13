@@ -48,7 +48,7 @@ function UserChart() {
 
   return (
     <>
-      <div className=" flex w-full items-center p-3 border-2 border-indigo-200 justify-around flex-wrap-reverse md:flex-wrap gap-5">
+      <div className=" flex w-full items-center p-3 border-2 rounded-sm border-indigo-200 justify-around flex-wrap-reverse md:flex-wrap gap-5">
         <div className=" w-96 overflow-x-auto shadow-lg">
           <h1 className="text-center text-xs underline font-semibold mb-4">
             Users flow chart

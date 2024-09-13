@@ -15,11 +15,7 @@ function LoginPage() {
    
 
   const navigate = useNavigate()
-  const {
-    register,
-    handleSubmit,
-    formState:{errors}
-  } = useForm()
+  const { register, handleSubmit} = useForm()
 
   const onSubmit = async (data) => {
 
@@ -36,9 +32,12 @@ function LoginPage() {
       navigate("/user/movies")
      }
      
-    } catch (error) {
-     
+    } catch (error) {    
       setErrorMessage(error.response.data)
+      console.log(error)
+      if(error.response.data.message === "user doesn't exist"){
+        navigate("/sign-up")
+       }
     }
   }
 
@@ -97,9 +96,9 @@ function LoginPage() {
               </p>
               <LoginPageButton type="submit" />
             </form>
-            <div className="h-4 text-xs mt-1 text-red-500 font-semibold">
+           {/* <div className="h-4 text-xs mt-1 text-red-500 font-semibold">
             {errorMessage.success === false ? errorMessage.message : null}
-            </div>
+            </div>  */}
           </div>
         </div>
       </div>

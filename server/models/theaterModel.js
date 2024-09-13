@@ -44,6 +44,9 @@ import mongoose from 'mongoose';
                     type: mongoose.Types.ObjectId,
                     ref: "movies",
                   },
+                  movieName: {
+                    type: String,
+                  },
                   date: {
                     type: String,
                   },

@@ -13,7 +13,7 @@ function AdminSecureLayout() {
       
         <SideBar />
 
-        <div className="w-full ml-16 md:ml-56">
+        <div className="w-full ml-16 md:ml-56 overflow-auto">
           
           <AdminSecureHeader />
           <Outlet />

@@ -5,6 +5,7 @@ import {TbUsers} from "react-icons/tb"
 import { LuBox } from "react-icons/lu";
 import { SlCalender } from "react-icons/sl";
 import { Link } from 'react-router-dom';
+import { FaIndianRupeeSign } from "react-icons/fa6";
 import logo from "../../../assets/image/movie-logo new.png";
 
 
@@ -20,7 +21,7 @@ const handleClick = (index) => {
       {id:2, path:'users',name:"Users", icon:TbUsers},
       {id:3, path:'owners',name:"Owners", icon:TbUsers},
       {id:4, path:'review',name:"Reviews", icon:LuMessageSquare},
-      // {id:5, path:'/clients',name:"Clients", icon:LuUser},
+      {id:5, path:'payment',name:"Payment", icon:FaIndianRupeeSign},
       // {id:6, path:'/work',name:"Work plan", icon:SlCalender}
     ]
 

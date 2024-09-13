@@ -10,6 +10,7 @@ function PaymentSuccessPage() {
   const time = useSelector((state) => state.payment.value)
   const payment = useSelector((state) => state.payment.payment)
   const selectedSeat = useSelector((state) => state.payment.seat)
+  const movieName = useSelector((state) => state.payment.movie)
 
  const navigate = useNavigate()
 
@@ -41,7 +42,8 @@ const {theater} = useParams()
           data:{
             moviePayment:payment,
             movieTime:time,
-            movieSeat:selectedSeat
+            movieSeat:selectedSeat,
+            movieName:movieName
           }
     })
      

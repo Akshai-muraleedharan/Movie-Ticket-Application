@@ -42,11 +42,11 @@ router.get('/payment-list',authAdmin,totalPaymentList)
 router.get('/rating-All',authAdmin,movieRatingGetAll)
 router.get('/movie-rating/:id',authAdmin,movieRatingGetAdmin)
 router.get('/owner-All',authAdmin,ownerGetALL)
-
+ 
 router.delete("/rating/:id", authAdmin, movieRatingDelete);
 router.delete("/user/:id", authAdmin, userDeleteByAdmin);
 router.delete("/owner/:id", authAdmin, AdminTheaterOwnerDelete);
 
- 
+  
 
 export default router
