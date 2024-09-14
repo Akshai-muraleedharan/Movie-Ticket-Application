@@ -28,22 +28,10 @@ function MovieListPage() {
 
   const moviList = movies.map((item) => {
     return(
-      <div className="card static rounded-lg cursor-default card-compact bg-base-100 w-64 md:w-60 shadow-xl " key={item._id} >
+    item.showTime.length < 1 ? " " :  <div className="card static rounded-lg cursor-default card-compact bg-base-100 w-64 md:w-60 shadow-xl " key={item._id} >
       <Link to={`/user/single-page/${item._id}`}>
       <figure>
-
-     
-         
-         
-          <img
-          className="rounded-t-lg w-full max-h-[200px] md:max-h-[250px] cursor-pointer"
-          src={item.image}
-          alt="Shoes"
-        />
-      
-
-
-        
+          <img className="rounded-t-lg w-full max-h-[200px] md:max-h-[250px] cursor-pointer" src={item.image} alt="Shoes"/>
       </figure>
       </Link>
     
@@ -67,7 +55,6 @@ function MovieListPage() {
      <h1 className="text-center mt-24 font-bold text-4xl mb-14">
         New Release
       </h1>
-      {/* max-width1000px */}
       <div className="container  md:max-w-[900px] mx-auto mb-10">
         <div className="flex flex-wrap justify-center gap-5">
         { moviList}    

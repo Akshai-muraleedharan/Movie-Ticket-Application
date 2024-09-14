@@ -258,14 +258,19 @@ export const theaterSingleUser = async (req, res) => {
 export const theaterSheduleDelete = async (req, res) => {
   try {
     const { id } = req.params;
-
-    const { movieId } = req.params;
+    const { sheduleId } = req.params;
+    const {movieId} =req.params
     await TheaterModel.findByIdAndUpdate(
       { _id: id },
-      { $pull: { movieSchedules: { _id: movieId } } },
+      { $pull: { movieSchedules: { _id: sheduleId } } },
       { new: true }
     );
 
+   const movieTime = await NewMovieModel.findById({_id: movieId })
+let time = movieTime.showTime
+
+ const value = await NewMovieModel.findByIdAndUpdate({_id: movieId },{$set:{'showTime': [] }},{new:true})
+console.log(time)
     res.json({ success: true, message: "movie deleted" });
   } catch (error) {
     console.log(error);

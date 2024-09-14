@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { UserPen } from 'lucide-react';
 import { CircleArrowRight } from 'lucide-react';
 import { FaArrowLeft } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 
 
 
@@ -21,8 +22,8 @@ function ProfilePageClient() {
   const [imagesMobile,setImagesMobile] = useState(false)
   const {register,handleSubmit,formState:{errors}} = useForm()
   const navigate = useNavigate();
- 
- 
+  const theaterId = useSelector((state) => state.owner.theaterIds)
+
 // handle click
 
       const handleClick = () => {
@@ -90,7 +91,7 @@ function ProfilePageClient() {
   const hardDelete =async () => {
     try {
     const response =  await axiosInstance({
-          url:"/owner/account-delete",
+          url:`/owner/account-delete/${theaterId}`,
           method:"DELETE"
       })
       

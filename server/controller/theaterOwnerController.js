@@ -6,6 +6,7 @@ import { hashPassword } from '../utils/hashedPassword.js'
 import { matchPassword } from '../utils/comparePassword.js'
 import OtpModel from '../models/otpModel.js'
 import TheaterModel from '../models/theaterModel.js'
+import NewMovieModel from '../models/newMovieModel.js'
 
 
 export const ownerSignup = async (req,res) => {
@@ -189,7 +190,8 @@ export const ownerDelete = async (req,res) => {
     try {
 
        const verifiedOwner = req.owner.email;
-       
+       const {theaterId} = req.params
+   console.log(theaterId)
         const accountExist = await OwnerModel.findOne({email:verifiedOwner})
 
         if(!accountExist){
@@ -198,11 +200,11 @@ export const ownerDelete = async (req,res) => {
             res.clearCookie('token')
             await OwnerModel.findOneAndDelete({email:verifiedOwner})
             await TheaterModel.findOneAndDelete({Ownermail:verifiedOwner})
-            res.json({success:true,message:"your account deleted successfully"})
+            await NewMovieModel.findOneAndDelete({theaterId:theaterId})
+            res.json({success:true,message:"your account deleted successfully"}) 
         }
 
       
-
     } catch (error) {
       console.log(error)
         res.status(error.status || 500).json({message:error || "internal server error"})

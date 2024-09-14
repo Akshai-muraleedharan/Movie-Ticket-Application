@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../../config/axiosInstance.js";
-import Loader from "../../components/Loader.jsx";
-
+import { Ellipsis } from 'lucide-react';
 
 function HomePageClient() {
   const [movies,setmovies] =useState([])
-  const [loading, setLoading] = useState(true);
+
 
   const fetchMovieList = async () => {
       
@@ -46,6 +45,23 @@ function HomePageClient() {
         </div>
      
        <h4 className="card-title">{item.title}</h4> 
+       <div className="flex justify-end text-xs">
+       <Ellipsis onClick={()=>document.getElementById('my_modal_3').showModal()} className="cursor-pointer"/>
+     
+
+<dialog id="my_modal_3" className="modal">
+  <div className="modal-box">
+    <form method="dialog">
+   
+      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    <h3 className="font-bold text-lg">Released Theater and place</h3>
+    <p className="py-2">{`Theater : ${item.theaterId.screenName}`}</p>
+    <p className="py-2">{`Place : ${item.theaterId.city}`}</p>
+  </div>
+</dialog>
+       </div>
+   
       </div>
     </div>
     )

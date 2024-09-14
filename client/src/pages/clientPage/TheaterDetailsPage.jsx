@@ -2,20 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { axiosInstance } from '../../config/axiosInstance'
 import { X } from 'lucide-react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-
 import { FaArrowLeft } from 'react-icons/fa6';
+import { useDispatch } from 'react-redux';
+import {theaterIdValue} from '../../Redux/Owner/OwnerSlice'
 
 function TheaterDetailsPage() {
- const [fetchTheater,setFetch] = useState("");
- const [shedules,setShedules] = useState([]);
+  const [fetchTheater,setFetch] = useState("");
+  const [shedules,setShedules] = useState([]);
+  const dispatch = useDispatch()
 
 
-console.log(shedules)
+  const navigate = useNavigate()
 
- const navigate = useNavigate()
+  const theaterId =fetchTheater ? fetchTheater._id : null
 
-const fetchId =fetchTheater ? fetchTheater._id : null
- 
 const fetchSingleTheater = async () => {
   try {
     const response = await axiosInstance({
@@ -25,17 +25,18 @@ const fetchSingleTheater = async () => {
     
     setFetch(response.data.data)
     setShedules(response.data.data.movieSchedules)
+    dispatch(theaterIdValue(response.data.data._id))
   } catch (error) {
     console.log(error)
   }
 }
 
-const sheduleDelete = async (cardId)=> {
+const sheduleDelete = async (shedules,movieId)=> {
  
   try {
   
     const response = await axiosInstance({
-        url:`theater/delete-shedule/theaterId/${fetchId}/sheduleId/${cardId}`,
+        url:`theater/delete-shedule/theaterId/${theaterId}/sheduledId/${shedules}/movieid/${movieId}`,
         method:"PUT"
       })
       fetchSingleTheater()
@@ -104,7 +105,7 @@ useEffect(()=> {
                 
               {shedules.length > 0 ? shedules.map((item) => (
                    <div key={item._id} className='mt-5 p-2 rounded-md shadow-md flex flex-col flex-wrap w-full md:w-4/12 lg:w-3/12'>
-                    <div className='flex justify-end' onClick={()=> sheduleDelete(item._id)}> <X /></div>
+                    <div className='flex justify-end' onClick={()=> sheduleDelete(item._id,item.movieId._id)}> <X /></div>
                      <div className=' flex justify-center'>
                      <img className='h-44 w-36' src={item.movieId.image ? item.movieId.image  : ''} alt={item.movieId.title} />
                      </div>

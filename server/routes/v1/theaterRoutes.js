@@ -19,7 +19,7 @@ router.put('/update-theater/:id',authOwner,theaterUpdate);
 
 router.delete('/delete-theater/:id',authOwner,theaterDelete);
 
-router.put('/delete-shedule/theaterId/:id/sheduleId/:movieId',authOwner,theaterSheduleDelete);
+router.put('/delete-shedule/theaterId/:id/sheduledId/:sheduleId/movieid/:movieId',authOwner,theaterSheduleDelete);
 
 router.get('/single-theater',authOwner,theaterSingle);
 

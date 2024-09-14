@@ -9,7 +9,7 @@ const initialState = {
   value:time,
   payment:payment,
   seat:seat,
-  movieName:movie
+  movie:movie
 }
 
 export const showTimeSlice = createSlice({

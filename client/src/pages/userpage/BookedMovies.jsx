@@ -7,6 +7,7 @@ function BookedMovies() {
   const [movies, setMovies] = useState([]);
   const navigate = useNavigate();
 
+  console.log(movies)
   const bookedMovies = async () => {
     try {
       const response = await axiosInstance({
