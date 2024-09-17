@@ -1,3 +1,4 @@
+import NewMovieModel from '../models/newMovieModel.js';
 import RatingModel from '../models/ratingModel.js';
 import UserModel from "../models/userModel.js";
 
@@ -10,9 +11,9 @@ export const movieRatingCreate = async (req,res) => {
         const User = await UserModel.findOne({email:verifiedUser})    
         const userId = User._id
         const usermail = User.email
-
-        console.log(usermail)
-
+ 
+         
+        
         if(!movieId){
             return res.status(400).json({success:false,message:"id not exist"})
         }
@@ -20,16 +21,12 @@ export const movieRatingCreate = async (req,res) => {
         if(!comment){
             return res.status(400).json({success:false,message:"review required"})
         }
+ 
+        const movie = await NewMovieModel.findById(movieId)
 
-        // if(!rating ){
-        //     return res.status(400).json({success:false,message:"rating is required"})
-        // }
-
-        // if(rating > 5 || rating <= 0){
-        //     return res.status(400).json({success:false,message:"rating min-1 max-5 required"})
-        // }
-
-        const UserRating = await RatingModel({ username:userId,comment,movie:movieId ,usermail})
+        const movieName = movie.title
+     
+        const UserRating = await RatingModel({ username:userId,comment,movie:movieId,usermail,movieName:movieName})
 
       const data = await UserRating.save()
 
@@ -60,10 +57,9 @@ export  const movieRatingGet = async  (req,res) => {
 export  const movieRatingGetAdmin = async  (req,res) => {
     try{
         const {id} = req.params;
-         console.log("hitted")
-        const allComment = await RatingModel.find({movie:id})
-        .populate( {  path: "username",select:['-password','-profilePic','-movieBooked','-userDeleted','-mobile','-city']})
-
+        console.log(id)
+        const allComment = await RatingModel.find()
+       
         res.json({success:true,message:"fetched",data:allComment})
 
     }catch(error){

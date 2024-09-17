@@ -43,7 +43,7 @@ useEffect(()=>{
     <tbody>
       
         {theater.map((item,index)=> (
-         <>
+        
          <tr className='font-semiBold' key={item._id} >
           <th>{index + 1}</th>
           <td>{item.screenName}</td>
@@ -54,7 +54,7 @@ useEffect(()=>{
 
           
           </tr>
-         </>
+        
         ))}
      
   

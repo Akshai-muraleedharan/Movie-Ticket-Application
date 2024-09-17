@@ -60,10 +60,10 @@ function AdminReviewPage() {
     <tbody>
       
         {review.map((item,index)=> (
-         <>
-         <tr key={index} >
+        
+         <tr key={item._id} >
           <th>{index + 1}</th>
-          <td>{item.movie.title}</td>
+          <td>{item.movieName}</td>
            <td>{item.comment}</td>
            <td>{item.username.username}</td>
            <td>{item.usermail}</td>
@@ -72,7 +72,7 @@ function AdminReviewPage() {
           <td className='text-center'> <Trash onClick={()=> ownerDelete(item._id)} className='mx-auto cursor-pointer'/></td>
             
           </tr>
-         </>
+         
         ))}
      
   

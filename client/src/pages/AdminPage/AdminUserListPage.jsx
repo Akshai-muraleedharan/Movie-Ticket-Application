@@ -59,8 +59,8 @@ const userDelete = async (id) => {
     <tbody>
       
         {user.map((item,index)=> (
-         <>
-         <tr key={index} >
+        
+         <tr key={item._id} >
           <th>{index + 1}</th>
           <td>{item.username}</td>
           <td>{item.email}</td>
@@ -69,7 +69,7 @@ const userDelete = async (id) => {
           <td className='text-center'> <Trash onClick={()=> userDelete(item._id)} className='mx-auto cursor-pointer'/></td>
           
           </tr>
-         </>
+       
         ))}
      
   
