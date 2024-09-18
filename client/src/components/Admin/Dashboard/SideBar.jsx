@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
-import {LuUser,LuMessageSquare} from "react-icons/lu"
-import { FaSuitcase } from "react-icons/fa";
+import {LuMessageSquare} from "react-icons/lu"
 import {TbUsers} from "react-icons/tb"
 import { LuBox } from "react-icons/lu";
-import { SlCalender } from "react-icons/sl";
 import { Link } from 'react-router-dom';
 import { FaIndianRupeeSign } from "react-icons/fa6";
-import logo from "../../../assets/image/movie-logo new.png";
+import logo from "../../../assets/image/movie-logo.webp";
 
 
 function SideBar() {

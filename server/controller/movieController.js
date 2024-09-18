@@ -101,7 +101,7 @@ export const singleMovie = async (req,res) => {
 
 export const movieList = async (req, res) => {
   try {
-    const allMovie = await NewMovieModel.find().populate({path:"theaterId",model:"theater"});
+    const allMovie = await NewMovieModel.find().populate({path:"theaterId",model:"theater",select:['-userPayment','-movieSchedules','-seats']});
 
     const moviesLength = allMovie.length;
     if (moviesLength <= 0) {

@@ -12,7 +12,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 
 function UserProfile() {
   const [profile, setProfile] = useState({});
-  
+
   const [disable,setDisable] = useState(false)
   const [disableEmail,setDisableEmail] = useState(false)
   const [disableMobile,setDisableMobile] = useState(false)
@@ -20,9 +20,10 @@ function UserProfile() {
   const [imagesEmail,setImagesEmail] = useState(false)
   const [imagesMobile,setImagesMobile] = useState(false)
   const {register,handleSubmit,formState:{errors}} = useForm()
+ 
   const navigate = useNavigate();
  
- 
+
 // handle click
 
       const handleClick = () => {
@@ -69,7 +70,11 @@ function UserProfile() {
 
       setProfile(response.data.data);
     } catch (error) {
+      
       console.log(error);
+      // if(error.data.message === "no account"){
+            //     navigate("/login")
+            // }
     }
   };
 
@@ -218,10 +223,7 @@ function UserProfile() {
               </div>
               
               <div className="flex justify-between w-full text-xs mt-5 mb-2 font-semibold text-red-500">
-                  {/* <button onClick={softDelete}>Soft Delete</button>
-                  <button className="mr-2" onClick={hardDelete}> permanent Delete</button> */}
-
-                      
+                       
                     <button onClick={softDelete}>Soft Delete</button>
                     <button className="mr-2" onClick={hardDelete}> permanent Delete</button>
 

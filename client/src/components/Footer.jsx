@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/image/movie-logo new.png";
+import logo from "../assets/image/movie-logo.webp";
 import { BsInstagram } from "react-icons/bs";
 import { FaTwitter } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";

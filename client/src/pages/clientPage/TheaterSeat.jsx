@@ -119,7 +119,7 @@ function TheaterSeat() {
         <div className='flex flex-wrap justify-evenly gap-2 md:gap-2 w-4/5 md:max-w-[700px]'>
         { seats.map((seat, index) => (
               <div
-                key={index} className={`seat ${seat.availableSeat ? (seat.selected ? 'selected' : 'available') : 'booked'}`}>
+                key={seat.seatEndNumber} className={`seat ${seat.availableSeat ? (seat.selected ? 'selected' : 'available') : 'booked'}`}>
               </div>
             ))}
             </div>

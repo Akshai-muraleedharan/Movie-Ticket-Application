@@ -21,6 +21,7 @@ export const UserAuth = ({ children }) => {
         } catch (error) {
             navigate("/login")
             console.log(error)
+            
         }
     }
 

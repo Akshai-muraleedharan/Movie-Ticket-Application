@@ -1,68 +1,73 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../../config/axiosInstance.js";
-import {useNavigate} from 'react-router-dom'
-
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
-  const [movies,setmovies] =useState([])
- 
- const navigate = useNavigate()
-  const fetchMovieList = async () => {
-    
-   
+  const [movies, setmovies] = useState([]);
+
+  const navigate = useNavigate();
+
+  //  fetch list of movies create
+  const fetchMovieList = async () => { 
     try {
       const respone = await axiosInstance({
         url: "/movie/list",
         method: "GET",
       });
 
-      setmovies(respone?.data?.movies)
+      setmovies(respone?.data?.movies);
     } catch (error) {}
   };
   const handleClick = () => {
-    navigate('/login')
-  }
+    navigate("/login");
+  };
 
   useEffect(() => {
     fetchMovieList();
-  
-
   }, []);
 
   const moviList = movies.map((item) => {
-    return(
-      <div className="card[unset] rounded-lg card-compact bg-base-100 w-64 md:w-60 shadow-xl cursor-pointer" key={item._id} onClick={handleClick}>
-  
-      <figure>
-        <img
-          className="rounded-t-lg w-full max-h-[250px] "
-          src={item.image}
-          alt="Shoes"
-        />
-      </figure>
-      <div className="card-body">
-      <div className="flex items-center justify-between">
-        <span className="text-xs border-2 border-blue-200 p-1 text-center rounded-lg text-slate-500" >{item.language}</span>
-        <span className="text-slate-400 text-xs">{item.genres}</span>
+    return (
+      <div
+        className="card[unset] rounded-lg card-compact bg-base-100 w-64 md:w-60 shadow-xl cursor-pointer"
+        key={item._id}
+        onClick={handleClick}
+      >
+        <figure>
+          <img
+            className="rounded-t-lg w-full max-h-[250px] "
+            src={item.image}
+            alt="Shoes"
+          />
+        </figure>
+        <div className="card-body">
+          <div className="flex items-center justify-between">
+            <span className="text-xs border-2 border-blue-200 p-1 text-center rounded-lg text-slate-500">
+              {item.language}
+            </span>
+            <span className="text-slate-400 text-xs">{item.genres}</span>
+          </div>
+
+          <h4 className="card-title">{item.title}</h4>
         </div>
-     
-       <h4 className="card-title">{item.title}</h4> 
       </div>
-    </div>
-    )
-  })
+    );
+  });
 
   return (
     <>
       <h1 className="text-center mt-24 font-bold text-4xl mb-14">
-        New Release
+        New Releases
       </h1>
       <div className="container mx-auto mb-10">
-      {movies.length === 0 ? <p className="text-center text-red-500 font-semibold">no movies today</p>  : <div className="flex flex-wrap justify-center gap-5">
-       { moviList}
-        </div>}
+        {movies.length === 0 ? (
+          <p className="text-center text-red-500 font-semibold">
+            no movies today
+          </p>
+        ) : (
+          <div className="flex flex-wrap justify-center gap-5">{moviList}</div>
+        )}
       </div>
-    
     </>
   );
 }

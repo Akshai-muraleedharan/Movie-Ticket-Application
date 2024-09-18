@@ -166,7 +166,7 @@ export const userProfile = async (req, res) => {
       email: verifiedUser,
     }).select("-password");
 
-    if (!userProfileData) {
+     if (!userProfileData) {
       return res.status(400).json({ success: false, message: "no account" });
     }
 

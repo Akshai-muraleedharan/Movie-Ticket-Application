@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import AboutPage from "../pages/rootpage/AboutPage.jsx";
 import { UserAuth } from "./protected routes/UserAuth.jsX";
 import { OwnerAuth } from "./protected routes/OwnerAuth.jsx";
 import { AdminAuth } from "./protected routes/AdminAuth.jsx";
@@ -11,7 +10,7 @@ import AdminSecureLayout from "../layouts/admin/AdminSecureLayout.jsx";
 import AdminLayout from "../layouts/admin/AdminLayout.jsx";
 import { lazy,Suspense } from 'react';
 import Loader from "../components/Loader.jsx";
-import AdminTheaterPayment from "../pages/AdminPage/AdminTheaterPayment.jsx";
+
 
 
 
@@ -59,6 +58,7 @@ const AdminReviewPage = lazy(() => import('../pages/AdminPage/AdminReviewPage.js
 const AdminOwnersList = lazy(() => import('../pages/AdminPage/AdminOwnersList.jsx'));
 const UserListPage = lazy(() => import('../pages/AdminPage/AdminUserListPage.jsx'));
 const PaymentPage = lazy(() => import('../pages/clientPage/PaymentPage.jsx'));
+const AdminTheaterPayment = lazy(() => import('../pages/AdminPage/AdminTheaterPayment.jsx'));
 
 
 
@@ -76,13 +76,8 @@ export const router = createBrowserRouter([
         path: "",
 
         element: <HomePage />
-      
-        
       },
-      {
-        path: "about",
-        element: <AboutPage />,
-      },
+     
       {
         path: "login",
         element: <LoginPage />,
@@ -112,10 +107,7 @@ export const router = createBrowserRouter([
         path: "movies",
         element: <MovieListPage />,
       },
-      {
-        path: "about",
-        element: <AboutPage />,
-      },
+     
 
       {
         path: "single-page/:id",
@@ -181,10 +173,7 @@ export const router = createBrowserRouter([
         path: "",
         element: <HomePageClient />,
       },
-      {
-        path: "about",
-        element: <AboutPage />,
-      },
+     
       {
         path:"create-movie/:id",
         element:<CreateMoviePage/>
@@ -287,21 +276,8 @@ export const router = createBrowserRouter([
     ]
 
   },
-  // {
-  //   path:"list",
-  //   element:(
-  //     <AdminAuth>
-  //   <AdminDashboard />
-  //   </AdminAuth>
-  // ),
+ 
 
-  // children:[
-  //  {
-  //   path:"user-list",
-  //   element:<UserList/>
-  //  }
-  // ]
-  // }
 
  
   

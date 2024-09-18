@@ -60,8 +60,8 @@ const navigate = useNavigate()
     <tbody>
       
         { theater.map((item,index)=> (
-         <>
-         <tr key={index}className="text-center font-semibold">
+       
+         <tr key={item._id}className="text-center font-semibold">
           <th>{index + 1}</th>
           <td>{item.userbookedId}</td>
           <td>{item.movieId.title}</td>
@@ -72,7 +72,7 @@ const navigate = useNavigate()
           
           
           </tr>
-         </>
+        
         ))}
     
   

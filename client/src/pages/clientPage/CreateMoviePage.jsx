@@ -42,16 +42,16 @@ function CreateMoviePage() {
 
   return (
     <>
-      <div className="backGround_img_client ">
+      
         <button
-          className="mt-8 ml-8 text-[20px] text-white"
+          className="mt-8 ml-8 text-[20px] "
           onClick={() => navigate(-1)}
         >
           <FaArrowLeft />
         </button>
-        <div className="w-full flex  justify-center mt-8 mb-4  items-center ">
+        <div className="w-full flex  justify-center mt-8 mb-20  items-center  ">
           {/* validform */}
-          <div className="border-0 p-5 w-full md:w-[80%] rounded-md shadow-lg ">
+          <div className="border-0 p-5 w-full md:w-[80%] rounded-md shadow-xl ">
             <h2 className="text-center mb-2 font-bold text-2xl text-white">
               Post Movies
             </h2>
@@ -114,13 +114,13 @@ function CreateMoviePage() {
                 </label>
               </div>
 
-              <AddMovieButton loadings={loading} />
+              <AddMovieButton  />
               <Toaster />
             </form>
             <div></div>
           </div>
         </div>
-      </div>
+     
     </>
   );
 }

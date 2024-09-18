@@ -1,5 +1,5 @@
 import { SignUpPageButton } from '../ui/buttons/Buttons';
-import logo from "../../assets/image/movie-logo new.png";
+import logo from "../../assets/image/movie-logo.webp";
 import { Link } from 'react-router-dom';
 
 function ClientAndAdminHeader() {

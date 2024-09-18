@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { X } from "lucide-react";
-import logo from "../assets/image/movie-logo new.png";
+import logo from "../assets/image/movie-logo.webp";
 import { LoginButton } from "./ui/buttons/Buttons";
 
 function Header() {

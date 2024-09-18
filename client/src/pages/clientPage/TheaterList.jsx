@@ -59,17 +59,17 @@ const navigate = useNavigate()
               </thead>
 
               <tbody>
-              {theater.map((item,index)=> (
+              {theater.map((item)=> (
               
-              <>
+            
                
-                <tr key={index}>
+                <tr key={item._id}>
                   
                   <td>{item.screenName}</td>
                   <td> {item.screenType} </td>
                   <td> {item.city} </td>
                 </tr>
-                </>
+              
                ))}
                
               </tbody>

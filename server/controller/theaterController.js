@@ -264,7 +264,7 @@ export const theaterSheduleDelete = async (req, res) => {
       { _id: id },
       { $pull: { movieSchedules: { _id: sheduleId } } },
       { new: true }
-    );
+    ); 
 
    const movieTime = await NewMovieModel.findById({_id: movieId })
 let time = movieTime.showTime

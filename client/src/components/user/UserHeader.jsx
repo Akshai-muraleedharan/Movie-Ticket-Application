@@ -1,17 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { X } from "lucide-react";
-import logo from "../../assets/image/movie-logo new.png";
+import logo from "../../assets/image/movie-logo.webp";
 import { CircleUserRound } from 'lucide-react';
 import { axiosInstance } from "../../config/axiosInstance";
-import { RiMovie2Line } from "react-icons/ri";
 import { DarkMode } from "../ui/Header/DarkMode";
-function UserHeader() {
-  const [toggles, setToggles] = useState(false);
-  const [name,setName] = useState([])
- const[display,setDisplay] = useState(false)
 
+function UserHeader() {
+
+ 
+  const [toggles, setToggles] = useState(false);
+  const [name,setName] = useState(null)
+  const[display,setDisplay] = useState(false)
+
+ const navigate = useNavigate()
+ 
 
   const navRef = useRef();
   function toggle() {
@@ -23,6 +27,7 @@ function  toggleRemove(){
 }
     
 
+
   const profileName = async () => {
     try {
       const response = await axiosInstance({
@@ -32,9 +37,18 @@ function  toggleRemove(){
 
       setName(response?.data?.data)
     } catch (error) {
+      const errs = error.response.data.message
+      
+      if(errs === "no account"){
+        navigate("/login")
+      }
       console.log(error)
+
+     
     }
   }
+
+  
 
   useEffect(()=> {
 

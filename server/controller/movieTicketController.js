@@ -63,7 +63,7 @@ export const movieTicket = async(req,res) => {
             return res.status(400).json({success:false,message:"session id not get"})
         }
         const sessionId = await SessionModel({
-            sessionId: session.id
+            sessionId: session.id       
         })
 
         sessionId.save()
@@ -71,7 +71,7 @@ export const movieTicket = async(req,res) => {
         res.json({ success: true, sessionId: session.id });
 
         const sessionStatus = await stripe.checkout.sessions.retrieve(session.id );
-        console.log(sessionStatus.status)
+  
 
     } catch (error) {
         console.log(error)

@@ -34,16 +34,14 @@ export function SignUpPageButton() {
 }
 
 
-export function AddMovieButton({loadings}) {
+export function AddMovieButton() {
 
 
   return (
          
-     loadings === false ?  <button className="bg-green-500 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
+     <button className="bg-green-500 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
         Add - movie
-      </button> : <button disabled  className="bg-green-300 cursor-not-allowed text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
-       Loading....
-      </button>
+      </button>  
     
   );
 }
