@@ -43,7 +43,7 @@ function MovieShedulePage() {
               navigate("/clients/theater-detail")
             }
 
-            console.log(response)
+            
         } catch (error) {
             console.log(error)
         }

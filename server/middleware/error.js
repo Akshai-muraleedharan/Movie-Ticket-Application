@@ -3,7 +3,7 @@
 
 export const errorSignupHandler = (req,res,next) => {
         try {
-            // console.log(req.body)
+           
             const { email, username, password, city,confirmPassword,mobile } = req.body;
 
             if (!username || username.trim() === "") {

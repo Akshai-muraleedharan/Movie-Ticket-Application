@@ -191,7 +191,7 @@ export const ownerDelete = async (req,res) => {
 
        const verifiedOwner = req.owner.email;
        const {theaterId} = req.params
-   console.log(theaterId)
+   
         const accountExist = await OwnerModel.findOne({email:verifiedOwner})
 
         if(!accountExist){

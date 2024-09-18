@@ -27,7 +27,7 @@ function ClientOtp() {
             setRestore(response.data)
             toast.success("Otp generated successfully")
 
-            console.log(response)
+           
         } catch (error) {
             toast.error("something error")
             setErrorMessage(error.response.data)

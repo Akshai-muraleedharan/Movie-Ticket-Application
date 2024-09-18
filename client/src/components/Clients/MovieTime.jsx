@@ -13,7 +13,7 @@ function MovieTime() {
     const navigate = useNavigate()
     const {movieId} =useParams()
 
-console.log(myArray)
+
    
 
     const handleAddValue = () => {

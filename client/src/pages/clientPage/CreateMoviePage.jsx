@@ -3,7 +3,7 @@ import { AddMovieButton } from "../../components/ui/buttons/Buttons";
 import { useForm } from "react-hook-form";
 import { axiosInstance } from "../../config/axiosInstance";
 import { useNavigate, useParams } from "react-router-dom";
-import { FaArrowLeft, FaGalacticSenate } from "react-icons/fa6";
+import { FaArrowLeft} from "react-icons/fa6";
 import { useState } from "react";
 
 function CreateMoviePage() {

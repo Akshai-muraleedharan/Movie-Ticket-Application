@@ -65,7 +65,7 @@ export const theaterMovieShedule = async (req, res) => {
     const { movieId } = req.body;
     const movie = await TheaterModel.findById(id);
 
-    console.log(movieId);
+   
     if (!movie) {
       return res
         .status(200)
@@ -125,7 +125,7 @@ export const seatCreate = async (req, res) => {
     const seatPayment = parseInt(req.body.seatPayment);
     const seatStart = parseInt(req.body.seatStart);
     const { id } = req.params;
-    console.log(seatPayment);
+    
     const seat = await TheaterModel.findById(id, {});
 
     for (
@@ -270,7 +270,7 @@ export const theaterSheduleDelete = async (req, res) => {
 let time = movieTime.showTime
 
  const value = await NewMovieModel.findByIdAndUpdate({_id: movieId },{$set:{'showTime': [] }},{new:true})
-console.log(time)
+
     res.json({ success: true, message: "movie deleted" });
   } catch (error) {
     console.log(error);
