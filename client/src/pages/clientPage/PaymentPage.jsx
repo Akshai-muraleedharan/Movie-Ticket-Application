@@ -6,7 +6,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 function PaymentPage() {
 const [theater,setTheater] = useState([])
 
-console.log(theater)
+
 const navigate = useNavigate()
 
 

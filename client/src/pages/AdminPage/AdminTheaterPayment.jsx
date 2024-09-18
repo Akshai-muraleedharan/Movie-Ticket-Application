@@ -36,7 +36,7 @@ useEffect(()=>{
         <th>Owner Email</th>
         <th>place</th>
         <th>Screen Type</th>
-        <th> payments</th>
+        <th>Total payments</th>
         
       </tr>
     </thead>
