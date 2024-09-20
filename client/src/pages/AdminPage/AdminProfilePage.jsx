@@ -218,16 +218,15 @@ function AdminProfilePage() {
 
               </div>
               
-              <div className="flex justify-between w-full text-xs mt-5 mb-2 font-semibold text-red-500">
-                  {/* <button onClick={softDelete}>Soft Delete</button>
-                  <button className="mr-2" onClick={hardDelete}> permanent Delete</button> */}
+              {/* <div className="flex justify-between w-full text-xs mt-5 mb-2 font-semibold text-red-500">
+                 
 
                       
                     <button onClick={softDelete}>Soft Delete</button>
                     <button className="mr-2" onClick={hardDelete}> permanent Delete</button>
 
                   <Toaster/>
-              </div>
+              </div> */}
            
           </div>
         </div>

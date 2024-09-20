@@ -60,13 +60,9 @@ function HomePage() {
         New Releases
       </h1>
       <div className="container mx-auto mb-10">
-        {movies.length === 0 ? (
-          <p className="text-center text-red-500 font-semibold">
-            no movies today
-          </p>
-        ) : (
+      
           <div className="flex flex-wrap justify-center gap-5">{moviList}</div>
-        )}
+       
       </div>
     </>
   );

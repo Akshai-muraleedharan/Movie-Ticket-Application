@@ -6,7 +6,7 @@ import { X } from "lucide-react";
 function BookedMovies() {
   const [movies, setMovies] = useState([]);
   const navigate = useNavigate();
-
+  const [display,setDisplay] =useState(false)
   
   const bookedMovies = async () => {
     try {
@@ -33,6 +33,11 @@ function BookedMovies() {
     }
   };
 
+
+ setTimeout(()=>{
+  setDisplay(true)
+ },3000)
+
   useEffect(() => {
     bookedMovies();
   }, []);
@@ -47,10 +52,8 @@ function BookedMovies() {
       </button>
 
       <div className=" px-3 md:px-14 md:container flex gap-3 flex-wrap  justify-center md:mx-auto mb-10 mt-6 lg:max-w-[800px]">
-        {movies < 1 ? (
-          <h2 className="text-red-500 font-semibold">No Movie Booked</h2>
-        ) : (
-          movies.map((item, index) => (
+        {movies.length > 0 ? (
+           movies.map((item, index) => (
             <div key={item._id} className="min-w-[300px] md:min-w-[251px]   p-2 shadow-lg cursor-default">
               <div className="p-2  rounded-t-lg ">
                 <div className="flex justify-between ">
@@ -90,6 +93,9 @@ function BookedMovies() {
               </div>
             </div>
           ))
+         
+        ) : (
+        display ? <h2 className="text-red-500 font-semibold">No Movie Booked</h2> : ""
         )}
       </div>
     </>

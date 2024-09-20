@@ -169,11 +169,7 @@ function UserProfile() {
       <div className=" px-3 md:px-14 md:container md:mx-auto mb-10 mt-6 ">
         <div className="grid p-0 grid-cols-1 rounded-md md:grid-cols-2  md:p-3 shadow-xl">
           <div className="flex justify-between flex-col items-center  ">
-            <img
-              className="w-6/12 rounded-[50%]"
-              src={profile.profilePic || ""}
-              alt={profile.username || ""}
-            />
+            <img className="w-6/12 rounded-[50%]"src={profile.profilePic || ""} alt={profile.username || ""} />
             <h2 className="font-semibold mt-5">{profile.email}</h2>
 
             
@@ -222,13 +218,13 @@ function UserProfile() {
 
               </div>
               
-              <div className="flex justify-between w-full text-xs mt-5 mb-2 font-semibold text-red-500">
+              {/* <div className="flex justify-between w-full text-xs mt-5 mb-2 font-semibold text-red-500">
                        
                     <button onClick={softDelete}>Soft Delete</button>
                     <button className="mr-2" onClick={hardDelete}> permanent Delete</button>
 
                   <Toaster/>
-              </div>
+              </div> */}
            
           </div>
         </div>
