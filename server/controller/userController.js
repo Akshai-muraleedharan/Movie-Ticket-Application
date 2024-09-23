@@ -75,7 +75,7 @@ export const userLogin = async (req, res, next) => {
     if (!userExist) {
       return res
         .status(400)
-        .json({ success: false, message: "user doesn't exist" });
+        .json({ checkUser: false, message: "user doesn't exist" });
     }
 
     const deletedUser = userExist.userDeleted;

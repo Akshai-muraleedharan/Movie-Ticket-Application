@@ -35,9 +35,9 @@ function LoginPage() {
     } catch (error) {    
       setErrorMessage(error.response.data)
       console.log(error)
-      if(error.response.data.message === "user doesn't exist"){
-        navigate("/sign-up")
-       }
+      // if(error.response.data.message === "user doesn't exist"){
+      //   navigate("/sign-up")
+      //  }
     }
   }
 
@@ -89,16 +89,16 @@ function LoginPage() {
                 </div>
               </div>
               <p className="text-xs text-slate-500 mb-1">
-                Don't have an account ?
+                Don't have an account ? 
                 <Link to={"/sign-up"}>
-                  <span className="text-blue-400">Signup</span>
+                  <span className="text-blue-400 ml-1">Signup</span>
                 </Link>
               </p>
               <LoginPageButton type="submit" />
             </form>
-           {/* <div className="h-4 text-xs mt-1 text-red-500 font-semibold">
-            {errorMessage.success === false ? errorMessage.message : null}
-            </div>  */}
+           <div className="h-4 text-xs mt-1 text-red-500 font-semibold">
+            {errorMessage.checkUser === false ? errorMessage.message : null}
+            </div> 
           </div>
         </div>
       </div>
