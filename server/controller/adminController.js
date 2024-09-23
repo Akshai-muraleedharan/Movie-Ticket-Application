@@ -81,7 +81,7 @@ export const adminLogin = async (req, res, next) => {
 
       
         if (!adminExist ) {
-          return res .status(400) .json({ success: false, message: "admin doesn't exist" });
+          return res .status(400) .json({ checkUser: false, message: "admin doesn't exist" });
         }
           // To check the admin is soft delete
         const deletedAdmin = adminExist.adminDeleted

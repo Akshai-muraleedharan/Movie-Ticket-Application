@@ -83,14 +83,14 @@ function LoginPageClient() {
               <p className="text-xs  mb-1 text-white">
                 Don't have an account ?
                 <Link to={"/client/signup"}>
-                  <span className="text-blue-400">Signup</span>
+                  <span className="text-blue-400 ml-1">Signup</span>
                 </Link>
               </p>
               
               <LoginPageButton  type="submit"  />
             </form>
             <div className="h-4 text-xs text-end text-red-500 font-semibold">
-            {errorMessage.success === false ? errorMessage.message : null}
+            {errorMessage.checkUser === false ? errorMessage.message : null}
             </div>
           </div>
         {/* </div> */}

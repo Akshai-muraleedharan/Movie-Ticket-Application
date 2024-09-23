@@ -62,7 +62,7 @@ export const ownerLogin = async (req,res,next) => {
         const deletedOwner = ownerExist.ownerDeleted
 
         if (deletedOwner == true) {
-          return res.status(400).json({ success: false, message: "owner doesn't exist" });
+          return res.status(400).json({ checkUser: false, message: "owner doesn't exist" });
         }
 
         const PasswordValue = ownerExist.password

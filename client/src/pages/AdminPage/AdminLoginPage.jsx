@@ -70,7 +70,7 @@ function AdminLoginPage() {
               <p className="text-xs  mb-1 text-white">
                 Don't have an account ?
                 <Link to={"/admin/signup"}>
-                  <span className="text-blue-400">Signup</span>
+                  <span className="text-blue-400 ml-1">Signup</span>
                 </Link>
               </p>
               
