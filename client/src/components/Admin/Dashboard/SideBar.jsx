@@ -26,8 +26,9 @@ const handleClick = (index) => {
   return (
     <div className='w-16 md:w-56 fixed left-0 top-0 z-10 h-screen border-r pt-8 px-4 bg-white'>
 
-<div>
+<div className='flex justify-center md:justify-start items-center  md:space-x-5'>
   <img src={logo} className='w-10' alt="logo" />
+  <h1 className="p-2 rounded font-semibold bg-black text-white hidden md:flex">Movie Ticket</h1>
 </div>
       <ul className='mt-6 space-y-6'>
         {sideBar_link.map((link,index)=> (

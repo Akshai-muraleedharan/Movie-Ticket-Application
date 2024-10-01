@@ -42,7 +42,20 @@ body {
 
     }
 
-    
+@media (min-width:320px) and (max-width:767px){
+  .img_dis{
+    display:none;
+  }
+  .font_adj{
+    font-size:12px
+  }
+  .header_padd{
+    padding:0px 10px 0px 10px !important
+  }
+  .font_adj_signup{
+    font-size:12px;
+  }
+}    
     
 @media (min-width: 1000px) {
   .header_ham {

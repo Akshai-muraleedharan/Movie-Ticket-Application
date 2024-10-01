@@ -7,15 +7,17 @@ function ClientAndAdminHeader() {
     
     return (
       <>
-        <div className="w-full flex justify-between items-center p-3 bg-white px-10 h-20 shadow-lg sticky top-0">
-          <div>
-            <img className="w-10" src={logo} alt="logo" />
-          </div>
+        <div className="w-full header_padd flex justify-between items-center p-3 bg-white px-10 h-20 shadow-lg sticky top-0">
+       
+        <div className="flex gap-3 items-center ">
+          <img className="w-10 img_dis" src={logo} alt="logo" />
+          <h1 className="p-2 rounded font-semibold bg-black text-white font_adj">Movie Ticket</h1>
+        </div>
   
           <nav className="flex items-center capitalize gap-4 font-semibold ">
         
-            <div>
-              <Link  > <SignUpPageButton/> </Link>
+            <div className='font_adj_signup'>
+              <Link > <SignUpPageButton/> </Link>
             </div>
           </nav>
          

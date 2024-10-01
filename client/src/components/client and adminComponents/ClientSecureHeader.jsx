@@ -18,9 +18,10 @@ function ClientSecureHeader() {
   }
   return (
     <>
-      <div className="w-full flex justify-between items-center p-3 bg-primary-content px-10 h-20 shadow-lg sticky top-0">
-        <div>
-          <img className="w-10" src={logo} alt="logo" />
+      <div className="w-full flex header_padd justify-between items-center p-3 bg-primary-content px-10 h-20 shadow-lg sticky top-0">
+        <div className="flex gap-3 items-center ">
+          <img className="w-10 img_dis" src={logo} alt="logo" />
+          <h1 className="p-2 rounded font-semibold bg-base-100 font_adj">Movie Ticket</h1>
         </div>
 
         <nav

@@ -170,6 +170,7 @@ function UserProfile() {
         <div className="grid p-0 grid-cols-1 rounded-md md:grid-cols-2  md:p-3 shadow-xl">
           <div className="flex justify-between flex-col items-center  ">
             <img className="w-6/12 rounded-[50%]"src={profile.profilePic || ""} alt={profile.username || ""} />
+          
             <h2 className="font-semibold mt-5">{profile.email}</h2>
 
             

@@ -36,7 +36,7 @@ function BookedMovies() {
 
  setTimeout(()=>{
   setDisplay(true)
- },3000)
+ },2000)
 
   useEffect(() => {
     bookedMovies();
