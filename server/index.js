@@ -3,25 +3,24 @@ import apiRouter from './routes/index.js'
 import dbConnect from './config/db.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-import compression from "compression";
+// import compression from "compression";
 
 const app = express()
 
 app.use(express.json())
 app.use(cookieParser())
-app.use(compression({
-    level:6,
-    threshold:0,
-    filter:(req,res)=> {
-        if(!req.headers['x-no-compression']) {
-            return compression.filter(req, res);
-        }
-        return false;
-    }
-}))
+// app.use(compression({
+//     level:6,
+//     threshold:0,
+//     filter:(req,res)=> {
+//         if(!req.headers['x-no-compression']) {
+//             return compression.filter(req, res);
+//         }
+//         return false;
+//     }
+// }))
 app.use(cors({
-// origin:"http://localhost:5173",
-   origin:process.env.CLIENT_DOMAIN,
+  origin:process.env.CLIENT_DOMAIN,
     credentials:true,
    
 }))
