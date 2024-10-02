@@ -6,7 +6,7 @@ import { toast, Toaster } from "react-hot-toast";
 
 
 
-function ProfileUpdateClient({setUpdate,profile,fetchProfile}) {
+function ProfileClientUpdate({setUpdate,profile,fetchProfile}) {
 
   const {register,handleSubmit} = useForm()
  const [loading,setLoading] =useState(false)
@@ -90,4 +90,4 @@ function ProfileUpdateClient({setUpdate,profile,fetchProfile}) {
   )
 }
 
-export default ProfileUpdateClient
+export default ProfileClientUpdate

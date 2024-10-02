@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../../config/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa6";
-
 import { useSelector } from "react-redux";
-import ProfileUpdateClient from "../../components/Clients/profileUpdateClient";
+import ProfileClientUpdate from "../../components/Clients/ProfileClientUpdate";
+
 
 
 function ProfilePageClient() {
@@ -159,7 +159,7 @@ function ProfilePageClient() {
           </div>
         </div>
         <button onClick={updateProfile} className="p-2 text-center md:font-semibold text-white w-full bg-blue-500 mt-2 rounded-md">Edit</button>
-      </div> : <ProfileUpdateClient  setUpdate={setUpdate} profile={profile} fetchProfile={fetchProfile}/>} 
+      </div> : <ProfileClientUpdate  setUpdate={setUpdate} profile={profile} fetchProfile={fetchProfile}/>} 
      
     
       </div>
