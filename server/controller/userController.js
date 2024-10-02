@@ -1,12 +1,11 @@
 import UserModel from "../models/userModel.js";
-import OtpModel from "../models/otpModel.js";
 import { matchPassword } from "../utils/comparePassword.js";
 import { createToken } from "../utils/generateToken.js";
 import { cloudinaryInstance } from "../config/cloudneryConfig.js";
 import { hashPassword } from "../utils/hashedPassword.js";
 import otpGenerator from "otp-generator";
 import TheaterModel from "../models/theaterModel.js";
-import twilio from "twilio";
+
 
 //  User create controller
 
@@ -43,11 +42,7 @@ export const userSignup = async (req, res, next) => {
 
     const token = createToken(email, "user");
 
-    res.cookie("token", token, {
-      sameSite: "None",
-      secure: true,
-      httpOnly: true,
-    });
+    res.cookie("token", token, {sameSite: "None",secure: true, httpOnly: true, });
 
     res
       .status(201)
@@ -463,130 +458,8 @@ export const userDelete = async (req, res) => {
   }
 };
 
-// user soft delete
 
-export const userSoftDelete = async (req, res) => {
-  try {
-    const verifiedUser = req.user.email;
 
-    if (!verifiedUser) {
-      return res.status(400).json({ error: "User not authenticated" });
-    }
-    const userExist = await UserModel.findOne({ email: verifiedUser });
 
-    const userDelete = await UserModel.findOneAndUpdate(
-      userExist,
-      { userDeleted: true },
-      { new: true }
-    );
-    res.clearCookie("token");
-    await userDelete.save();
 
-    res.json({
-      success: true,
-      message: "user soft-delete successfully",
-      data: userDelete,
-    });
-  } catch (error) {
-    res
-      .status(error.status || 500)
-      .json({ message: error || "internal server error" });
-  }
-};
-
-// user otp generate
-
-export const otpGenerate = async (req, res) => {
-  try {
-    const { mobile } = req.body;
-    if (!mobile) {
-      return res
-        .status(400)
-        .json({ success: false, message: "mobile number is required " });
-    }
-    const validMobile = await UserModel.findOne({ mobile });
-
-    if (!validMobile) {
-      return res
-        .status(200)
-        .json({ success: false, message: "Not registered number " });
-    }
-    const otp = otpGenerator.generate(6, {
-      digits: true,
-      lowerCaseAlphabets: false,
-      upperCaseAlphabets: false,
-      specialChars: false,
-    });
-
-    const accountSid = process.env.TWILIO_ACCOUNT_SID_NUMBER;
-    const authToken = process.env.TWILIO_AUTH_TOKEN_ID;
-    const client = twilio(accountSid, authToken);
-
-    if (otp) {
-      createMessage();
-    }
-
-    async function createMessage() {
-      await client.messages.create({
-        body: `Your verification code is :${otp}`,
-        from: "+16506035413",
-        to: `+91${mobile}`,
-      });
-    }
-
-    const generatedOtp = await OtpModel({ mobile, otp: otp });
-
-    await generatedOtp.save();
-
-    res.json({
-      success: true,
-      message: "otp generated successfull",
-      data: generatedOtp,
-    });
-  } catch (error) {
-    res
-      .status(error.status || 500)
-      .json({ message: error || "internal server error" });
-  }
-};
-
-// user account restore
-
-export const accoutRestore = async (req, res) => {
-  try {
-    const { mobile, otp } = req.body;
-
-    const mobileNumberExist = await UserModel.findOne({ mobile });
-
-    if (!mobileNumberExist)
-      return res
-        .status(400)
-        .json({ success: false, message: "mobile number not valid" });
-
-    const validOtp = await OtpModel.findOne({ mobile, otp });
-
-    if (!validOtp) {
-      return res
-        .status(400)
-        .json({ success: false, message: "invalid otp", error: "otps" });
-    } else {
-      const accountRestored = await UserModel.findOneAndUpdate(
-        { mobile },
-        {
-          userDeleted: false,
-        },
-        { new: true }
-      );
-      res.json({
-        success: true,
-        message: "your account restore successfully",
-        data: accountRestored,
-      });
-    }
-  } catch (error) {
-    console.log(error);
-    res
-      .status(error.status || 500)
-      .json({ message: error || "internal server error" });
-  }
-};
+ 

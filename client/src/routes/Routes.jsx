@@ -4,13 +4,12 @@ import { OwnerAuth } from "./protected routes/OwnerAuth.jsx";
 import { AdminAuth } from "./protected routes/AdminAuth.jsx";
 import { lazy,Suspense } from 'react';
 import Loader from "../components/Loader.jsx";
-
+import RootLayout from "../layouts/user/RootLayout.jsx"
 
 
 
 
 const PageNoteFound = lazy(() => import('../components/PageNoteFound.jsx'));
-const RootLayout = lazy(() => import('../layouts/user/RootLayout.jsx'));
 const UserLayout = lazy(() => import('../layouts/user/UserLayout.jsx'));
 const ClientLayout = lazy(() => import('../layouts/client/ClientLayout.jsx'));
 const ClientSecuredLayout = lazy(() => import('../layouts/client/ClientSecuredLayout.jsx'));
@@ -21,7 +20,7 @@ const AdminSecureLayout = lazy(() => import('../layouts/admin/AdminSecureLayout.
 const HomePage = lazy(() => import('../pages/rootpage/HomePage.jsx'));
 const LoginPage = lazy(() => import('../pages/rootpage/LoginPage.jsx'));
 const SignupPage = lazy(() => import('../pages/rootpage/SignupPage.jsx'));
-const OtpRegisterPage = lazy(() => import('../pages/rootpage/OtpRegisterPage.jsx'));
+
 
 
 
@@ -38,7 +37,6 @@ const PaymentCancelPage = lazy(() => import('../pages/userpage/PaymentCancelPage
 // Owner
 const LoginPageClient = lazy(() => import('../pages/clientPage/LoginPageClient.jsx'));
 const SignupPageClient = lazy(() => import('../pages/clientPage/SignupPageClient.jsx'));
-const ClientOtp = lazy(() => import('../components/client and adminComponents/ClientOtp.jsx'));
 const HomePageClient = lazy(() => import('../pages/clientPage/HomePageClient.jsx'));
 const CreateMoviePage = lazy(() => import('../pages/clientPage/CreateMoviePage.jsx'));
 const CreateTheaterPageClient = lazy(() => import('../pages/clientPage/CreateTheaterPageClient.jsx'));
@@ -54,7 +52,7 @@ const AdminHomePage = lazy(() => import('../pages/AdminPage/AdminHomePage.jsx'))
 const AdminLoginPage = lazy(() => import('../pages/AdminPage/AdminLoginPage.jsx'));
 const AdminSignupPage = lazy(() => import('../pages/AdminPage/AdminSignupPage.jsx'));
 const AdminProfilePage = lazy(() => import('../pages/AdminPage/AdminProfilePage.jsx'));
-const AdminOtp = lazy(() => import('../components/Admin/admincomponents/AdminOtp.jsx'));
+
 
 // admin dashboard
 const AdminReviewPage = lazy(() => import('../pages/AdminPage/AdminReviewPage.jsx'));
@@ -98,10 +96,7 @@ export const router = createBrowserRouter([
         path: "sign-up",
         element: <SignupPage />,
       },
-      {
-        path:"account-restore",
-        element: <OtpRegisterPage />
-      }
+     
     ],
   },
   {
@@ -164,10 +159,7 @@ export const router = createBrowserRouter([
         path: "signup",
         element: <SignupPageClient />,
       },
-      {
-        path: "account-client",
-        element: <ClientOtp />,
-      },
+     
     ],
   },
   {
@@ -242,10 +234,7 @@ export const router = createBrowserRouter([
         path:"signup",
         element:<AdminSignupPage />
       },
-      {
-        path: "account-admin",
-        element: <AdminOtp />,
-      },
+    
     ]
   },
   {

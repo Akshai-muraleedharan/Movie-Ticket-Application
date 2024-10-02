@@ -1,10 +1,8 @@
 import OwnerModel from '../models/theaterOwnerModel.js'
-import otpGenerator from 'otp-generator'
 import { createToken } from '../utils/generateToken.js'
 import { cloudinaryInstance } from '../config/cloudneryConfig.js'
 import { hashPassword } from '../utils/hashedPassword.js'
 import { matchPassword } from '../utils/comparePassword.js'
-import OtpModel from '../models/otpModel.js'
 import TheaterModel from '../models/theaterModel.js'
 import NewMovieModel from '../models/newMovieModel.js'
 
@@ -236,73 +234,7 @@ export const ownerGetALL = async (req, res) => {
 // admin soft delete start
 
 
-export const ownerSoftDelete = async (req, res) => {
-    try {
-  
-      
-      const verifiedOwner = req.owner.email;
-  
-      if (!verifiedOwner) {
-        return res.status(400).json({ error: "User not authenticated" });
-      }
-      const ownerExist = await OwnerModel.findOne({ email: verifiedOwner });
-  
-      const ownerDelete = await OwnerModel.findOneAndUpdate( ownerExist,{ ownerDeleted: true,}, { new: true });
-      res.clearCookie("token");
-      await ownerDelete.save();
-  
-      res.json({success:true,message:"owner soft delete successfully"  });
-    } catch (error) {
-      console.log(error)
-      res.status(error.status || 500) .json({ message: error || "internal server error" });
-    }
-  }; 
-  
-  export const ownerOtpGenerate = async (req, res) => {
-    try {
-      const { mobile } = req.body;
-  
-    const validMobile = await OwnerModel.findOne({ mobile });
-  
-    if (!validMobile) {
-      return res.status(200).json({ success: false, message: "invalid number" });
-    }
-    const otp = otpGenerator.generate(6, {digits: true, lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false,});
-  
-    const generatedOtp = await OtpModel({mobile,otp:otp})
-  
-    await generatedOtp.save()
-  
-    res.json({success:true,message:"otp generated successfull",data:generatedOtp})
-    } catch (error) {
-      console.log(error)
-      res .status(error.status || 500).json({ message: error || "internal server error" });
-    }
-  
-  };
-  
-  export const ownerAccoutRestore = async (req, res) => {
-    try {
-      const { mobile,otp} = req.body;
-       if(!mobile || !otp) return res.json({success:false,message:"all fields required"})
-        
-       const validOtp =await OtpModel.findOne({mobile,otp})
   
   
-      if (!validOtp) {
-        return res.status(200).json({ success: false, message: "invalid otp" });
-      }else{
-        const accountRestore = await OwnerModel.findOneAndUpdate({mobile},{
-            ownerDeleted: false,
-        },{new:true})
-        await accountRestore.save(); 
-      }
   
-      res.json({success:true,message:"your account restore successfully",})
-    } catch (error) {
-      console.log(error)
-      res .status(error.status || 500).json({ message: error || "internal server error" });
-    }
-  };
   
-  // admin soft delete and account-restore end 

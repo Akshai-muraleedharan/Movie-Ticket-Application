@@ -2,7 +2,7 @@ import express from 'express'
 
 
 import { userGetALL } from '../../controller/userController.js'
-import { adminAccoutRestore, adminDelete, adminGet, adminLogin, adminLogout, adminOtpGenerate, adminProfile, adminSignup, adminSoftDelete, AdminTheaterOwnerDelete, adminUpdate, checkAdmin, userDeleteByAdmin} from '../../controller/adminController.js'
+import {  adminDelete, adminGet, adminLogin, adminLogout, adminProfile, adminSignup, AdminTheaterOwnerDelete, adminUpdate, checkAdmin, userDeleteByAdmin} from '../../controller/adminController.js'
 import { authAdmin } from '../../middleware/authAdmin.js'
 import { theaterList } from '../../controller/theaterController.js'
 import { movieList } from '../../controller/movieController.js'
@@ -21,9 +21,6 @@ router.post('/siginup',errorSignupHandler,adminSignup)
 router.post('/login',loginErrorHandler,adminLogin)
 
 router.delete('/account-delete',authAdmin,adminDelete)
-router.put('/soft-delete',authAdmin,adminSoftDelete)
-router.post('/otp',adminOtpGenerate)
-router.put('/account-restore',adminAccoutRestore)
 
 
 router.put('/update',authAdmin,upload.single('profile-pic'),adminUpdate)
