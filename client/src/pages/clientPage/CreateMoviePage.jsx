@@ -117,7 +117,7 @@ function CreateMoviePage() {
               <AddMovieButton  />
               <Toaster />
             </form>
-            <div></div>
+          
           </div>
         </div>
      

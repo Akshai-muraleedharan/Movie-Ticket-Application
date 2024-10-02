@@ -11,7 +11,7 @@ function SignupPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [type, setType] = useState('password');
   const [icon, setIcon] = useState(FaRegEyeSlash);
-
+  const [loading,setLoading] =useState(false)
   const [confirmtype, setconfirmType] = useState('password');
   const [confirmicon, setconfirmIcon] = useState(FaRegEyeSlash);
 
@@ -22,6 +22,7 @@ function SignupPage() {
    const onSubmit = async (data) => {
 
     try {
+      setLoading(true)
    const response  =   await axiosInstance({
         url:"user/signup",
         method:"POST",
@@ -31,12 +32,15 @@ function SignupPage() {
         navigate("/user/movies")
        }
       toast.success("signup successfully")
+      setLoading(false)
     } catch (error) {
       console.log(error)
+      setLoading(false)
       setErrorMessage(error.response.data)
       toast.error("somethig error")
     }
    }
+
 
    const handleToggle  = () =>  {
     if (type==='password'){
@@ -125,7 +129,7 @@ function SignupPage() {
 
         {/* <div className="text-blue-300"><Link to={"/account-restore"}>Account restore</Link></div> */}
       </div>
-       <SignUpPageButton type="submit"/>
+       <SignUpPageButton type="submit" loading={loading}/>
         <Toaster />
         <div className="h-4 text-xs text-end text-red-500 font-semibold">
             {errorMessage.success === false ? errorMessage.message : null}

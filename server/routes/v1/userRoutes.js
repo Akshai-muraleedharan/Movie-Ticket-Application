@@ -20,7 +20,7 @@ Router.put("/account-restore",otpErroHandler, accoutRestore);
 Router.put('/book-seat/:theaterId',SeatBooking)
 Router.put("/soft-delete", authUser, userSoftDelete);
 Router.delete("/delete", authUser, userDelete);
-Router.put("/update/", authUser, upload.single("profile-pic"), userUpdate);
+Router.put("/update/", authUser, upload.single("profile"), userUpdate);
 
 Router.get("/logout", userLogout);
 Router.get("/check-user", authUser, checkUser);

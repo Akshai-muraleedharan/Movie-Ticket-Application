@@ -11,12 +11,10 @@ function UserHeader() {
 
  
   const [toggles, setToggles] = useState(false);
-  const [name,setName] = useState(null)
-  const[display,setDisplay] = useState(false)
+ 
 
  const navigate = useNavigate()
  
-
   const navRef = useRef();
   function toggle() {
     setToggles(navRef.current.classList.toggle("nav_responsive"));
@@ -28,38 +26,6 @@ function  toggleRemove(){
     
 
 
-  const profileName = async () => {
-    try {
-      const response = await axiosInstance({
-        url:"/user/profile",
-        method:"GET"
-      })
-
-      setName(response?.data?.data)
-    } catch (error) {
-      const errs = error.response.data.message
-      
-      if(errs === "no account"){
-        navigate("/login")
-      }
-      console.log(error)
-
-     
-    }
-  }
-
-  
-
-  useEffect(()=> {
-
-      profileName ()
-    
-  },[])
-
-  setTimeout(()=>{
-    setDisplay(true)
-  },9000)
-
   return (
     <>
       <div className="w-full flex justify-between items-center header_padd p-3 bg-primary-content px-10 h-20 shadow-lg sticky top-0">
@@ -67,7 +33,7 @@ function  toggleRemove(){
           <img className="w-10 img_dis" src={logo} alt="logo" />
           <h1 className="p-2 rounded font-semibold bg-base-100 font_adj">Movie Ticket</h1>
         </div>
-       <p className="font-semibold cursor-default"> { display ?   `Hello ${name.username}` : ''}</p>
+      
         <nav
           className="flex items-center  capitalize gap-4 font-semibold header-responsive"
           ref={navRef}

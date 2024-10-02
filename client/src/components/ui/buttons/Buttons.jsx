@@ -12,22 +12,23 @@ export function LoginButton() {
 }
 
 
-export function LoginPageButton() {
- 
+export function LoginPageButton({loading}) {
+
   return (
     
-    <button className="bg-blue-500 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
-        login
+    <button className="bg-blue-500 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm disabled:opacity-80 disabled:cursor-not-allowed" disabled={loading === true}>
+         {loading === true ? "Loading..." : "login"}  
       </button> 
     
   );
 }
 
-export function SignUpPageButton() {
+export function SignUpPageButton({loading}) {
+ 
   return (
     
-     <button className="bg-blue-500 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
-        sign-up
+     <button className="bg-blue-500 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm disabled:opacity-80 disabled:cursor-not-allowed" disabled={loading === true}>
+        {loading === true ? "Loading..." : "Sign-up"}
       </button> 
     
   );

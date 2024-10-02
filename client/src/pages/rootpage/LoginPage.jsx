@@ -12,7 +12,8 @@ function LoginPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [type, setType] = useState('password');
   const [icon, setIcon] = useState(FaRegEyeSlash);
-   
+  const [loading,setLoading] =useState(false)
+
 
   const navigate = useNavigate()
   const { register, handleSubmit} = useForm()
@@ -21,23 +22,21 @@ function LoginPage() {
 
     
     try {
-  
+      setLoading(true)
       const response = await axiosInstance({
         url:"user/login",
         method:"POST",
         data
       })
-
+      setLoading(false)
      if(response.data.success == true){
       navigate("/user/movies")
      }
-     
+    
     } catch (error) {    
       setErrorMessage(error.response.data)
       console.log(error)
-      // if(error.response.data.message === "user doesn't exist"){
-      //   navigate("/sign-up")
-      //  }
+      setLoading(false)
     }
   }
 
@@ -94,7 +93,7 @@ function LoginPage() {
                   <span className="text-blue-400 ml-1">Signup</span>
                 </Link>
               </p>
-              <LoginPageButton type="submit" />
+              <LoginPageButton type="submit" loading={loading}/>
             </form>
            <div className="h-4 text-xs mt-1 text-red-500 font-semibold">
             {errorMessage.checkUser === false ? errorMessage.message : null}

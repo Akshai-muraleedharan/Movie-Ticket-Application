@@ -125,9 +125,15 @@ export const userUpdate = async (req, res) => {
     const verifiedUser = req.user.email;
     let image;
 
+    const updatedData = await UserModel.findOne({email:verifiedUser})
+ 
     if (!req.file) {
-      image =
-        "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png";
+      if(updatedData.profilePic === updatedData.profilePic){
+        image = updatedData.profilePic
+      }else{
+        image = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png";
+      }
+    
     } else {
       image = req.file.path;
     }
@@ -137,7 +143,7 @@ export const userUpdate = async (req, res) => {
         console.log(error);
       });
 
-    const updatedData = await UserModel.findOneAndUpdate(
+   await UserModel.findOneAndUpdate(
       { email: verifiedUser },
       { username, city, mobile, profilePic: uploadResult.url },
       { new: true }
@@ -146,7 +152,7 @@ export const userUpdate = async (req, res) => {
     res.json({
       success: true,
       message: "updated successfully",
-      data: updatedData,
+     
     });
   } catch (error) {
     console.log(error);
