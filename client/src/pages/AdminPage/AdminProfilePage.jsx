@@ -1,77 +1,35 @@
 
-
-import React, { useEffect, useRef, useState } from "react";
-import { axiosInstance } from "../../config/axiosInstance.js";
+import React, { useEffect, useState } from "react";
+import { axiosInstance } from "../../config/axiosInstance";
 import { useNavigate } from "react-router-dom";
-import {toast,Toaster} from "react-hot-toast";
-import Loader from "../../components/Loader.jsx";
-import { useForm } from "react-hook-form";
-import { UserPen } from 'lucide-react';
-import { CircleArrowRight } from 'lucide-react';
 import { FaArrowLeft } from "react-icons/fa6";
+import { useSelector } from "react-redux";
+import ProfileClientUpdate from "../../components/Clients/ProfileClientUpdate";
+import AdminProfileUpdate from "../../components/Admin/AdminProfileUpdate";
 
 
 
 function AdminProfilePage() {
-  const [profile, setProfile] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [disable,setDisable] = useState(false)
-  const [disableEmail,setDisableEmail] = useState(false)
-  const [disableMobile,setDisableMobile] = useState(false)
-  const [images,setImages] = useState(false)
-  const [imagesEmail,setImagesEmail] = useState(false)
-  const [imagesMobile,setImagesMobile] = useState(false)
-  const {register,handleSubmit,formState:{errors}} = useForm()
+  const [profile, setProfile] = useState([]);
+  const [update,setUpdate] = useState(true)
+  const theaterId = useSelector((state) => state.owner.theaterIds)
+
   const navigate = useNavigate();
  
- 
-// handle click
-
-      const handleClick = () => {
-        setDisable(true)
-        setDisableEmail(false)
-        setDisableMobile(false)
-        setImages(true)
-        setImagesEmail(false)
-        setImagesMobile(false)
-      }
-
-      const emailClick = () => {
-        setDisableEmail(true)
-        setDisable(false) 
-        setDisableMobile(false)
-        setImages(false)
-        setImagesEmail(true)
-        setImagesMobile(false)
-      }
-
-      const mobileClick = () => {
-        setDisableMobile(true)
-        setDisableEmail(false)
-        setDisable(false) 
-        setImages(false)
-        setImagesMobile(true)
-        setImagesEmail(false)
-      }
-
-// handle click end
-
-
-
-
-
-
   const fetchProfile = async () => {
     try {
       const response = await axiosInstance({
         url: "/admin/profile",
         method: "GET",
+
       });
-    
+      
 
       setProfile(response.data.data);
     } catch (error) {
+      
       console.log(error);
+      
     }
   };
 
@@ -81,7 +39,7 @@ function AdminProfilePage() {
         url: "/admin/logout",
         method: "GET",
       });
-
+      
       if (response.data.success === true) {
         navigate("/admin/login")
       }
@@ -90,95 +48,77 @@ function AdminProfilePage() {
     }
   };
 
+
+  const updateProfile = () => {
+    setUpdate(false)
+  }
+
   const hardDelete =async () => {
     try {
     const response =  await axiosInstance({
-          url:"/admin/account-delete",
+      url:"/admin/account-delete",
           method:"DELETE"
       })
       
-      toast.success("Deleted successfully")
+     
 
       if (response.data.success === true) {
-        navigate("/admin/login")
+         navigate("/owner/login")
       }
      
     } catch (error) {
       console.log(error)
-      toast.error("something error")
+     
     }
   }
-
-  const softDelete = async () => {
-    try {
-
-   const response =   await axiosInstance({
-        url:"admin/soft-delete",
-        method:"PUT"
-      })  
-
-      toast.success("Deleted successfully")
-
-      if (response.data.success === true) {
-        navigate("/admin/login")
-      }
-
-      
-    } catch (error) {
-      console.log(error)
-      toast.error("Something error")
-    }
-  }
-
-
-
-
-  const submit =async (data) => {
-  try {
-
-     await axiosInstance({
-      url:"/admin/update",
-      method:"PUT",
-      data
-    })
-    
-    fetchProfile()
-    
-  } catch (error) {
-    console.log(error)
-  }
-  }
-
 
   useEffect(() => {
     fetchProfile();
   }, []);
 
-  
- 
   return (
     <><div>
        <button className="mt-8 ml-8 text-[20px] "  onClick={() => navigate(-1)}>
           <FaArrowLeft />
         </button>
    
-      <div className=" px-3 md:px-14 md:container md:mx-auto mb-10 mt-6 ">
+     {update ? <div className=" px-3 md:px-14 md:container md:mx-auto mb-10 mt-6 ">
+      
+
+      
         <div className="grid p-0 grid-cols-1 rounded-md md:grid-cols-2  md:p-3 shadow-xl">
           <div className="flex justify-between flex-col items-center  ">
-            <img
-              className="w-6/12 rounded-[50%]"
-              src={profile.profilePic || ""}
-              alt={profile.username || ""}
-            />
+        
+            
+           <img className="w-40 rounded-[50%]"src={profile.profilePic || ""} alt={profile.username || ""} />
+             
+          
             <h2 className="font-semibold mt-5">{profile.email}</h2>
-
-            
-
-            
+       
           </div>
           <div className="px-2 flex flex-col justify-between">
             <div className="flex justify-between items-center">
-           <h1 className="font-semibold">Profile </h1>
+                    <details className="dropdown">
+                    <summary className="btn m-1">settings</summary>
+                    <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                      <li><a onClick={()=>document.getElementById('my_modal_4').showModal()}>Delete Account</a></li>
+                     
+                    </ul>
+                    
+
+                      <dialog id="my_modal_4" className="modal">
+                        <div className="modal-box w-11/12 max-w-5xl">
+                          <h3 className="font-bold text-lg">Delete Account</h3>
+                          <p className="py-4">Are you sure to delete this account. The account will delete permanently </p>
+                          <div className="modal-action">
+                            <form method="dialog">
+                              <button className="btn mr-2 inline-block text-red-500" onClick={hardDelete}>Delete</button>
+                              <button className="btn">Close</button>
+                            </form>
+                          </div>
+                        </div>
+                      </dialog>
+                  </details>
 
             <button className=" p-1 bg-blue-500 rounded-md text-white" onClick={logOutHandle}>
               Log-out
@@ -186,51 +126,46 @@ function AdminProfilePage() {
             </div>
 
             
-              <div className="flex flex-col gap-5 mt-5 font-semibold" onClick={handleSubmit(submit)}>
+         <div className="flex flex-col gap-5 mt-5 cursor-default font-semibold" >
            
              <div>
               <label className="text-xs text-slate-400">username</label>
              <div className="flex justify-between w-full">
-             {disable ?   <input type="text"className="border-b-2 outline-none bg-slate-300 p-1 rounded w-full mr-1" {...register("username")} defaultValue={profile.username}  /> :  <input type="text"className="border-b-2 outline-none p-1 w-full" {...register("username")} defaultValue={profile.username} disabled  />}
-             <button onClick={handleClick}> {images ? <CircleArrowRight /> : <UserPen />  } </button>
+             <h1>{profile.username}</h1>
              </div> 
              </div>
 
-             {/* user email */}
+           
 
              <div>
               <label className="text-xs text-slate-400">Email</label>
              <div className="flex justify-between w-full">
-             {disableEmail ?   <input type="text"className="border-b-2 outline-none bg-slate-300 p-1 bg-red-2 rounded w-full mr-1" {...register("email")} defaultValue={profile.email}  /> :  <input type="text"className="border-b-2 outline-none  p-1 w-full" {...register("email")} defaultValue={profile.email} disabled  />}
-             <button onClick={emailClick}> {imagesEmail ? <CircleArrowRight /> : <UserPen />  } </button>
+             <h1>{profile.email}</h1>
              </div> 
              </div>
 
-             {/* mobile */}
+            
 
              <div>
               <label className="text-xs text-slate-400">Mobile</label>
              <div className="flex justify-between w-full">
-             {disableMobile ?   <input type="text"className="border-b-2 outline-none bg-slate-300 p-1 rounded w-full mr-1" {...register("mobile")} defaultValue={profile.mobile}  /> :  <input type="text"className="border-b-2 outline-none p-1 w-full" {...register("mobile")} defaultValue={profile.mobile} disabled  />}
-             <button onClick={mobileClick}>  {imagesMobile ? <CircleArrowRight /> : <UserPen />  } </button>
-             </div> 
+             <h1>{profile.mobile}</h1>
+            </div> 
              </div>
 
               </div>
+
+            
               
-              {/* <div className="flex justify-between w-full text-xs mt-5 mb-2 font-semibold text-red-500">
-                 
-
-                      
-                    <button onClick={softDelete}>Soft Delete</button>
-                    <button className="mr-2" onClick={hardDelete}> permanent Delete</button>
-
-                  <Toaster/>
-              </div> */}
-           
+        <button onClick={updateProfile} className="p-2 text-center md:font-semibold  text-white w-full bg-blue-500 mt-2 rounded-md">Edit</button>
+        
           </div>
         </div>
-      </div>
+
+        
+      </div> : <AdminProfileUpdate  setUpdate={setUpdate} profile={profile} fetchProfile={fetchProfile}/>} 
+     
+    
       </div>
     </>
   );

@@ -139,10 +139,16 @@ export const adminUpdate = async (req, res) => {
       const  verifiedAdmin  = req.admin.email;
       let image;
 
-      
+      const admin = await AdminModel.findOne({email:verifiedAdmin})
       // This condition for check the update profile-pic
+     
       if (!req.file) {
-        image ="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png";
+        if(admin.profilePic === admin.profilePic){
+          image = admin.profilePic
+        }else{
+          image = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png";
+        }
+      
       } else {
         image = req.file.path;
       }

@@ -23,7 +23,7 @@ router.post('/login',loginErrorHandler,adminLogin)
 router.delete('/account-delete',authAdmin,adminDelete)
 
 
-router.put('/update',authAdmin,upload.single('profile-pic'),adminUpdate)
+router.put('/update',authAdmin,upload.single('profile'),adminUpdate)
 
 // 
 router.get('/logout',authAdmin,adminLogout)
