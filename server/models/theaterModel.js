@@ -37,6 +37,9 @@ import mongoose from 'mongoose';
                     type: String,
                   
                   },
+                  theaterSeatType:{
+                    type: [String],
+                  },
                   userbookedId: {
                     type: String,
                   },

@@ -6,8 +6,6 @@ import { FaArrowLeft } from "react-icons/fa6";
 function PaymentPage() {
 const [theater,setTheater] = useState([])
 
-
-
 const navigate = useNavigate()
 
 
@@ -45,14 +43,15 @@ const navigate = useNavigate()
   <div className='w-full p-2 md:w-5/6  max-auto'>
   
  <div className="overflow-x-auto">
-  <table className="table[unset] table-sm">
+  <table className="table static table-sm">
     <thead>
       <tr className="text-center">
         <th></th>
         <th>Booked id</th>
         <th className='text-center'>Movie Name</th>
         <th>Movie Time</th>
-        <th>Seat Numbers</th>
+        <th>Seat Numbers</th>        
+        <th>Seat Type</th>        
         <th>Date</th>
         <th>Payment price</th>
         
@@ -68,6 +67,7 @@ const navigate = useNavigate()
           <td>{item.movieName}</td>
           <td>{item.movieTime}</td>
           <td>{item.movieSeat.join(" , ")}</td>
+          <td>{item.theaterSeatType.join(" , ")}</td>
           <td >{item.date}</td>
           <td >{item.moviePayment}</td>
           

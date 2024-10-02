@@ -2,17 +2,20 @@ import { createBrowserRouter } from "react-router-dom";
 import { UserAuth } from "./protected routes/UserAuth.jsX";
 import { OwnerAuth } from "./protected routes/OwnerAuth.jsx";
 import { AdminAuth } from "./protected routes/AdminAuth.jsx";
-import RootLayout from "../layouts/user/RootLayout.jsx";
-import UserLayout from "../layouts/user/UserLayout.jsx";
-import ClientLayout from "../layouts/client/ClientLayout.jsx";
-import ClientSecuredLayout from "../layouts/client/ClientSecuredLayout.jsx";
-import AdminSecureLayout from "../layouts/admin/AdminSecureLayout.jsx";
-import AdminLayout from "../layouts/admin/AdminLayout.jsx";
 import { lazy,Suspense } from 'react';
 import Loader from "../components/Loader.jsx";
 
 
 
+
+
+const PageNoteFound = lazy(() => import('../components/PageNoteFound.jsx'));
+const RootLayout = lazy(() => import('../layouts/user/RootLayout.jsx'));
+const UserLayout = lazy(() => import('../layouts/user/UserLayout.jsx'));
+const ClientLayout = lazy(() => import('../layouts/client/ClientLayout.jsx'));
+const ClientSecuredLayout = lazy(() => import('../layouts/client/ClientSecuredLayout.jsx'));
+const AdminLayout = lazy(() => import('../layouts/admin/AdminLayout.jsx'));
+const AdminSecureLayout = lazy(() => import('../layouts/admin/AdminSecureLayout.jsx'));
 
 // root layout
 const HomePage = lazy(() => import('../pages/rootpage/HomePage.jsx'));
@@ -63,6 +66,15 @@ const AdminTheaterPayment = lazy(() => import('../pages/AdminPage/AdminTheaterPa
 
 
 export const router = createBrowserRouter([
+  {
+    path:"*",
+
+    element:(
+      <Suspense fallback={<Loader/>}>
+    <PageNoteFound/>
+    </Suspense>
+    )
+  },
   {
     path: "/",
     element:( 
@@ -136,7 +148,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "client",
+    path: "owner",
     element: (
       <Suspense fallback={<Loader/>}>
     <ClientLayout />

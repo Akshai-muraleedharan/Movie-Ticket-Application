@@ -3,9 +3,8 @@ import { axiosInstance } from '../../config/axiosInstance';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa6';
 import { loadStripe } from "@stripe/stripe-js";
-import Loader from "../../components/Loader.jsx";
 import {  useDispatch, useSelector } from 'react-redux'
-import {moviePayment, seatNumber} from '../../Redux/Slice/showTimeSlice'
+import {moviePayment, seatNumber,seatType} from '../../Redux/Slice/showTimeSlice'
 function BookSeat() {
 
 
@@ -19,7 +18,7 @@ function BookSeat() {
   const { movieId } = useParams(); 
   const navigate = useNavigate();
 
-console.log(TheaterSeat)
+
   const fetchTheater = async () => {
     try {
      
@@ -58,6 +57,7 @@ console.log(TheaterSeat)
 
   const totalPayment = selectedSeats.reduce((total, seat) => total + parseFloat(seat.seatPayment), 0);
   const seatNumbers  = selectedSeats.map(item => item.seatEndNumber)
+   const selectedseatType = selectedSeats.map(item => item.SeatType)
 
  const paymentAmount = () => {
   return dispatch(moviePayment(totalPayment))
@@ -67,11 +67,19 @@ console.log(TheaterSeat)
   return dispatch(seatNumber(seatNumbers))
  }
 
+ const seatTypes = () => {
+  return dispatch(seatType(selectedseatType))
+ }
+ 
+
 
   const seatBook = async() => {
     try {
+
       paymentAmount()
       seatNumbres()
+      seatTypes()
+
        const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY_MY);
        setLoading(true)
    const response = await axiosInstance({

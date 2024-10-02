@@ -4,6 +4,7 @@ import {  useNavigate, useParams } from 'react-router-dom'
 import { axiosInstance } from '../../config/axiosInstance';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { seatType } from '../../Redux/Slice/showTimeSlice';
 
 
 function PaymentSuccessPage() {
@@ -11,7 +12,7 @@ function PaymentSuccessPage() {
   const payment = useSelector((state) => state.payment.payment)
   const selectedSeat = useSelector((state) => state.payment.seat)
   const movieName = useSelector((state) => state.payment.movie)
-
+  const theaterSeatType = useSelector((state) => state.payment.type)
  const navigate = useNavigate()
 
 
@@ -43,7 +44,8 @@ const {theater} = useParams()
             moviePayment:payment,
             movieTime:time,
             movieSeat:selectedSeat,
-            movieName:movieName
+            movieName:movieName,
+            seatType:theaterSeatType
           }
     })
      

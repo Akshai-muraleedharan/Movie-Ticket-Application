@@ -304,6 +304,7 @@ export const userMovies = async (req, res) => {
     const { moviePayment } = req.body;
     const { movieSeat } = req.body;
     const { movieName } = req.body;
+    const { seatType } = req.body;
     const verifiedUser = req.user.email;
     const { movieId } = req.params;
     const { theaterId } = req.params;
@@ -336,7 +337,8 @@ export const userMovies = async (req, res) => {
       theaterId,
       bookedId: otp,
       date: formatedDate,
-      movieName:movieName
+      movieName:movieName,
+      theaterSeatType:seatType
     });
     theater.userPayment.push({
       moviePayment,
@@ -346,7 +348,8 @@ export const userMovies = async (req, res) => {
       theaterId,
       userbookedId: otp,
       date: formatedDate,
-      movieName:movieName
+      movieName:movieName,
+      theaterSeatType:seatType
     });
     await theater.save();
     await user.save();

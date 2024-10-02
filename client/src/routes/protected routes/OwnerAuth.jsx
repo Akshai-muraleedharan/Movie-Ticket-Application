@@ -20,7 +20,7 @@ export const OwnerAuth = ({ children }) => {
             setuser(true)
            
         } catch (error) {
-            navigate("/client/login")
+            navigate("/owner/login")
             console.log(error)
         }
     }

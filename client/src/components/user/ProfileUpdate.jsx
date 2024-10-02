@@ -81,8 +81,10 @@ function ProfileUpdate({setUpdate,profile,fetchProfile}) {
             
              <input type="file"className="file-input file-input-bordered file-input-success w-full "  {...register("profile")} name="profile" />
              </div>
-             <button className="p-2 text-center md:font-semibold text-white w-full bg-blue-500 mt-2 rounded-md disabled:opacity-80" disabled={loading === true}>{loading === true ? "Loading..." : "Update"}</button>
+             <div className="flex md:justify-end">
+             <button className="p-2 text-center md:w-[20%] md:font-semibold text-white w-full bg-blue-500 mt-2 rounded-md disabled:opacity-80" disabled={loading === true}>{loading === true ? "Loading..." : "Update"}</button>
              <Toaster/>
+             </div>
           </form>
    </div>
    </>

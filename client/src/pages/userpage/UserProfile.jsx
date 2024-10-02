@@ -148,14 +148,16 @@ function UserProfile() {
              <h1>{profile.mobile}</h1>
             </div> 
              </div>
-
-              </div>
+             <button onClick={updateProfile} className="p-2 text-center md:font-semibold text-white w-full  bg-blue-500 mt-2 rounded-md">Edit</button>
+         </div>
 
             
-           
+            
           </div>
         </div>
-        <button onClick={updateProfile} className="p-2 text-center md:font-semibold text-white w-full bg-blue-500 mt-2 rounded-md">Edit</button>
+      
+      
+       
       </div> : <ProfileUpdate setUpdate={setUpdate} profile={profile} fetchProfile={fetchProfile} />} 
     
       </div>

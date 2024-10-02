@@ -5,11 +5,13 @@ let time
 let payment
 let seat
 let movie
+let type
 const initialState = {
   value:time,
   payment:payment,
   seat:seat,
-  movie:movie
+  movie:movie,
+  type:type
 }
 
 export const showTimeSlice = createSlice({
@@ -28,11 +30,14 @@ export const showTimeSlice = createSlice({
         },
         movieName:(state,action) => {
           state.movie = action.payload
+        },
+        seatType:(state,action) => {
+          state.type = action.payload
         }
     }
 })
 
 
-export const { movieTime,moviePayment,seatNumber,movieName} =showTimeSlice.actions
+export const { movieTime,moviePayment,seatNumber,movieName,seatType} =showTimeSlice.actions
 
 export default showTimeSlice.reducer

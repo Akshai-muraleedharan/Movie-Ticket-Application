@@ -40,7 +40,7 @@ function ProfilePageClient() {
       });
       
       if (response.data.success === true) {
-        navigate("/client/login")
+        navigate("/owner/login")
       }
     } catch (error) {
       console.log(error);
@@ -62,7 +62,7 @@ function ProfilePageClient() {
      
 
       if (response.data.success === true) {
-         navigate("/client/login")
+         navigate("/owner/login")
       }
      
     } catch (error) {
@@ -155,10 +155,13 @@ function ProfilePageClient() {
               </div>
 
             
-           
+              
+        <button onClick={updateProfile} className="p-2 text-center md:font-semibold  text-white w-full bg-blue-500 mt-2 rounded-md">Edit</button>
+        
           </div>
         </div>
-        <button onClick={updateProfile} className="p-2 text-center md:font-semibold text-white w-full bg-blue-500 mt-2 rounded-md">Edit</button>
+
+        
       </div> : <ProfileClientUpdate  setUpdate={setUpdate} profile={profile} fetchProfile={fetchProfile}/>} 
      
     

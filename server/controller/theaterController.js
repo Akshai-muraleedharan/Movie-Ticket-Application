@@ -129,7 +129,7 @@ export const seatCreate = async (req, res) => {
     
     const seat = await TheaterModel.findById(id, {});
 
-   
+    
 
     for (
       let seatNumber = seatStart;

@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema(
           type: [Number],
          
         },
+          theaterSeatType:{
+            type: [String],
+          },
+        
         movieTime: {
           type: String,
          

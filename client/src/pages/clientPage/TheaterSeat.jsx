@@ -135,6 +135,7 @@ function TheaterSeat() {
                seat.SeatType ==="Platinum" ?
                <div
                  key={seat.seatEndNumber} className={`seat ${seat.availableSeat ? (seat.selected ? 'selected' : 'available') : 'booked'}`}>
+                   {seat.seatEndNumber}
                </div> 
                : ""
             ))}
@@ -149,6 +150,7 @@ function TheaterSeat() {
                seat.SeatType ==="Gold" ?
                <div
                  key={seat.seatEndNumber} className={`seat ${seat.availableSeat ? (seat.selected ? 'selected' : 'available') : 'booked'}`}>
+                  {`${seat.seatEndNumber}`}
                </div> 
                : ""
             ))}
@@ -158,7 +160,9 @@ function TheaterSeat() {
           
             <span className='flex text-xs items-center'><div className='w-6 h-6 bg-gray-500 rounded-sm'> </div>   Booked </span>
             <span className='flex text-xs items-center'><div className='w-6 h-6 bg-gray-300 rounded-sm border-[1px] border-green-500'> </div>  Available </span>
+
           </div>
+          <div className='w-[40%] bg-sky-300 h-5 mb-9 text-xs text-center font-semibold text-blue-500'>Screen</div>
         </div>}
         </div>
 

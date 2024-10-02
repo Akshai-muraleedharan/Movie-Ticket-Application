@@ -58,7 +58,8 @@ function MovieTime() {
         <button onClick={handleAddValue} className='cursor-pointer absolute top-0 right-0 bottom-0 mr-2'> <ArrowRight /></button> */}
 
 <select className="select select-bordered w-full " defaultValue="" onChange={(e) => setInputValue(e.target.value)}>
-  <option disabled selected>Time</option>
+  <option disabled defaultValue>Time</option>
+  <option>0 : 00</option>
   <option>11:45 AM</option>
   <option>03:00 PM</option>
   <option>6:30 PM</option>
@@ -75,10 +76,10 @@ function MovieTime() {
 
       {myArray.length < 1 ? "" :    <div className='flex gap-3 flex-wrap mt-5'>
         { myArray.map((item,index) => (
-           <>
+           
             <div key={index} className='text-xs md:w-[13%] text-center shadow-lg font-semibold p-2 rounded-md bg-[#fdcccc] flex items-center justify-center'>{item}</div>
             
-           </>
+           
         ))}
          <button className='text-xs p-2 rounded bg-green-500 font-semibold text-white' onClick={AddMovie}>Add to movie</button>
          <Toaster/>
