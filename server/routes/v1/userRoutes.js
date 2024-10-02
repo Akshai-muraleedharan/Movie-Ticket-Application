@@ -14,7 +14,7 @@ Router.post("/login",loginErrorHandler, userLogin);
 Router.put('/book-seat/:theaterId',SeatBooking)
 Router.delete("/delete", authUser, userDelete);
 Router.put("/update/", authUser, upload.single("profile"), userUpdate);
-Router.get("/logout", userLogout);
+Router.post("/logout", userLogout);
 Router.get("/check-user", authUser, checkUser);
 Router.get("/profile", authUser, userProfile);
 Router.post("/payment-movie/movie/:movieId/theater/:theaterId", authUser, userMovies);

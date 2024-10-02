@@ -36,7 +36,7 @@ function ProfilePageClient() {
     try {
       const response = await axiosInstance({
         url: "/owner/logout",
-        method: "GET",
+        method: "POST",
       });
       
       if (response.data.success === true) {

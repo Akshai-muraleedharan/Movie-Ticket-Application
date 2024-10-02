@@ -33,7 +33,7 @@ function UserProfile() {
     try {
       const response = await axiosInstance({
         url: "/user/logout",
-        method: "GET",
+        method: "POST",
       });
       
       if (response.data.success === true) {

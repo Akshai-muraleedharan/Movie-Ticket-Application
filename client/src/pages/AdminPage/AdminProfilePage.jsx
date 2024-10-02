@@ -37,7 +37,7 @@ function AdminProfilePage() {
     try {
       const response = await axiosInstance({
         url: "/admin/logout",
-        method: "GET",
+        method: "POST",
       });
       
       if (response.data.success === true) {

@@ -12,7 +12,7 @@ router.post('/siginup',errorSignupHandler,ownerSignup)
 router.post('/login',loginErrorHandler,ownerLogin)
 router.delete('/account-delete/:theaterId',authOwner,ownerDelete)
 router.put('/update',authOwner,upload.single('profile'),ownerUpdate)
-router.get('/logout',authOwner,ownerLogout)
+router.post('/logout',authOwner,ownerLogout)
 router.get('/profile',authOwner,ownerProfile)
 router.get('/check-owner',authOwner,checkOwner)
 // for access

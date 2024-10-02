@@ -26,7 +26,7 @@ router.delete('/account-delete',authAdmin,adminDelete)
 router.put('/update',authAdmin,upload.single('profile'),adminUpdate)
 
 // 
-router.get('/logout',authAdmin,adminLogout)
+router.post('/logout',authAdmin,adminLogout)
 router.get('/profile',authAdmin,adminProfile)
 router.get('/check-admin',authAdmin,checkAdmin)
 
