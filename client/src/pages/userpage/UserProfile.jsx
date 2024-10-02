@@ -35,7 +35,7 @@ function UserProfile() {
         url: "/user/logout",
         method: "GET",
       });
-
+      
       if (response.data.success === true) {
         navigate("/login")
       }

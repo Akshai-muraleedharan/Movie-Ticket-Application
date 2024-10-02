@@ -19,7 +19,7 @@ router.post('/otp-generate',ownerOtpGenerate)
 router.put('/account-restore',ownerAccoutRestore)
 
 router.delete('/account-delete/:theaterId',authOwner,ownerDelete)
-router.put('/update',authOwner,upload.single('profile-pic'),ownerUpdate)
+router.put('/update',authOwner,upload.single('profile'),ownerUpdate)
 
 router.get('/logout',authOwner,ownerLogout)
 router.get('/profile',authOwner,ownerProfile)

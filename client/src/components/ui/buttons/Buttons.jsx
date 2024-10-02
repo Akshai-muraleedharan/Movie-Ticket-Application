@@ -35,13 +35,13 @@ export function SignUpPageButton({loading}) {
 }
 
 
-export function AddMovieButton() {
+export function AddMovieButton({loading}) {
 
 
   return (
          
-     <button className="bg-green-500 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
-        Add - movie
+     <button className="bg-green-500 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm disabled:opacity-80" disabled={loading === true}>
+           {loading === true ? "Loading..." : "Add - movie"}        
       </button>  
     
   );
@@ -89,12 +89,4 @@ export function CreateSeatButton({loadings}) {
   );
 }
 
-export function GoogleSignup() {
-  return (
-    
-      <button className="bg-red-600 w-full mt-5 text-white text-center px-6 py-2 font-normal uppercase tracking-wider rounded-sm">
-        Google signup
-      </button>
-    
-  );
-}
+

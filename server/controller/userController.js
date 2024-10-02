@@ -385,8 +385,7 @@ export const userBookedDelete = async (req, res) => {
 // user logout
 export const userLogout = async (req, res, next) => {
   try {
-    res.clearCookie("token");
-
+    res.clearCookie("token", { httpOnly: true, secure: true, sameSite: 'None' });
     res.json({ success: true, message: "logout successfully" });
   } catch (error) {
     res

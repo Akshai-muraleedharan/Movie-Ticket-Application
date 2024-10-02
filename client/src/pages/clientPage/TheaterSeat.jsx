@@ -9,7 +9,9 @@ function TheaterSeat() {
     
     const [seats, setSeat] = useState([]);
     const [loading, setLoading] = useState(false);
-    
+
+     
+
     const navigate =useNavigate(-1)
     const { register, handleSubmit} = useForm()
 
@@ -27,6 +29,7 @@ function TheaterSeat() {
             toast.success("Seat created Successfully")
             setLoading(false)
         } catch (error) {
+          setLoading(false)
             toast.error("Something Error")
             console.log(error)
         }
@@ -91,6 +94,15 @@ function TheaterSeat() {
               </div>
 
               <div>
+              <select className="select select-bordered w-full "  {...register("seatGrade")}>
+                    <option disabled defaultValue>Pick your Seat type</option>
+                    <option>Platinum</option>
+                    <option>Gold</option>
+                  
+                </select>
+              </div>
+
+              <div>
                 <label className="input input-bordered flex items-center gap-2">
                   <input
                     type="number"
@@ -116,11 +128,29 @@ function TheaterSeat() {
 
 
         {seats.length < 1 ? "" : <div className="w-full flex  justify-center mt-8 mb-4  items-center flex-col">
-        <div className='flex flex-wrap justify-evenly gap-2 md:gap-2 w-4/5 md:max-w-[700px]'>
+          <h1 >Platinum </h1>
+        <div className='flex flex-wrap justify-evenly gap-2 md:gap-2 w-4/5 md:max-w-[700px]  mb-5'>
+        
         { seats.map((seat, index) => (
-              <div
-                key={seat.seatEndNumber} className={`seat ${seat.availableSeat ? (seat.selected ? 'selected' : 'available') : 'booked'}`}>
-              </div>
+               seat.SeatType ==="Platinum" ?
+               <div
+                 key={seat.seatEndNumber} className={`seat ${seat.availableSeat ? (seat.selected ? 'selected' : 'available') : 'booked'}`}>
+               </div> 
+               : ""
+            ))}
+            </div>
+            
+       <div>
+       <h1 >Gold</h1>
+       </div>
+            <div className='flex flex-wrap justify-evenly gap-2 md:gap-2 w-4/5 md:max-w-[700px] '>
+            
+        { seats.map((seat, index) => (
+               seat.SeatType ==="Gold" ?
+               <div
+                 key={seat.seatEndNumber} className={`seat ${seat.availableSeat ? (seat.selected ? 'selected' : 'available') : 'booked'}`}>
+               </div> 
+               : ""
             ))}
             </div>
 

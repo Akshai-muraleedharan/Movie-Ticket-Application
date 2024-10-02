@@ -188,7 +188,7 @@ export const adminLogout = async (req, res, next) => {
    
   
     // to clear cookie
-    res.clearCookie("token");
+    res.clearCookie("token", { httpOnly: true, secure: true, sameSite: 'None' });
     res.json({ success: true, message: "admin logout" });
   } catch (error) {
     res.status(error.status || 500).json({ message: error || "internal server error" });

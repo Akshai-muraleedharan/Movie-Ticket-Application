@@ -14,6 +14,7 @@ function CreateMoviePage() {
 
   const onSubmit = async (data) => {
     try {
+      setLoading(true)
       const formData = new FormData();
       formData.append("image", data.image[0]);
       formData.append("title", data.title);
@@ -21,7 +22,6 @@ function CreateMoviePage() {
       formData.append("language", data.language);
       formData.append("genres", data.genres);
 
-      setLoading(true)
       await axiosInstance({  
         url: `/movie/Movie-create/${id}`,
         method: "POST",
@@ -35,7 +35,7 @@ function CreateMoviePage() {
       toast.success("Movie Successfully Added");
     } catch (error) {
       toast.error("all fields required");
-
+      setLoading(false)
       console.log(error);
     }
   };
@@ -114,7 +114,7 @@ function CreateMoviePage() {
                 </label>
               </div>
 
-              <AddMovieButton  />
+              <AddMovieButton loading={loading} />
               <Toaster />
             </form>
           

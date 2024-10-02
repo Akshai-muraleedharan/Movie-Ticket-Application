@@ -19,7 +19,7 @@ function BookSeat() {
   const { movieId } = useParams(); 
   const navigate = useNavigate();
 
-
+console.log(TheaterSeat)
   const fetchTheater = async () => {
     try {
      
@@ -116,22 +116,38 @@ function BookSeat() {
         </div>
         
         <div className='flex justify-center flex-col items-center'>
-          <div className='flex flex-wrap justify-evenly gap-2 md:gap-2 w-4/5 md:max-w-[700px]'>
+
+       <div className='flex justify-center flex-col items-center'>
+       <h1 className='w-full ml-9 mb-2 font-semibold'>Platinum </h1>
+          <div className='flex flex-wrap justify-evenly gap-2 md:gap-2 w-4/5 md:max-w-[750px] mb-5'>
             {TheaterSeat.map((seat, index) => (
-              <div
+             seat.SeatType ==="Platinum" ? <div
                 key={seat.seatEndNumber}
                 className={`seat ${seat.availableSeat ? (seat.selected ? 'selected' : 'available') : 'booked'}`}
                 onClick={seat.availableSeat ? () => handleClick(index) : undefined}>
                
-              </div>
+              </div> : ""
             ))}
           </div>
+          <h1 className='w-full ml-9 mb-2 font-semibold'>Gold</h1>
+          <div className='flex flex-wrap justify-evenly gap-2 md:gap-2 w-4/5 md:max-w-[750px]'>
+            {TheaterSeat.map((seat, index) => (
+             seat.SeatType ==="Gold" ? <div
+                key={seat.seatEndNumber}
+                className={`seat ${seat.availableSeat ? (seat.selected ? 'selected' : 'available') : 'booked'}`}
+                onClick={seat.availableSeat ? () => handleClick(index) : undefined}>
+               
+              </div> : ""
+            ))}
+          </div>
+       </div>
+
           <div className='w-full md:w-[50%] h-7 flex justify-between items-center p-1 mt-4 mb-5'>
             <span className='flex text-xs items-center'><div className='w-6 h-6 bg-green-500 rounded-sm'> </div>   Selected </span>
             <span className='flex text-xs items-center'><div className='w-6 h-6 bg-gray-500 rounded-sm'> </div>   Booked </span>
             <span className='flex text-xs items-center'><div className='w-6 h-6 bg-gray-300 rounded-sm border-[1px] border-green-500'> </div>  Available </span>
           </div>
-          <div className='w-[60%] bg-sky-300 h-5 mb-9 text-xs text-center font-semibold text-blue-500'>Screen</div>
+          <div className='w-[40%] bg-sky-300 h-5 mb-9 text-xs text-center font-semibold text-blue-500'>Screen</div>
           <div className='h-12'>
             {totalPayment > 0 ? <button className='px-6 py-1 bg-[#c214d7] text-white rounded' onClick={seatBook}>{loading === true ? "Loading..." :  `Total payment : ${totalPayment.toFixed(2)}`} </button> : ''}
           </div>

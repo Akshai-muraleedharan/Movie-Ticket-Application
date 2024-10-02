@@ -6,7 +6,8 @@ import { toast, Toaster } from "react-hot-toast";
 
 
 
-function ProfileUpdate({setUpdate,profile,fetchProfile}) {
+function ProfileUpdateClient({setUpdate,profile,fetchProfile}) {
+
   const {register,handleSubmit} = useForm()
  const [loading,setLoading] =useState(false)
 
@@ -24,8 +25,8 @@ function ProfileUpdate({setUpdate,profile,fetchProfile}) {
       formData.append("email", data.email);
       formData.append("mobile", data.mobile);
       
-      const response = await axiosInstance({
-        url:"/user/update",
+       await axiosInstance({
+        url:"/owner/update",
         method:"PUT",
         data: formData,
 
@@ -89,4 +90,4 @@ function ProfileUpdate({setUpdate,profile,fetchProfile}) {
   )
 }
 
-export default ProfileUpdate
+export default ProfileUpdateClient

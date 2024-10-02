@@ -1,5 +1,6 @@
 import { cloudinaryInstance } from "../config/cloudneryConfig.js";
 import NewMovieModel from "../models/newMovieModel.js";
+import TheaterModel from "../models/theaterModel.js";
 
 export const movieCreate = async (req, res, next) => {
   try {
@@ -147,8 +148,16 @@ export const movieUpdate = async (req, res) => {
 
 export const movieDelete = async (req, res) => {
   const { id } = req.params;
-
+    const {theaterId} = req.params
+    console.log(theaterId)
+  
+    await TheaterModel.findByIdAndUpdate(
+      { _id: theaterId },
+      { $pull: { movieSchedules: { movieId: id } } },
+      { new: true }
+    );
   await NewMovieModel.findByIdAndDelete(id);
 
   res.json({ success: true, message: "movie deleted successfully" });
 };
+ 

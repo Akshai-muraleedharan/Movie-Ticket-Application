@@ -52,7 +52,7 @@ function MovieShedulePage() {
    const  sheduleDelete = async (id) => {
     try {
      await axiosInstance({
-        url:`movie/movie-delete/${id}`,
+        url:`movie/movie-delete/${id}/theater/${theaterId}`,
             method:"DELETE"
           })
           fetchMovies()

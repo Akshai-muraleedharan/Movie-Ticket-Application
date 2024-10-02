@@ -55,7 +55,7 @@ export const ownerLogin = async (req,res,next) => {
        
 
         if(!ownerExist ){
-            return res.status(400).json({success:false,message:"owner doesn't exist"})
+            return res.status(400).json({checkUser: false,message:"owner doesn't exist"})
             
         }
         
@@ -102,10 +102,15 @@ export const ownerUpdate = async (req,res)=>{
 
 
 
-        if(!req.file ){
-            image = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png'
-        }else{
-            image = req.file.path
+        if (!req.file) {
+          if(owner.profilePic === owner.profilePic){
+            image = owner.profilePic
+          }else{
+            image = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png";
+          }
+        
+        } else {
+          image = req.file.path;
         }
         const uploadResult = await cloudinaryInstance.uploader.upload(image,{folder:'movie ticket application/owner profile'})
           
@@ -153,8 +158,8 @@ export const ownerProfile= async (req,res,next) => {
 export const ownerLogout= async (req,res,next) => {
     try {
            
-        res.clearCookie('token')
-
+      
+        res.clearCookie("token", { httpOnly: true, secure: true, sameSite: 'None' });
         res.json({success:true,message:"owner logout"})
        
        

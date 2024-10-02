@@ -7,6 +7,7 @@ function PaymentPage() {
 const [theater,setTheater] = useState([])
 
 
+
 const navigate = useNavigate()
 
 
@@ -44,7 +45,7 @@ const navigate = useNavigate()
   <div className='w-full p-2 md:w-5/6  max-auto'>
   
  <div className="overflow-x-auto">
-  <table className="table table-sm">
+  <table className="table[unset] table-sm">
     <thead>
       <tr className="text-center">
         <th></th>
@@ -64,7 +65,7 @@ const navigate = useNavigate()
          <tr key={item._id}className="text-center font-semibold">
           <th>{index + 1}</th>
           <td>{item.userbookedId}</td>
-          <td>{item.movieId.title}</td>
+          <td>{item.movieName}</td>
           <td>{item.movieTime}</td>
           <td>{item.movieSeat.join(" , ")}</td>
           <td >{item.date}</td>
