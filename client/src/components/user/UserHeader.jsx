@@ -4,7 +4,6 @@ import { Menu } from "lucide-react";
 import { X } from "lucide-react";
 import logo from "../../assets/image/movie-logo.webp";
 import { CircleUserRound } from 'lucide-react';
-import { axiosInstance } from "../../config/axiosInstance";
 import { DarkMode } from "../ui/Header/DarkMode";
 
 function UserHeader() {
