@@ -67,13 +67,7 @@ function AdminLoginPage() {
                   {errorMessage.values === "password" ? errorMessage.message : null}
                 </div>
               </div>
-              <p className="text-xs  mb-1 text-white">
-                Don't have an account ?
-                <Link to={"/admin/signup"}>
-                  <span className="text-blue-400 ml-1">Signup</span>
-                </Link>
-              </p>
-              
+            
               <LoginPageButton type="submit"  />
               <Toaster/>
             </form>

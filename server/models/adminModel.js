@@ -10,6 +10,10 @@ const adminSchema = new mongoose.Schema({
         maxLength:15,
       
     },
+    role:{
+        type:String,
+        default:"admin"
+      },
     email:{
         type:String,
         trim: true,
@@ -35,7 +39,11 @@ const adminSchema = new mongoose.Schema({
         type:String,
         required:true,  
     }, 
-    
+    Position:{
+        type:String,
+        default:"sub-admin"
+    } 
+     
 },
   {timestamps:true}
 )

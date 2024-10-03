@@ -11,58 +11,9 @@ import UserModel from "../models/userModel.js";
 import OwnerModel from "../models/theaterOwnerModel.js";
 
 
-// admin signup
-export const adminSignup = async (req, res) => {
-  try {
-
-    const { username, email, password, profilePic,mobile } = req.body;
 
 
-    // check for admin already exist
-    const adminExist = await AdminModel.findOne({ email });
 
-    if (adminExist) {
-      return res.status(400).json({ success: false, message: "admin already exist" });
-    }
-
-    // to check the admin account in db to set maximum admin
-    const totalAdmin = await AdminModel.find();
-    const adminLength = totalAdmin.length + 1;
-
-    if (adminLength > 4) {
-      return res.status(400).json({ success: false, message: "maximum number of admins added" });
-    }
-
-    // This hashing password before save in db 
-    const hashedPassword = hashPassword(password);
-
-    // To save data to db
-    const NewAdmin = new AdminModel({
-      username,
-      email,
-      password: hashedPassword,
-      profilePic,
-      
-      mobile
-    });
-    await NewAdmin.save();
-
-    // Token creation for authentication and set role 
-    const token = createToken(email, "admin");
-
-    // created token save in cookies in frontend
-    res.cookie("token", token,{
-      sameSite: "None",
-      secure: true,
-      httpOnly: true,
-    });
-
-    res.status(200).json({ success: true, message: "admin signup successfully" });
-  } catch (error) {
-   
-    res.status(error.status || 500).json({ message: error || "internal server error" });
-  }
-};
 
 // admin login
 export const adminLogin = async (req, res, next) => {
@@ -117,6 +68,7 @@ export const adminLogin = async (req, res, next) => {
 };
 
 
+// admin get all
 export const adminGet = async(req,res) => {
   try {
     const adminFetch = await AdminModel.find();
@@ -274,4 +226,81 @@ export const userDeleteByAdmin = async (req, res) => {
       res.status(error.status || 500).json({message:error || "internal server error"})
   }
 
+}
+
+export const changeRole = async (req,res) => {
+  try{
+
+    const {id} = req.params;
+    const {Role} = req.body;
+
+    if(!id){
+      return res.status(400).json({success:false,message:"id not get"})
+    }
+
+    
+    const userCheck = await UserModel.findById(id)
+    const ownerCheck = await OwnerModel.findById(id)
+   
+    if(userCheck && userCheck.role === "user"){
+      if(Role === "admin"){
+
+     const newAdmin = await AdminModel({
+      username:userCheck.username,
+      email:userCheck.email,
+      password:userCheck.password,
+      profilePic:userCheck.profilePic,
+      adminDeleted:userCheck.userDeleted,
+      mobile:userCheck.mobile
+
+    })
+    await newAdmin.save()
+    await UserModel.findByIdAndDelete(id)
+    res.status(200).json({success:true,message:"role change successfully"})
+      }
+   
+    }else if(ownerCheck && ownerCheck.role === "owner"){
+          if(Role === "admin"){
+            const newAdmin = await AdminModel({
+              username:ownerCheck.username,
+              email:ownerCheck.email,
+              password:ownerCheck.password,
+              profilePic:ownerCheck.profilePic,
+              adminDeleted:ownerCheck.userDeleted,
+              mobile:ownerCheck.mobile
+            })
+            await newAdmin.save()
+            await OwnerModel.findByIdAndDelete(id)
+            res.status(200).json({success:true,message:"role change successfully"})
+          }
+    }
+
+  
+  
+  }catch(error){
+    res.status(error.status || 500).json({message:error || "internal server error"})
+    console.log(error)
+  }
+} 
+
+
+export const subAdminDelete = async (req,res) => {
+  try{
+    const verifiedAdmin  = req.admin.email;
+    const {id} = req.params
+    const admin = await AdminModel.findOne({email:verifiedAdmin})
+    const adminPosition = admin.Position
+
+    if(adminPosition !== "super-admin"){
+      return res.status(400).json({success:false,message:"you have not authorise to delete admins"})
+    }
+
+    if(adminPosition === "super-admin"){
+       await AdminModel.findByIdAndDelete(id)
+       res.status(200).json({success:true,message:"sub admin delete successfully"})
+    }
+  }catch(error){
+    res.status(error.status || 500).json({message:error || "internal server error"})
+    console.log(error)
+  }
 }

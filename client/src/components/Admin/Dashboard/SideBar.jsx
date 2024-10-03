@@ -17,7 +17,6 @@ const handleClick = (index) => {
     const sideBar_link =[
       {id:1, path:'',name:"Dashboard", icon:LuBox},
       {id:2, path:'users',name:"Users", icon:TbUsers},
-      {id:3, path:'owners',name:"Owners", icon:TbUsers},
       {id:4, path:'review',name:"Reviews", icon:LuMessageSquare},
       {id:5, path:'payment',name:"Payment", icon:FaIndianRupeeSign},
       // {id:6, path:'/work',name:"Work plan", icon:SlCalender}

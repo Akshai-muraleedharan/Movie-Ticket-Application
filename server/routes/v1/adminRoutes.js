@@ -2,13 +2,13 @@ import express from 'express'
 
 
 import { userGetALL } from '../../controller/userController.js'
-import {  adminDelete, adminGet, adminLogin, adminLogout, adminProfile, adminSignup, AdminTheaterOwnerDelete, adminUpdate, checkAdmin, userDeleteByAdmin} from '../../controller/adminController.js'
+import {  adminDelete, adminGet, adminLogin, adminLogout, adminProfile, AdminTheaterOwnerDelete, adminUpdate, checkAdmin, userDeleteByAdmin,changeRole, subAdminDelete} from '../../controller/adminController.js'
 import { authAdmin } from '../../middleware/authAdmin.js'
 import { theaterList } from '../../controller/theaterController.js'
 import { movieList } from '../../controller/movieController.js'
 import { totalPaymentList } from '../../controller/movieTicketController.js'
 import { upload } from '../../middleware/imageUploadMiddleware.js'
-import { errorSignupHandler, loginErrorHandler } from '../../middleware/error.js'
+import {  loginErrorHandler } from '../../middleware/error.js'
 import { movieRatingDelete, movieRatingGetAdmin, movieRatingGetAll } from '../../controller/ratingController.js'
 import { ownerGetALL } from '../../controller/theaterOwnerController.js'
 
@@ -17,7 +17,7 @@ import { ownerGetALL } from '../../controller/theaterOwnerController.js'
 
 const router = express.Router()
 
-router.post('/siginup',errorSignupHandler,adminSignup)
+
 router.post('/login',loginErrorHandler,adminLogin)
 
 router.delete('/account-delete',authAdmin,adminDelete)
@@ -31,6 +31,7 @@ router.get('/profile',authAdmin,adminProfile)
 router.get('/check-admin',authAdmin,checkAdmin)
 
 // for dashboard
+router.post('/users-role/:id',authAdmin,changeRole)
 router.get('/all-users',authAdmin,userGetALL)
 router.get('/all-admin',authAdmin,adminGet)
 router.get('/theater-list',authAdmin ,theaterList)
@@ -39,7 +40,7 @@ router.get('/payment-list',authAdmin,totalPaymentList)
 router.get('/rating-All',authAdmin,movieRatingGetAll)
 router.get('/movie-rating/:id',authAdmin,movieRatingGetAdmin)
 router.get('/owner-All',authAdmin,ownerGetALL)
- 
+router.delete('/sub-admin/delete/:id',authAdmin,subAdminDelete) 
 router.delete("/rating/:id", authAdmin, movieRatingDelete);
 router.delete("/user/:id", authAdmin, userDeleteByAdmin);
 router.delete("/owner/:id", authAdmin, AdminTheaterOwnerDelete);

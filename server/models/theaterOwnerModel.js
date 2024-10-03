@@ -32,6 +32,10 @@ const theaterOwnerSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
+    role:{
+        type:String,
+        default:"owner"
+      },
     mobile:{
         type:String,
         required:true,  

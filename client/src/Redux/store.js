@@ -1,13 +1,15 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import showTimeReducer from './Slice/showTimeSlice'
 import   ownerReducer  from './Owner/OwnerSlice';
+import adminReducer from './admin/adminSlice'
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 
 const rootReducer = combineReducers({
    payment:showTimeReducer ,
-   owner:ownerReducer
+   owner:ownerReducer,
+   admin:adminReducer
   });
 
 const persistConfig = {

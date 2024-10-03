@@ -3,12 +3,14 @@ import React, { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
 import { CircleUserRound } from 'lucide-react';
 import { axiosInstance } from '../../config/axiosInstance';
-
-
+import {  useDispatch, useSelector } from 'react-redux'
+import {adminPostion} from '../../Redux/admin/adminSlice'
 
 function AdminSecureHeader() {
   const [profile, setProfile] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const dispatch = useDispatch()
 
   const fetchProfile = async () => {
     try {
@@ -21,6 +23,7 @@ function AdminSecureHeader() {
     
        
       setProfile(response.data.data.username);
+      dispatch(adminPostion(response.data.data.Position))
       setLoading(false)
     } catch (error) {
       console.log(error);

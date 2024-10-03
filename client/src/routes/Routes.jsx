@@ -50,13 +50,12 @@ const TheaterSeat = lazy(() => import('../pages/clientPage/TheaterSeat.jsx'));
 // admin
 const AdminHomePage = lazy(() => import('../pages/AdminPage/AdminHomePage.jsx'));
 const AdminLoginPage = lazy(() => import('../pages/AdminPage/AdminLoginPage.jsx'));
-const AdminSignupPage = lazy(() => import('../pages/AdminPage/AdminSignupPage.jsx'));
 const AdminProfilePage = lazy(() => import('../pages/AdminPage/AdminProfilePage.jsx'));
 
 
 // admin dashboard
 const AdminReviewPage = lazy(() => import('../pages/AdminPage/AdminReviewPage.jsx'));
-const AdminOwnersList = lazy(() => import('../pages/AdminPage/AdminOwnersList.jsx'));
+
 const UserListPage = lazy(() => import('../pages/AdminPage/AdminUserListPage.jsx'));
 const PaymentPage = lazy(() => import('../pages/clientPage/PaymentPage.jsx'));
 const AdminTheaterPayment = lazy(() => import('../pages/AdminPage/AdminTheaterPayment.jsx'));
@@ -230,10 +229,7 @@ export const router = createBrowserRouter([
         path:"login",
         element:<AdminLoginPage />
       },
-      {
-        path:"signup",
-        element:<AdminSignupPage />
-      },
+    
     
     ]
   },
@@ -256,10 +252,7 @@ export const router = createBrowserRouter([
         path: "users",
         element: <UserListPage />,
       },
-      {
-        path: "owners",
-        element: <AdminOwnersList />,
-      },
+     
       {
         path: "review",
         element: <AdminReviewPage />,
