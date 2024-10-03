@@ -126,7 +126,7 @@ function BookSeat() {
         <div className='flex justify-center flex-col items-center'>
 
        <div className='flex justify-center flex-col items-center'>
-       <h1 className='w-full ml-9 mb-2 font-semibold'>Platinum </h1>
+       <h1 className='md:w-full ml-9 mb-2 font-semibold'>Platinum </h1>
           <div className='flex flex-wrap justify-evenly gap-2 md:gap-2 w-4/5 md:max-w-[750px] mb-5'>
             {TheaterSeat.map((seat, index) => (
              seat.SeatType ==="Platinum" ? <div
@@ -137,7 +137,7 @@ function BookSeat() {
               </div> : ""
             ))}
           </div>
-          <h1 className='w-full ml-9 mb-2 font-semibold'>Gold</h1>
+          <h1 className='md:w-full ml-9 mb-2 font-semibold'>Gold</h1>
           <div className='flex flex-wrap justify-evenly gap-2 md:gap-2 w-4/5 md:max-w-[750px]'>
             {TheaterSeat.map((seat, index) => (
              seat.SeatType ==="Gold" ? <div
