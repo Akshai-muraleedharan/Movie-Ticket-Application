@@ -148,6 +148,7 @@ const usersRoleChange =async (role,id) => {
         })
         adminGet()
         userGet()
+        ownerGet()
     }
   } catch (error) {
     console.log(error)
@@ -260,9 +261,9 @@ const filteredItems = listArray.filter(item =>
             
             <td>{item.username}</td>
             <td>{item.Position}</td>
-            <td><Trash onClick={() => deleteAdmin(item._id)}/></td>
+            <td> {item.Position === "super-admin" ? "" : <button className="btn bg-red-500 text-white" onClick={() => deleteAdmin(item._id)}>Delete</button>}</td>
           </tr>
-          
+          // <button className="btn bg-red-500" onClick={() => deleteAdmin(item._id)}>Delete</button> 
         ))}
          
          

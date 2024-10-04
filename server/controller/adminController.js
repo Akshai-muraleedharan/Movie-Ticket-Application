@@ -268,8 +268,10 @@ export const changeRole = async (req,res) => {
       mobile:userCheck.mobile
 
     })
-    await newAdmin.save()
     await UserModel.findByIdAndDelete(id)
+    await newAdmin.save()
+   
+   
     res.status(200).json({success:true,message:"role change successfully"})
       }
    
@@ -283,8 +285,10 @@ export const changeRole = async (req,res) => {
               adminDeleted:ownerCheck.userDeleted,
               mobile:ownerCheck.mobile
             })
-            await newAdmin.save()
             await OwnerModel.findByIdAndDelete(id)
+            await newAdmin.save()
+        
+           
             res.status(200).json({success:true,message:"role change successfully"})
           }
     }
