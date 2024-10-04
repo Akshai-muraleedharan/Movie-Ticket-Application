@@ -9,6 +9,8 @@ import otpGenerator from "otp-generator";
 import OtpModel from "../models/otpModel.js";
 import UserModel from "../models/userModel.js";
 import OwnerModel from "../models/theaterOwnerModel.js";
+import TheaterModel from "../models/theaterModel.js";
+import NewMovieModel from "../models/newMovieModel.js";
 
 
 
@@ -217,13 +219,25 @@ export const userDeleteByAdmin = async (req, res) => {
   try {
 
      const {id} =req.params
- 
-      await OwnerModel.findByIdAndDelete(id)
+
+     const owner = await OwnerModel.findById(id)
+     const theaterId = await TheaterModel.findOne({Ownermail:owner.email})
+
+     let idOfTheater = theaterId._id.toString()
+  
+       const movie = await NewMovieModel.findOne({theaterId:idOfTheater})
+
+       await OwnerModel.findOneAndDelete({email:owner.email})
+       await TheaterModel.findOneAndDelete({Ownermail:owner.email})
+       await NewMovieModel.findOneAndDelete({theaterId:idOfTheater})
+   
+      
  
       res.json({ success: true, message: "theater owner deleted successfully" });
 
   } catch (error) {
       res.status(error.status || 500).json({message:error || "internal server error"})
+      
   }
 
 }
@@ -304,3 +318,91 @@ export const subAdminDelete = async (req,res) => {
     console.log(error)
   }
 }
+
+
+export const usersInActive = async (req,res) => {
+  try{
+
+    const {id} =req.params
+
+    if(!id){
+      return res.status(400).json({success:false,message:"id not get"})
+    }
+
+    const userCheck = await UserModel.findById(id)
+    const ownerCheck = await OwnerModel.findById(id)
+    const adminCheck = await AdminModel.findById(id)
+
+    
+
+    if(userCheck && userCheck.role === "user"){
+
+      await UserModel.findByIdAndUpdate(id,{active:true},{new:true})
+      res.status(200).json({success:true,message:"user inActive successfully"})
+
+    }else if(ownerCheck && ownerCheck.role === "owner"){
+
+      await OwnerModel.findByIdAndUpdate(id,{active:true},{new:true})
+      res.status(200).json({success:true,message:"owner inActive successfully"})
+
+    }else if(adminCheck && adminCheck.role === "admin"){
+     
+      await AdminModel.findByIdAndUpdate(id,{active:true},{new:true})
+      res.status(200).json({success:true,message:"admin inActive successfully"})
+
+    }else{
+
+      res.status(400).json({success:false,message:"could not inActive"})
+
+    }
+
+  }catch(error){
+    res.status(error.status || 500).json({message:error || "internal server error"})
+    console.log(error)
+  }
+}
+
+
+
+export const usersActive = async (req,res) => {
+  try{
+
+    const {id} =req.params
+
+    if(!id){
+      return res.status(400).json({success:false,message:"id not get"})
+    }
+
+    const userCheck = await UserModel.findById(id)
+    const ownerCheck = await OwnerModel.findById(id)
+    const adminCheck = await AdminModel.findById(id)
+
+    
+
+    if(userCheck && userCheck.role === "user"){
+
+      await UserModel.findByIdAndUpdate(id,{active:false},{new:true})
+      res.status(200).json({success:true,message:"user Active  successfully"})
+
+    }else if(ownerCheck && ownerCheck.role === "owner"){
+
+      await OwnerModel.findByIdAndUpdate(id,{active:false},{new:true})
+      res.status(200).json({success:true,message:"owner Active  successfully"})
+
+    }else if(adminCheck && adminCheck.role === "admin"){
+     
+      await AdminModel.findByIdAndUpdate(id,{active:false},{new:true})
+      res.status(200).json({success:true,message:"admin Active  successfully"})
+
+    }else{
+
+      res.status(400).json({success:false,message:"could not inActive"})
+
+    }
+
+  }catch(error){
+    res.status(error.status || 500).json({message:error || "internal server error"})
+    console.log(error)
+  }
+}
+

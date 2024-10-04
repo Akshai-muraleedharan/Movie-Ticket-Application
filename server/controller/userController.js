@@ -41,7 +41,7 @@ export const userSignup = async (req, res, next) => {
     await NewUser.save();
 
     const token = createToken(email, "user");
-
+ 
     res.cookie("token", token, {sameSite: "None",secure: true, httpOnly: true, });
 
     res
@@ -78,7 +78,7 @@ export const userLogin = async (req, res, next) => {
     if (deletedUser == true) {
       return res
         .status(400)
-        .json({ success: false, message: "user doesn't exist" });
+        .json({ success: false, message: "You are InActive" });
     }
 
     const PasswordValue = userExist.password;
@@ -414,7 +414,7 @@ export const checkUser = async (req, res, next) => {
 // user get all
 export const userGetALL = async (req, res) => {
   try {
-    const userGetAll = await UserModel.find({ userDeleted: false });
+    const userGetAll = await UserModel.find();
 
     const userLength = userGetAll.length;
 

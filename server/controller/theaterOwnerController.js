@@ -218,7 +218,7 @@ export const ownerDelete = async (req,res) => {
 //  owner get all
 export const ownerGetALL = async (req, res) => {
   try {
-    const OwnerGetAll = await OwnerModel.find({ownerDeleted:false});
+    const OwnerGetAll = await OwnerModel.find();
 
     const ownerLength = OwnerGetAll.length;
 
