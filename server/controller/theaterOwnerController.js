@@ -21,10 +21,12 @@ export const ownerSignup = async (req,res) => {
         }
         
         const hashedPassword = hashPassword(password);
+       
 
         const NewOwner = new OwnerModel({username,email,password:hashedPassword,profilePic,mobile}) 
         await NewOwner.save()
-
+        
+        sendEmail(email,"Welcome",` Welcome, ${username} your account creation is success`)
         const token = createToken(email,"owner")
  
         res.cookie('token',token,{

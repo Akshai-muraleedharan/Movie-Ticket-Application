@@ -1,16 +1,13 @@
 
-
 import { createToken } from "../utils/generateToken.js";
 import AdminModel from "../models/adminModel.js";
 import { cloudinaryInstance } from "../config/cloudneryConfig.js";
-import { hashPassword } from "../utils/hashedPassword.js";
 import { matchPassword } from "../utils/comparePassword.js";
-import otpGenerator from "otp-generator";
-import OtpModel from "../models/otpModel.js";
 import UserModel from "../models/userModel.js";
 import OwnerModel from "../models/theaterOwnerModel.js";
 import TheaterModel from "../models/theaterModel.js";
 import NewMovieModel from "../models/newMovieModel.js";
+import { sendEmail } from "../middleware/emailConfig.js";
 
 
 
@@ -258,7 +255,7 @@ export const changeRole = async (req,res) => {
    
     if(userCheck && userCheck.role === "user"){
       if(Role === "admin"){
-
+        sendEmail(userCheck.email,"Welcome admin",` Welcome, ${userCheck.username} now you are a sub-admin `)
      const newAdmin = await AdminModel({
       username:userCheck.username,
       email:userCheck.email,
@@ -276,6 +273,7 @@ export const changeRole = async (req,res) => {
       }
    
     }else if(ownerCheck && ownerCheck.role === "owner"){
+      sendEmail(ownerCheck.email,"Welcome admin",` Welcome, ${ownerCheck.username} now you are a sub-admin `)
           if(Role === "admin"){
             const newAdmin = await AdminModel({
               username:ownerCheck.username,

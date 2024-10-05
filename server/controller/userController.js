@@ -5,6 +5,7 @@ import { cloudinaryInstance } from "../config/cloudneryConfig.js";
 import { hashPassword } from "../utils/hashedPassword.js";
 import otpGenerator from "otp-generator";
 import TheaterModel from "../models/theaterModel.js";
+import { sendEmail } from "../middleware/emailConfig.js";
 
 
 //  User create controller
@@ -29,7 +30,7 @@ export const userSignup = async (req, res, next) => {
     }
 
     const hashedPassword = hashPassword(password);
-
+   
     const NewUser = new UserModel({
       username,
       email,
@@ -39,6 +40,7 @@ export const userSignup = async (req, res, next) => {
     });
 
     await NewUser.save();
+    sendEmail(email,"Welcome",` Welcome, ${username} your account creation is success`)
 
     const token = createToken(email, "user");
  

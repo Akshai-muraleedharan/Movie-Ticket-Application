@@ -201,7 +201,7 @@ const handleChange = (e) => {
     setQuery("false")
    }else if(e.target.value === "In-Active"){
     setQuery("true")
-   }else if(e.target.value === "All-Active"){
+   }else if(e.target.value === "Status"){
     setQuery('')
     adminGet()
     userGet()
@@ -303,13 +303,13 @@ const filteredItems = listArray.filter(item =>
         <th>Position</th>
         <th>
         <select className='outline-none' onChange={handleChange} >
-        <option >All-Active</option>
+        <option >Status</option>
           <option >Active</option>
           <option >In-Active</option>
          
           </select>
           </th>
-        <th>Delete</th>
+        <th>Action</th>
         
       </tr>
     </thead>
@@ -327,7 +327,7 @@ const filteredItems = listArray.filter(item =>
             <option>admin</option>
           </select> : item.role}</td>
           <td>{item.Position ===  undefined ? "N/A" : item.Position}</td>
-          <td className='flex justify-center '>{ item.Position === "super-admin" ? <div className='w-4 h-4 bg-green-700 rounded-full '></div>  : item.active  ? <div className='w-4 h-4 bg-red-400 rounded-full cursor-pointer' onClick={(()=> usersActive(item._id))}></div> :  <div className='w-4 h-4 bg-green-400 rounded-full cursor-pointer' onClick={(()=> usersInActive(item._id))}></div>}</td>
+          <td className='flex justify-center '>{ item.Position === "super-admin" ? <div className='w-4 h-4 bg-green-700 rounded-full '></div>  : item.active  ? <div className=' cursor-pointer font-semibold' onClick={(()=> usersActive(item._id))}>In-Active</div> :  <div className=' cursor-pointer font-semibold' onClick={(()=> usersInActive(item._id))}>Active</div>}</td>
           <td className='text-center'> {item.role === "admin" ? " " : item.role === "user" ? <Trash onClick={()=> userDelete(item._id)} className='mx-auto cursor-pointer'/> : <Trash onClick={()=> ownerDelete(item._id)} className='mx-auto cursor-pointer'/> }</td>
           {/* </div> : <div className='w-4 h-4 bg-green-400 rounded-full'></div> */}
           </tr>
@@ -356,14 +356,15 @@ const filteredItems = listArray.filter(item =>
         <th>Position</th>
         <th>
         <select className='outline-none' onChange={handleChange} >
-        <option >All-Active</option>
+       
+        <option >Status</option>
           <option >Active</option>
           <option >In-Active</option>
          
           </select>
           
         </th>
-        <th>Delete</th>
+        <th>Action</th>
         
       </tr>
     </thead>
@@ -381,7 +382,7 @@ const filteredItems = listArray.filter(item =>
             <option>admin</option>
           </select> : item.role}</td>
           <td>{item.Position ===  undefined ? "N/A" : item.Position}</td>
-          <td className='flex justify-center '>{ item.Position === "super-admin" ? <div className='w-4 h-4 bg-green-700 rounded-full '></div>  : item.active  ? <div className='w-4 h-4 bg-red-400 rounded-full cursor-pointer' onClick={(()=> usersActive(item._id))}></div> :  <div className='w-4 h-4 bg-green-400 rounded-full cursor-pointer' onClick={(()=> usersInActive(item._id))}></div>}</td>
+          <td className='flex justify-center '>{ item.Position === "super-admin" ? <div className='w-4 h-4 bg-green-700 rounded-full '></div>  : item.active  ? <div className=' cursor-pointer font-semibold' onClick={(()=> usersActive(item._id))}>In-Active</div> :  <div className=' cursor-pointer font-semibold' onClick={(()=> usersInActive(item._id))}>Active</div>}</td>
           <td className='text-center'> {item.role === "admin" ? " " : item.role === "user" ? <Trash onClick={()=> userDelete(item._id)} className='mx-auto cursor-pointer'/> : <Trash onClick={()=> ownerDelete(item._id)} className='mx-auto cursor-pointer'/> }</td>
           {/* </div> : <div className='w-4 h-4 bg-green-400 rounded-full'></div> */}
           </tr>
