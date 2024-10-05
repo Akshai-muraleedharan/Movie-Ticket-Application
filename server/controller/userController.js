@@ -70,17 +70,15 @@ export const userLogin = async (req, res, next) => {
     const userExist = await UserModel.findOne({ email });
 
     if (!userExist) {
-      return res
-        .status(400)
-        .json({ checkUser: false, message: "user doesn't exist" });
+      return res.status(400).json({ checkUser: false, message: "user doesn't exist" });
     }
 
-    const deletedUser = userExist.userDeleted;
-
+    const deletedUser = userExist.active;
+     
     if (deletedUser == true) {
       return res
         .status(400)
-        .json({ success: false, message: "You are InActive" });
+        .json({ checkUser: false, message: "You are InActive" });
     }
 
     const PasswordValue = userExist.password;

@@ -59,10 +59,10 @@ export const ownerLogin = async (req,res,next) => {
             
         }
         
-        const deletedOwner = ownerExist.ownerDeleted
+        const deletedOwner = ownerExist.active
 
         if (deletedOwner == true) {
-          return res.status(400).json({ checkUser: false, message: "owner doesn't exist" });
+          return res.status(400).json({ checkUser: false, message: "You are InActive" });
         }
 
         const PasswordValue = ownerExist.password

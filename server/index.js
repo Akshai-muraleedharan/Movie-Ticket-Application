@@ -9,7 +9,20 @@ const app = express()
 
 app.use(express.json())
 app.use(cookieParser())
-app.use(compression())
+app.use(compression({ filter: shouldCompress }))
+
+
+
+
+function shouldCompress (req, res) {
+    if (req.headers['x-no-compression']) {
+      // don't compress responses with this request header
+      return false
+    }
+  
+    // fallback to standard filter function
+    return compression.filter(req, res)
+  }
 app.use(cors({
   origin:process.env.CLIENT_DOMAIN,
     credentials:true,
