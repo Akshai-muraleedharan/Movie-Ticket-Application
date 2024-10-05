@@ -54,7 +54,7 @@ export const userSignup = async (req, res, next) => {
         date: NewUser,
       });
   } catch (error) {
-    console.log(error);
+   
     res
       .status(error.status || 500)
       .json({ message: error || "internal server error" });
@@ -107,7 +107,7 @@ export const userLogin = async (req, res, next) => {
 
     res.status(200).json({ success: true, message: "user login successfully" });
   } catch (error) {
-    console.log(error);
+    
     res
       .status(error.status || 500)
       .json({ message: error || "internal server error" });
@@ -137,7 +137,7 @@ export const userUpdate = async (req, res) => {
     const uploadResult = await cloudinaryInstance.uploader
       .upload(image, { folder: "movie ticket application/user profile" })
       .catch((error) => {
-        console.log(error);
+        
       });
 
    await UserModel.findOneAndUpdate(
@@ -152,7 +152,7 @@ export const userUpdate = async (req, res) => {
      
     });
   } catch (error) {
-    console.log(error);
+    
     res
       .status(error.status || 500)
       .json({ message: error || "internal server error" });
@@ -233,7 +233,7 @@ export const bookedMovies = async (req, res) => {
 
     res.json({ success: true, message: "successfully fetched", data: user });
   } catch (error) {
-    console.log(error);
+    
     res
       .status(error.status || 500)
       .json({ message: error || "internal server error" });
@@ -288,7 +288,7 @@ export const SeatBooking = async (req, res) => {
 
     res.json({ data: results });
   } catch (error) {
-    console.log(error);
+    
     res
       .status(error.status || 500)
       .json({ message: error || "internal server error" });
@@ -353,7 +353,7 @@ export const userMovies = async (req, res) => {
 
     res.json({ success: true, message: "movie added successfully" });
   } catch (error) {
-    console.log(error);
+  
     res
       .status(error.status || 500)
       .json({ message: error || "internal server error" });
@@ -375,7 +375,7 @@ export const userBookedDelete = async (req, res) => {
 
     res.status(200).json({ success: true, message: "deleted successfully" });
   } catch (error) {
-    console.log(error);
+    
     res
       .status(error.status || 500)
       .json({ message: error || "internal server error" });

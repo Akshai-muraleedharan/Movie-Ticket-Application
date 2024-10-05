@@ -74,7 +74,9 @@ export const movieTicket = async(req,res) => {
   
 
     } catch (error) {
-        console.log(error)
+        res
+        .status(error.status || 500)
+        .json({ message: error || "internal server error" });
     }
 }
 
@@ -91,7 +93,9 @@ export const ticketTest = async (req,res) => {
         });
        
     } catch (error) {
-        console.log(error)
+        res
+        .status(error.status || 500)
+        .json({ message: error || "internal server error" });
     }
 }
 

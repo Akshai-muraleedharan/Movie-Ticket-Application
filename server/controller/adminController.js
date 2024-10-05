@@ -295,7 +295,7 @@ export const changeRole = async (req,res) => {
   
   }catch(error){
     res.status(error.status || 500).json({message:error || "internal server error"})
-    console.log(error)
+   
   }
 } 
 
@@ -317,7 +317,7 @@ export const subAdminDelete = async (req,res) => {
     }
   }catch(error){
     res.status(error.status || 500).json({message:error || "internal server error"})
-    console.log(error)
+    
   }
 }
 
@@ -360,7 +360,7 @@ export const usersInActive = async (req,res) => {
 
   }catch(error){
     res.status(error.status || 500).json({message:error || "internal server error"})
-    console.log(error)
+    
   }
 }
 
@@ -404,7 +404,7 @@ export const usersActive = async (req,res) => {
 
   }catch(error){
     res.status(error.status || 500).json({message:error || "internal server error"})
-    console.log(error)
+   
   }
 }
 

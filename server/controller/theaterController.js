@@ -51,7 +51,7 @@ export const theaterCreate = async (req, res) => {
       data: newTheater,
     });
   } catch (error) {
-    console.log(error);
+    
     res
       .status(error.status || 500)
       .json({ message: error || "internal server error" });
@@ -82,7 +82,7 @@ export const theaterMovieShedule = async (req, res) => {
       data: movie,
     });
   } catch (error) {
-    console.log(error);
+   
     res
       .status(error.status || 500)
       .json({ message: error || "internal server error" });
@@ -111,7 +111,7 @@ export const theaterUserFind = async (req, res) => {
     }
     res.json({ success: true, message: "fetched successfully", data: theater });
   } catch (error) {
-    console.log(error);
+    
     res
       .status(error.status || 500)
       .json({ message: error || "internal server error" });
@@ -277,7 +277,7 @@ let time = movieTime.showTime
 
     res.json({ success: true, message: "movie deleted" });
   } catch (error) {
-    console.log(error);
+    
     res
       .status(error.status || 500)
       .json({ message: error || "internal server error" });

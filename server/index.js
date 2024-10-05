@@ -3,13 +3,13 @@ import apiRouter from './routes/index.js'
 import dbConnect from './config/db.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-
+import compression from 'compression'
 
 const app = express()
 
 app.use(express.json())
 app.use(cookieParser())
-
+app.use(compression)
 app.use(cors({
   origin:process.env.CLIENT_DOMAIN,
     credentials:true,
