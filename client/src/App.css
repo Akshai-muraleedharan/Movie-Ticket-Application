@@ -190,3 +190,8 @@ background: linear-gradient(178deg, rgba(2,0,36,1) 0%, rgba(1,1,1,0.574667366946
   cursor: pointer;
 }
 
+/* admin dashboard */
+
+html {
+  scrollbar-gutter: auto !important;
+}

@@ -73,7 +73,7 @@ function CreateTheaterPageClient() {
 
               <div>
                 <select {...register("screenType")} className="select select-bordered w-full">
-                  <option disabled selected>
+                  <option disabled defaultValue selected>
                     Select ScreenType
                   </option>
                   <option>IMAX</option>

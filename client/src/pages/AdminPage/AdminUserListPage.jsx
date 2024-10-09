@@ -14,7 +14,10 @@ function UserListPage() {
     const [query, setQuery] = useState('');
     const [display,setDisplay] = useState(false)
     const [btn,setBtn] = useState(false)
-  
+    const [loading,setLoading] =useState(false)
+    const [userId,setUserId] = useState("")
+
+    
 
     const postion = useSelector((state) => state.admin.position)
     let listArray = []
@@ -157,14 +160,17 @@ const usersRoleChange =async (role,id) => {
 
  const usersInActive = async (id) => {
   try {
+    setLoading(true)
     await axiosInstance({
       url:`admin/users-inActive/${id}`,
       method:"PUT"
 
     })
+    setUserId(id)
     adminGet()
     userGet()
     ownerGet()
+    setLoading(false)
   } catch (error) {
     console.log(error)
   }
@@ -172,14 +178,17 @@ const usersRoleChange =async (role,id) => {
 
 const usersActive = async (id) => {
   try {
+    setLoading(true)
     await axiosInstance({
       url:`admin/users-Active/${id}`,
       method:"PUT"
 
     })
+    setUserId(id)
     adminGet()
     userGet()
     ownerGet()
+    setLoading(false)
   } catch (error) {
     console.log(error)
   }
@@ -221,11 +230,16 @@ const filteredItems = listArray.filter(item =>
  
 );
 
+setTimeout(()=>{
+  setUserId("")
+},3000)
 
     useEffect(()=>{
       adminGet()
         userGet()
         ownerGet()
+
+        
     },[])
 
   return (
@@ -327,7 +341,7 @@ const filteredItems = listArray.filter(item =>
             <option>admin</option>
           </select> : item.role}</td>
           <td>{item.Position ===  undefined ? "N/A" : item.Position}</td>
-          <td className='flex justify-center '>{ item.Position === "super-admin" ? <div className='w-4 h-4 bg-green-700 rounded-full '></div>  : item.active  ? <div className=' cursor-pointer font-semibold' onClick={(()=> usersActive(item._id))}>In-Active</div> :  <div className=' cursor-pointer font-semibold' onClick={(()=> usersInActive(item._id))}>Active</div>}</td>
+          <td className='flex justify-center '>{ item.Position === "super-admin" ? <div className='w-4 h-4 bg-green-700 rounded-full '></div>  : item.active  ?  <div className=' cursor-pointer font-semibold' onClick={(()=> usersActive(item._id))}>{userId === item._id ? loading ? "Loading..." : "Loading..." : "In-Active"}</div>  :  <div className=' cursor-pointer font-semibold' onClick={(()=> usersInActive(item._id))}>{userId === item._id ? loading ? "Loading..." : "Loading..." : "Active"}</div>}</td>
           <td className='text-center'> {item.role === "admin" ? " " : item.role === "user" ? <Trash onClick={()=> userDelete(item._id)} className='mx-auto cursor-pointer'/> : <Trash onClick={()=> ownerDelete(item._id)} className='mx-auto cursor-pointer'/> }</td>
           {/* </div> : <div className='w-4 h-4 bg-green-400 rounded-full'></div> */}
           </tr>
@@ -382,7 +396,7 @@ const filteredItems = listArray.filter(item =>
             <option>admin</option>
           </select> : item.role}</td>
           <td>{item.Position ===  undefined ? "N/A" : item.Position}</td>
-          <td className='flex justify-center '>{ item.Position === "super-admin" ? <div className='w-4 h-4 bg-green-700 rounded-full '></div>  : item.active  ? <div className=' cursor-pointer font-semibold' onClick={(()=> usersActive(item._id))}>In-Active</div> :  <div className=' cursor-pointer font-semibold' onClick={(()=> usersInActive(item._id))}>Active</div>}</td>
+          <td className='flex justify-center '>{ item.Position === "super-admin" ? <div className='w-4 h-4 bg-green-700 rounded-full '></div>  : item.active  ? <div className=' cursor-pointer font-semibold' onClick={(()=> usersActive(item._id))}>{userId === item._id ? loading ? "Loading..." : "Loading..." : "In-Active"}</div> :  <div className=' cursor-pointer font-semibold' onClick={(()=> usersInActive(item._id))}>{userId === item._id ? loading ? "Loading..." : "Loading..." : "Active"}</div>}</td>
           <td className='text-center'> {item.role === "admin" ? " " : item.role === "user" ? <Trash onClick={()=> userDelete(item._id)} className='mx-auto cursor-pointer'/> : <Trash onClick={()=> ownerDelete(item._id)} className='mx-auto cursor-pointer'/> }</td>
           {/* </div> : <div className='w-4 h-4 bg-green-400 rounded-full'></div> */}
           </tr>

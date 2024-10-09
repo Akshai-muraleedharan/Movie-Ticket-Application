@@ -408,3 +408,38 @@ export const usersActive = async (req,res) => {
   }
 }
 
+
+
+export const theaterApprove = async (req,res) => {
+  try {
+    const {id} = req.params
+    const {approval} =req.body
+
+    if(!id){
+      return res.status(400).json({success:false,message:"id not get"})
+    }
+
+    if(approval === "not-approve"){
+
+       await TheaterModel.findByIdAndUpdate(id,{access:false},{new:true})
+      res.status(200).status({success:true,message:"approval success"})
+
+    }else if(approval === "approved"){
+      await TheaterModel.findByIdAndUpdate(id,{access:true},{new:true})
+   
+      res.status(200).status({success:true,message:"not-approval success"})
+    }else if(approval === "cancel"){
+      await TheaterModel.findByIdAndDelete(id)
+      res.status(200).status({success:true,message:"approval cancel"})
+    }else{
+      res.status(200).status({success:true,message:"admin not change"})
+    }
+   
+    
+
+
+  } catch (error) {
+    console.log(error)
+    res.status(error.status || 500).json({message:error || "internal server error"})
+  }
+}

@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import {LuMessageSquare} from "react-icons/lu"
 import {TbUsers} from "react-icons/tb"
 import { LuBox } from "react-icons/lu";
 import { Link } from 'react-router-dom';
 import { FaIndianRupeeSign } from "react-icons/fa6";
+import { BiCameraMovie } from "react-icons/bi";
+import { GiTheater } from "react-icons/gi";
 import logo from "../../../assets/image/movie-logo.webp";
 
 
@@ -17,8 +18,8 @@ const handleClick = (index) => {
     const sideBar_link =[
       {id:1, path:'',name:"Dashboard", icon:LuBox},
       {id:2, path:'users',name:"Users", icon:TbUsers},
-      {id:4, path:'review',name:"Reviews", icon:LuMessageSquare},
-      {id:5, path:'payment',name:"Payment", icon:FaIndianRupeeSign},
+      {id:4, path:'movies',name:"Movies", icon:BiCameraMovie},
+      {id:5, path:'theaters',name:"theaters", icon:GiTheater},
       // {id:6, path:'/work',name:"Work plan", icon:SlCalender}
     ]
 

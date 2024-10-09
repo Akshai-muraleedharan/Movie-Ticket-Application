@@ -22,6 +22,10 @@ import mongoose from 'mongoose';
             type:[]
            
         },
+        access:{
+          type:Boolean,
+          default:false
+        },
         userPayment:[
            
                {
@@ -57,6 +61,7 @@ import mongoose from 'mongoose';
                     type: mongoose.Types.ObjectId,
                     ref: "theater",
                   },
+                 
                }
             
               ],

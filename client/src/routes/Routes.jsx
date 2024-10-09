@@ -254,7 +254,7 @@ export const router = createBrowserRouter([
       },
      
       {
-        path: "review",
+        path: "movies",
         element: <AdminReviewPage />,
       },
      
@@ -264,7 +264,7 @@ export const router = createBrowserRouter([
         element:<AdminProfilePage />
       },
       {
-        path:"payment",
+        path:"theaters",
         element:<AdminTheaterPayment />
       }
     ]

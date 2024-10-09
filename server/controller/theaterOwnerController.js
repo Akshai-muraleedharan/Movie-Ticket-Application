@@ -5,6 +5,7 @@ import { hashPassword } from '../utils/hashedPassword.js'
 import { matchPassword } from '../utils/comparePassword.js'
 import TheaterModel from '../models/theaterModel.js'
 import NewMovieModel from '../models/newMovieModel.js'
+import { sendEmail } from '../middleware/emailConfig.js'
 
 
 export const ownerSignup = async (req,res) => {

@@ -56,7 +56,7 @@ export  const movieRatingGet = async  (req,res) => {
 
 export  const movieRatingGetAdmin = async  (req,res) => {
     try{
-        const {id} = req.params;
+        
       
         const allComment = await RatingModel.find()
        

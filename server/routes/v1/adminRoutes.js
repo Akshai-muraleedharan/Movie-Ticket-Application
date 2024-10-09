@@ -2,7 +2,7 @@ import express from 'express'
 
 
 import { userGetALL } from '../../controller/userController.js'
-import {  adminDelete, adminGet, adminLogin, adminLogout, adminProfile, AdminTheaterOwnerDelete, adminUpdate, checkAdmin, userDeleteByAdmin,changeRole, subAdminDelete, usersInActive, usersActive} from '../../controller/adminController.js'
+import {  adminDelete, adminGet, adminLogin, adminLogout, adminProfile, AdminTheaterOwnerDelete, adminUpdate, checkAdmin, userDeleteByAdmin,changeRole, subAdminDelete, usersInActive, usersActive, theaterApprove} from '../../controller/adminController.js'
 import { authAdmin } from '../../middleware/authAdmin.js'
 import { theaterList } from '../../controller/theaterController.js'
 import { movieList } from '../../controller/movieController.js'
@@ -34,13 +34,14 @@ router.get('/check-admin',authAdmin,checkAdmin)
 router.post('/users-role/:id',authAdmin,changeRole)
 router.put('/users-inActive/:id',authAdmin,usersInActive)
 router.put('/users-Active/:id',authAdmin,usersActive)
+router.put('/theater-approve/:id',authAdmin,theaterApprove)
 router.get('/all-users',authAdmin,userGetALL)
 router.get('/all-admin',authAdmin,adminGet)
 router.get('/theater-list',authAdmin ,theaterList)
 router.get('/movie-list',authAdmin,movieList)
 router.get('/payment-list',authAdmin,totalPaymentList)
 router.get('/rating-All',authAdmin,movieRatingGetAll)
-router.get('/movie-rating/:id',authAdmin,movieRatingGetAdmin)
+router.get('/movie-rating',authAdmin,movieRatingGetAdmin)
 router.get('/owner-All',authAdmin,ownerGetALL)
 router.delete('/sub-admin/delete/:id',authAdmin,subAdminDelete) 
 router.delete("/rating/:id", authAdmin, movieRatingDelete);
