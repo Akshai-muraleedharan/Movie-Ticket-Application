@@ -6,6 +6,8 @@ import { hashPassword } from "../utils/hashedPassword.js";
 import otpGenerator from "otp-generator";
 import TheaterModel from "../models/theaterModel.js";
 import { sendEmail } from "../middleware/emailConfig.js";
+import AdminModel from "../models/adminModel.js";
+import OwnerModel from "../models/theaterOwnerModel.js";
 
 
 //  User create controller
@@ -16,15 +18,16 @@ export const userSignup = async (req, res, next) => {
 
     const userExist = await UserModel.findOne({ email });
     const mobileExist = await UserModel.findOne({ mobile });
-
-    if (userExist) {
+    const ownerExist = await OwnerModel.findOne({email})
+    const adminExist = await AdminModel.findOne({email})
+    if (userExist || ownerExist || adminExist) {
       return res
         .status(400)
-        .json({ success: false, message: "user already exist" });
+        .json({ success: false, message: "This email already exist" });
     }
 
     if (mobileExist) {
-      return res
+      return res 
         .status(400)
         .json({ success: false, message: "mobile number already exist" });
     }

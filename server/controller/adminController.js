@@ -422,15 +422,15 @@ export const theaterApprove = async (req,res) => {
     if(approval === "not-approve"){
 
        await TheaterModel.findByIdAndUpdate(id,{access:false},{new:true})
-      res.status(200).status({success:true,message:"approval success"})
+      res.status(200).json({success:true,message:"approval success"})
 
     }else if(approval === "approved"){
       await TheaterModel.findByIdAndUpdate(id,{access:true},{new:true})
    
-      res.status(200).status({success:true,message:"not-approval success"})
+      res.status(200).json({success:true,message:"not-approval success"})
     }else if(approval === "cancel"){
       await TheaterModel.findByIdAndDelete(id)
-      res.status(200).status({success:true,message:"approval cancel"})
+      res.status(200).json({success:true,message:"approval cancel"})
     }else{
       res.status(200).status({success:true,message:"admin not change"})
     }
@@ -439,7 +439,31 @@ export const theaterApprove = async (req,res) => {
 
 
   } catch (error) {
-    console.log(error)
+ 
     res.status(error.status || 500).json({message:error || "internal server error"})
   }
 }
+
+
+
+    export const adminSendMail =async (req,res) => {
+      try {
+        const {from,userMail,subject,message} =req.body
+        
+        if(!subject || !message || !userMail){
+         return res.status(400).json({success:false,message:"All fields required"})
+        }
+       
+    const messages =  await  sendEmail(from,userMail,subject,message)
+    
+     if(messages.success === true){
+      res.status(200).json({success:true,message:"email successfully sent"})
+
+     }
+      
+   
+      } catch (error) {
+        console.log(error)
+        res.status(error.status || 500).json({message:error || "internal server error"})
+      }
+    }

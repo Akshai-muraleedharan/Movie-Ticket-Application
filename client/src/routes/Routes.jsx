@@ -266,7 +266,8 @@ export const router = createBrowserRouter([
       {
         path:"theaters",
         element:<AdminTheaterPayment />
-      }
+      },
+      
     ]
 
   },

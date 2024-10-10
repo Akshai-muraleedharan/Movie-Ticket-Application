@@ -6,6 +6,8 @@ import { matchPassword } from '../utils/comparePassword.js'
 import TheaterModel from '../models/theaterModel.js'
 import NewMovieModel from '../models/newMovieModel.js'
 import { sendEmail } from '../middleware/emailConfig.js'
+import UserModel from '../models/userModel.js'
+import AdminModel from '../models/adminModel.js'
 
 
 export const ownerSignup = async (req,res) => {
@@ -14,10 +16,12 @@ export const ownerSignup = async (req,res) => {
         const {username,email,password,profilePic, mobile} = req.body
                   
     
-        const userExist = await OwnerModel.findOne({email})
-        
-        if(userExist){
-            return res.status(400).json({success:false,message:"user already exist"})
+        const ownerExist = await OwnerModel.findOne({email})
+        const adminExist = await AdminModel.findOne({email})
+        const userExist = await UserModel.findOne({ email })
+
+        if(ownerExist || adminExist || userExist){
+            return res.status(400).json({success:false,message:"This email already exist"})
             
         }
         

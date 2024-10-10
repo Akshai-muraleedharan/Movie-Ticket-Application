@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Trash } from 'lucide-react';
 import { axiosInstance } from '../../config/axiosInstance';
 import { useSelector } from 'react-redux';
+import SendMail from '../../components/Admin/Dashboard/SendMail';
 
 
 function UserListPage() {
@@ -15,6 +16,7 @@ function UserListPage() {
     const [display,setDisplay] = useState(false)
     const [btn,setBtn] = useState(false)
     const [loading,setLoading] =useState(false)
+    const [userMail,setUserMail] =useState(false)
     const [userId,setUserId] = useState("")
 
     
@@ -158,6 +160,10 @@ const usersRoleChange =async (role,id) => {
   }
 }
 
+const sendMail = () => {
+  setUserMail(true)
+}
+
  const usersInActive = async (id) => {
   try {
     setLoading(true)
@@ -243,7 +249,8 @@ setTimeout(()=>{
     },[])
 
   return (
-   <div className='w-full flex flex-col bg-[#f7f7f7] items-center justify-center mt-24'>
+ ( userMail ? <SendMail setUserMail={setUserMail} listArray={listArray}/> : <div className='w-full flex flex-col bg-[#f7f7f7] items-center justify-center mt-24'>
+
     <h1 className='text-center text-2xl font-semibold mb-10'>Users List</h1>
 
   <div className='w-full p-2 md:w-5/6  max-auto'>
@@ -296,9 +303,11 @@ setTimeout(()=>{
 
   {btn === true ? <button className=' p-1 my-1 rounded bg-blue-500 md:btn  md:bg-blue-500 text-white md:text-white' onClick={roleChangeClear}>clear</button> : postion === "super-admin" ? <button className=' p-1 my-1 rounded bg-blue-500 md:btn  md:bg-blue-500 text-white md:text-white' onClick={roleChange}>Change Role</button> : ""} 
      </div>
+     
+     <button className=' p-1 my-1 rounded bg-blue-500 md:btn  md:bg-blue-500 text-white md:text-white' onClick={sendMail}>Send mail</button>
   </div>
 
-{display ?  <div className="overflow-x-auto">
+{ display ?  <div className="overflow-x-auto">
   <table className="table table-sm">
     <thead>
       <tr>
@@ -415,6 +424,8 @@ setTimeout(()=>{
 
  
    </div>
+  
+    )
   )
 }
 

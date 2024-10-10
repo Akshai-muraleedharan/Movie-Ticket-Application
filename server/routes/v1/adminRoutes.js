@@ -2,7 +2,7 @@ import express from 'express'
 
 
 import { userGetALL } from '../../controller/userController.js'
-import {  adminDelete, adminGet, adminLogin, adminLogout, adminProfile, AdminTheaterOwnerDelete, adminUpdate, checkAdmin, userDeleteByAdmin,changeRole, subAdminDelete, usersInActive, usersActive, theaterApprove} from '../../controller/adminController.js'
+import {  adminDelete, adminGet, adminLogin, adminLogout, adminProfile, AdminTheaterOwnerDelete, adminUpdate, checkAdmin, userDeleteByAdmin,changeRole, subAdminDelete, usersInActive, usersActive, theaterApprove, adminSendMail} from '../../controller/adminController.js'
 import { authAdmin } from '../../middleware/authAdmin.js'
 import { theaterList } from '../../controller/theaterController.js'
 import { movieList } from '../../controller/movieController.js'
@@ -11,6 +11,7 @@ import { upload } from '../../middleware/imageUploadMiddleware.js'
 import {  loginErrorHandler } from '../../middleware/error.js'
 import { movieRatingDelete, movieRatingGetAdmin, movieRatingGetAll } from '../../controller/ratingController.js'
 import { ownerGetALL } from '../../controller/theaterOwnerController.js'
+
 
 
 
@@ -32,6 +33,7 @@ router.get('/check-admin',authAdmin,checkAdmin)
 
 // for dashboard
 router.post('/users-role/:id',authAdmin,changeRole)
+router.post('/users-email',authAdmin,adminSendMail)
 router.put('/users-inActive/:id',authAdmin,usersInActive)
 router.put('/users-Active/:id',authAdmin,usersActive)
 router.put('/theater-approve/:id',authAdmin,theaterApprove)

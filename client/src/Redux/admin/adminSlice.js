@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit'
 
 
 let  position;
-
+let email;
 const initialState = {
-    position:position
-
+    position:position,
+    email:email
 }
 
 export const adminSlice = createSlice({
@@ -15,11 +15,15 @@ export const adminSlice = createSlice({
     reducers:{
       adminPostion:(state,action) => {
         state.position = action.payload
+     },
+     adminEmail:(state,action) => {
+      state.email = action.payload
      }
+
     }
 })
 
 
-export const {adminPostion} =adminSlice.actions
+export const {adminPostion,adminEmail} =adminSlice.actions
 
 export default adminSlice.reducer

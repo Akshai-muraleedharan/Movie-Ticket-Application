@@ -195,3 +195,15 @@ background: linear-gradient(178deg, rgba(2,0,36,1) 0%, rgba(1,1,1,0.574667366946
 html {
   scrollbar-gutter: auto !important;
 }
+
+
+
+@media (max-width: 767px) {
+  .send_mail{
+      display:none !important;
+     
+  }
+  .input_font{
+    font-size:12px
+  }
+}
