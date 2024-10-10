@@ -72,10 +72,11 @@ function SendMail({setUserMail,listArray}) {
            To 
            <select className="outline-none w-full input_font" {...register("userMail")} onChange={ getRole} >
             <option defaultValue disabled>user@email.com</option>
-            {listArray.map((item)=> (
-                 <option key={item._id} >{adminEmail === item.email ? null :item.email } </option>
-              
-            ))}
+            {listArray.filter((item)=> item.email !==adminEmail).map((item)=>(
+              <option key={item._id}>{item.email}</option>
+            ))
+            
+            }
            </select>
            <div className=" w-full flex  justify-end send_mail">
             <span className="font-semibold ">{usersRole}</span>

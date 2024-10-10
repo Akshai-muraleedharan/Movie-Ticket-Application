@@ -448,22 +448,23 @@ export const theaterApprove = async (req,res) => {
 
     export const adminSendMail =async (req,res) => {
       try {
-        const {from,userMail,subject,message} =req.body
+        const {userMail,subject,message} =req.body
         
         if(!subject || !message || !userMail){
          return res.status(400).json({success:false,message:"All fields required"})
         }
        
-    const messages =  await  sendEmail(from,userMail,subject,message)
+    const result =  await  sendEmail(userMail,subject,message)
     
-     if(messages.success === true){
-      res.status(200).json({success:true,message:"email successfully sent"})
+     if(result.success ){
+      return res.status(200).json({success:true,message:"email successfully sent"})
 
+     }else{
+      return res.status(400).json({success:true,message:"email failed to sent"})
      }
       
    
       } catch (error) {
-        console.log(error)
         res.status(error.status || 500).json({message:error || "internal server error"})
       }
     }

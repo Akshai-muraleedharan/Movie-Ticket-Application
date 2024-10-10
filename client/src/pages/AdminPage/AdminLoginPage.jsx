@@ -9,6 +9,7 @@ import { Toaster,toast } from 'react-hot-toast';
 
 function AdminLoginPage() {
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading,setLoading] = useState(false)
   const navigate = useNavigate()
   const {
     register,
@@ -18,12 +19,13 @@ function AdminLoginPage() {
 
   const onSubmit =async (data) => {
     try {
+      setLoading(true)
       const response = await axiosInstance({
        url:"admin/login",
        method:"POST",
        data,
       })
-
+      setLoading(false)
       toast.success("login Successfully")
       if(response.data.success == true){
          navigate("/admins")
@@ -33,6 +35,7 @@ function AdminLoginPage() {
       toast.error("something error")
       setErrorMessage(error.response.data)
       console.log(error)
+      setLoading(false)
     }
   }
 
@@ -68,7 +71,7 @@ function AdminLoginPage() {
                 </div>
               </div>
             
-              <LoginPageButton type="submit"  />
+              <LoginPageButton type="submit" loading={loading}  />
               <Toaster/>
             </form>
           </div>

@@ -7,20 +7,19 @@ const emailPassword = process.env.MAIL_PASSWORD;
 
 
  
-  export const sendEmail = async ( adminEmail,to,subject,html) => {
+  export const sendEmail = async ( to,subject,html) => {
     try{
-        console.log(adminEmail,to,subject,html)
-const transporter = nodemailer.createTransport({
+ const transporter = nodemailer.createTransport({
     host:'smtp.gmail.com',
     port:465,
   
     auth: {
-      user:  adminEmail || emailAccount ,
+      user:   emailAccount ,
       pass: emailPassword,
     },
   });
         const mailOptions = {
-            from: adminEmail || emailAccount ,
+            from:  emailAccount ,
             to: to,
             subject: `${subject} , MOVIE TICKET`,
             html: `<p>${html}</p>`
@@ -28,7 +27,7 @@ const transporter = nodemailer.createTransport({
 
           
       const info =    await  transporter.sendMail(mailOptions);
-        console.log(info)
+       
             return { success: true, messageId: info.messageId };
     }catch(error){
       
