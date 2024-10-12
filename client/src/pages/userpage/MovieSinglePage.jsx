@@ -6,8 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { FilePenLine, X } from "lucide-react";
 import { CircleArrowRight } from "lucide-react";
 import { useForm } from "react-hook-form";
-import {toast,Toaster} from "react-hot-toast"
-import Loader from "../../components/Loader.jsx";
 import {  useDispatch } from 'react-redux'
 import {movieTime,movieName} from '../../Redux/Slice/showTimeSlice'
 
@@ -18,23 +16,30 @@ function MovieSinglePage() {
   const [rating, setRating] = useState([]);
   const [theaterDeatil, setTheaterDetail] = useState([]);
   const [review, setReview] = useState(true);
-
+  const [userEmailCheck,setuserEmailCheck] = useState(false)
   const [userCheck,setUserCheck] =useState([])
   const [selectedValue, setSelectedValue] = useState(null);
-
-
+  const [errors,setErrors] = useState("")
+  const { register, handleSubmit} = useForm();
   const dispatch = useDispatch()
-
+  const navigate = useNavigate();
+  const { id } = useParams();
   
 
  let times =  showTime.map((item) => item.timeShedule)
-
-
-  const { register, handleSubmit} = useForm();
-
  
-  const navigate = useNavigate();
-  const { id } = useParams();
+  useEffect(() => {
+    let userReview = rating.find((item) => item.usermail === userCheck);
+  
+    if (userReview) {
+      setuserEmailCheck(true);
+    } else {
+      setuserEmailCheck(false);
+    }
+  }, [rating, userCheck]);
+
+
+
 
   const fetchSingleDetail = async () => {
     try {
@@ -103,6 +108,36 @@ function MovieSinglePage() {
        }
     
   }
+
+  const editReview = async (data) => {
+  
+    let getId = rating.find((item) => item.usermail === userCheck)
+   
+    try {
+    const response =  await axiosInstance({
+      url:`/rating/review/${getId._id}`,
+         method:"PUT",
+         data:data
+       })
+       fetchReview()
+       setErrors(response.data)
+       setTimeout(()=> {
+        setErrors("")
+       },2000)
+     } catch (error) {
+      setErrors(error.response.data)
+       console.log(error)
+       setTimeout(()=> {
+        setErrors("")
+       },2000)
+       
+     
+     }
+    
+  }
+
+ 
+
 
   const deleteReview = async (id) => {
     try {
@@ -191,7 +226,6 @@ function MovieSinglePage() {
                <button disabled={selectedValue === null }  onClick={()=> dispatch(movieTime(selectedValue))}  className="py-1 bg-[#c214d7]  text-white rounded-sm w-full mt-4 " >
                   {selectedValue === null ? "Please select Time" : "book now"}
              </button>
-             <Toaster/>
               </Link>
             
             </div>
@@ -215,24 +249,48 @@ function MovieSinglePage() {
 
           
               <div key={item._id} className="bg-slate-100 p-2 mt-2">
-                <div className="flex justify-between items-center">
+               
                   <h4>
                     {item.username == null ? "user" : item.username.username}
                   </h4>
 
-                  <div className="flex gap-2">
-                 
-                 {userCheck === item.usermail ?  <span className="cursor-pointer"  onClick={()=> deleteReview(item._id)}> <X /></span>  : ""} 
+                
                   
-                  </div>
-                  
-                </div>
+                  <div className="flex justify-between items-center">
                <p className="text-[14px] mt-2">{item.comment}</p>
+               <div className="flex gap-2">
+               {userCheck === item.usermail ?  <button className="btn p-0 h-0 min-h-0 bg-transparent border-0 mt-[11px] font-semibold text-[13px] text-blue-500" onClick={()=>document.getElementById('my_modal_3').showModal()}>edit</button>  : ""} 
+                 {userCheck === item.usermail ?  <span className=" mt-2 cursor-pointer text-red-500 font-semibold text-[13px]"  onClick={()=> deleteReview(item._id)}> delete</span>  : ""} 
+               
+                  </div>
+                  </div>
               </div>
            
 ))}
 
-            {review === false ? (
+            {
+        <>    
+
+<dialog id="my_modal_3" className="modal">
+  <div className="modal-box">
+    <form method="dialog">
+    
+      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    <h3 className="font-bold text-lg mb-3">edit review!</h3>
+    <input type="text"  {...register("comment")} placeholder="Type here" className="input input-bordered input-success w-full " />
+
+    <div className="flex justify-between mt-3">
+     <div>{errors.success === false ? <p className="text-red-500 text-xs">{errors.message}</p> : <p className="text-green-500 text-xs">{errors.message}</p> }</div>
+    <button className="btn  bg-blue-500 text-white" onClick={handleSubmit(editReview)}>update</button>
+    </div>
+   
+  </div>
+</dialog>
+</> 
+            }
+
+            {userEmailCheck ? "" :  review === false ? (
              <div className="flex items-center w-full relative">
                <label className="input input-bordered w-full  justify-between flex items-center gap-2 mt-2">
                 <input
@@ -243,7 +301,7 @@ function MovieSinglePage() {
                 />
                
               </label>
-              <span className="mr-2 absolute right-0" onClick={handleSubmit(reviewPost)}>
+              <span className="mr-2 absolute right-0 cursor-pointer" onClick={handleSubmit(reviewPost)}>
                   <CircleArrowRight />
                 </span>
              </div>

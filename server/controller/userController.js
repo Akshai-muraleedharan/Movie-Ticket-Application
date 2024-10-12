@@ -366,7 +366,9 @@ export const userMovies = async (req, res) => {
 export const userBookedDelete = async (req, res) => {
   try {
     const { CardId } = req.params;
+    const seatsNumber = req.body
 
+    console.log(seatsNumber)
     const verifiedUser = req.user.email;
     await UserModel.findOneAndUpdate(
       { email: verifiedUser },

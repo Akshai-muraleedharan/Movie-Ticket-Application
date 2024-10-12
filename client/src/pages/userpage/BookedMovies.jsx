@@ -22,11 +22,12 @@ function BookedMovies() {
     }
   };
 
-  const bookedMovieDelete = async (id) => {
+  const bookedMovieDelete = async (id,seat) => {
     try {
       await axiosInstance({
         url: `/user/booked-delete/${id}`,
         method: "PUT",
+        data:seat
       });
       bookedMovies();
     } catch (error) {
@@ -59,7 +60,7 @@ function BookedMovies() {
               <div className="p-2  rounded-t-lg ">
                 <div className="flex justify-between ">
                   <div className="font-semibold"> {item.movieId.title} </div>
-                  <span className="cursor-pointer" onClick={() => bookedMovieDelete(item._id)} >
+                  <span className="cursor-pointer" onClick={() => bookedMovieDelete(item._id,item.movieSeat)} >
                     {" "}
                     <X />
                   </span>

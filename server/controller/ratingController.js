@@ -21,12 +21,14 @@ export const movieRatingCreate = async (req,res) => {
         if(!comment){
             return res.status(400).json({success:false,message:"review required"})
         }
+
+        const commentLowerCase = comment.toLowerCase()
  
         const movie = await NewMovieModel.findById(movieId)
 
         const movieName = movie.title
      
-        const UserRating = await RatingModel({ username:userId,comment,movie:movieId,usermail,movieName:movieName})
+        const UserRating = await RatingModel({ username:userId,comment:commentLowerCase,movie:movieId,usermail,movieName:movieName})
 
       const data = await UserRating.save()
 
@@ -84,13 +86,19 @@ export  const movieRatingUpdate = async  (req,res) => {
     try{
         const {id} = req.params;
         const {comment} =req.body
-    
-        const ratingUpdate = await RatingModel.findByIdAndUpdate(id,{
-            comment
+   
+        let commentLowerCase = comment.toLowerCase()
+
+        if(!comment || comment === ""){
+            return res.status(400).json({success:false,message:"Please fill the field"})
+        }
+
+         await RatingModel.findByIdAndUpdate(id,{
+            comment:commentLowerCase
         },{new:true})
         
 
-        res.status(200).json({success:true,message:"updated successfully",data:ratingUpdate})
+        res.status(200).json({success:true,message:"updated successfully"})
 
     }catch(error){
       
