@@ -366,15 +366,32 @@ export const userMovies = async (req, res) => {
 export const userBookedDelete = async (req, res) => {
   try {
     const { CardId } = req.params;
-    const seatsNumber = req.body
+    const { theaterId } = req.params;
+    const {seatsNumber,seatType} = req.body
+   
 
-    console.log(seatsNumber)
+   
     const verifiedUser = req.user.email;
     await UserModel.findOneAndUpdate(
       { email: verifiedUser },
       { $pull: { movieBooked: { _id: CardId } } },
       { new: true }
     );
+ 
+    const theater = await TheaterModel.findById(theaterId)
+
+  let theaterSeat = theater.seats
+
+  const updatedSeats = theaterSeat.map(seat => {
+    if (seatsNumber.includes(seat.seatEndNumber) && seat.SeatType === seatType) {
+      return { ...seat, availableSeat: true }; // Mark as available
+    }
+    return seat;
+  });
+
+  // Save the updated seats back to the theater
+  theater.seats = updatedSeats;
+  await theater.save();
 
     res.status(200).json({ success: true, message: "deleted successfully" });
   } catch (error) {

@@ -15,11 +15,11 @@ Router.put('/book-seat/:theaterId',SeatBooking)
 Router.delete("/delete", authUser, userDelete);
 Router.put("/update/", authUser, upload.single("profile"), userUpdate);
 Router.post("/logout", userLogout);
-Router.get("/check-user", authUser, checkUser);
+Router.get("/check-user", authUser, checkUser); 
 Router.get("/profile", authUser, userProfile);
 Router.post("/payment-movie/movie/:movieId/theater/:theaterId", authUser, userMovies);
 Router.get("/booked-movies", authUser, bookedMovies);
-Router.put("/booked-delete/:CardId", authUser, userBookedDelete);
+Router.put("/booked-delete/:CardId/:theaterId", authUser, userBookedDelete);
 
 export default Router;
  

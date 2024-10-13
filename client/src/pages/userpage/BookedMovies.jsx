@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../../config/axiosInstance";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-import { X } from "lucide-react";
 function BookedMovies() {
   const [movies, setMovies] = useState([]);
   const [display,setDisplay] =useState(false)
   const navigate = useNavigate();
+
 
 
   const bookedMovies = async () => {
@@ -22,12 +22,13 @@ function BookedMovies() {
     }
   };
 
-  const bookedMovieDelete = async (id,seat) => {
+  const bookedMovieDelete = async (id,seat,theaterId,seatType) => {
     try {
+      
       await axiosInstance({
-        url: `/user/booked-delete/${id}`,
+        url: `/user/booked-delete/${id}/${theaterId}`,
         method: "PUT",
-        data:seat
+        data:{seatsNumber:seat,seatType:seatType}
       });
       bookedMovies();
     } catch (error) {
@@ -58,13 +59,10 @@ function BookedMovies() {
            movies.map((item, index) => (
             <div key={item._id} className="min-w-[300px] md:min-w-[251px]   p-2 shadow-lg cursor-default">
               <div className="p-2  rounded-t-lg ">
-                <div className="flex justify-between ">
+               
                   <div className="font-semibold"> {item.movieId.title} </div>
-                  <span className="cursor-pointer" onClick={() => bookedMovieDelete(item._id,item.movieSeat)} >
-                    {" "}
-                    <X />
-                  </span>
-                </div>
+                 
+               
                 <div className="font-semibold"> {item.movieId.language} </div>
               </div>
               <img
@@ -79,7 +77,7 @@ function BookedMovies() {
                   <div className="m-1 text-xs  font-semibold">{`Seat No : ${item.movieSeat.join(" , ")}`}</div>
                   <div className="m-1 text-xs  font-semibold">{`Movie Time: ${item.movieTime}`}</div>
                   <div className="m-1 text-xs font-semibold">{`Date : ${item.date}`}</div>
-                  <div className="m-1 text-xs border-2 p-1 rounded font-semibold flex flex-wrap">{`Seat Type: ${item.theaterSeatType.map((type)=> type ).join(" , ")}`}</div>
+                  <div className="m-1 text-xs font-semibold ">{`Seat Type : ${item.theaterSeatType[0]}`}</div>
                 </div>
                 <div>
                   <div className="flex justify-end text-xs font-semibold">
@@ -92,6 +90,10 @@ function BookedMovies() {
                   <div className="text-center border border-bg-primary">
                     {item.bookedId}
                   </div>
+                  <button className="cursor-pointer p-1 mt-3 w-full bg-blue-500 text-white rounded-md" onClick={() => bookedMovieDelete(item._id,item.movieSeat,item.theaterId._id,item.theaterSeatType[0])} >
+
+                    Cancel 
+                  </button>
                 </div>
               </div>
             </div>

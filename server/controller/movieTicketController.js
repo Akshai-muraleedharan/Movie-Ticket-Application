@@ -96,7 +96,7 @@ export const ticketTest = async (req,res) => {
         res
         .status(error.status || 500)
         .json({ message: error || "internal server error" });
-    }
+    } 
 }
 
 

@@ -231,6 +231,9 @@ function MovieSinglePage() {
             </div>
           </div>
 
+
+
+
           {/* review card */}
 
           <div className="mt-4 p-5 shadow-xl">

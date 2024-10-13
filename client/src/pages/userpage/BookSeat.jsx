@@ -5,6 +5,7 @@ import { FaArrowLeft } from 'react-icons/fa6';
 import { loadStripe } from "@stripe/stripe-js";
 import {  useDispatch, useSelector } from 'react-redux'
 import {moviePayment, seatNumber,seatType} from '../../Redux/Slice/showTimeSlice'
+import PopModel from '../../components/user/PopModel';
 function BookSeat() {
 
 
@@ -13,6 +14,8 @@ function BookSeat() {
   const [TheaterSeat, setTheaterSeat] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isOpen,setIsOpen] = useState(false)
+  const [userSelectSeat,setuserSelectSea] = useState("")
   const dispatch = useDispatch()
   const { id } = useParams();
   const { movieId } = useParams(); 
@@ -58,6 +61,8 @@ function BookSeat() {
   const totalPayment = selectedSeats.reduce((total, seat) => total + parseFloat(seat.seatPayment), 0);
   const seatNumbers  = selectedSeats.map(item => item.seatEndNumber)
    const selectedseatType = selectedSeats.map(item => item.SeatType)
+    const platinumAmt = TheaterSeat.find((item) => item.SeatType === "Platinum")
+    const goldAmt = TheaterSeat.find((item) => item.SeatType === "Gold")
 
  const paymentAmount = () => {
   return dispatch(moviePayment(totalPayment))
@@ -102,15 +107,22 @@ function BookSeat() {
     }
   }
 
+  const closePopModel = (seatType) => {
+    setIsOpen(false)
+    setuserSelectSea(seatType)
+  }
+
   useEffect(() => {
     fetchTheater();
+    setIsOpen(true)
+   
   }, [id]); 
 
 
 
   return (
     <>
-      <div>
+     {isOpen ? <PopModel closePopModel={closePopModel} movieId={movieId} platinumAmt={platinumAmt} goldAmt={goldAmt}/> : <div>
         <button className="mt-8 ml-8 text-[20px]" onClick={() => navigate(-1)}>
           <FaArrowLeft />
         </button>
@@ -126,24 +138,24 @@ function BookSeat() {
         <div className='flex justify-center flex-col items-center'>
 
        <div className='flex justify-center flex-col items-center'>
-       <h1 className='md:w-full ml-9 mb-2 font-semibold'>Platinum </h1>
+       <h1 className={userSelectSeat === "Platinum" ? 'md:w-full ml-9 mb-2 font-semibold text-green-500' : 'md:w-full ml-9 mb-2 font-semibold'}>Platinum </h1>
           <div className='flex flex-wrap justify-evenly gap-2 md:gap-2 w-4/5 md:max-w-[750px] mb-5'>
             {TheaterSeat.map((seat, index) => (
              seat.SeatType ==="Platinum" ? <div
                 key={seat.seatEndNumber}
-                className={`seat ${seat.availableSeat ? (seat.selected ? 'selected' : 'available') : 'booked'}`}
-                onClick={seat.availableSeat ? () => handleClick(index) : undefined}>
+                className={`seat ${ seat.availableSeat ? (seat.selected ? 'selected' : 'available') : 'booked' }`}
+                onClick={userSelectSeat === "Platinum" ? seat.availableSeat ? () => handleClick(index) : undefined : null}>
                
               </div> : ""
             ))}
           </div>
-          <h1 className='md:w-full ml-9 mb-2 font-semibold'>Gold</h1>
+          <h1 className={userSelectSeat === "Gold" ? 'md:w-full ml-9 mb-2 font-semibold text-green-500' : 'md:w-full ml-9 mb-2 font-semibold'}>Gold</h1>
           <div className='flex flex-wrap justify-evenly gap-2 md:gap-2 w-4/5 md:max-w-[750px]'>
             {TheaterSeat.map((seat, index) => (
              seat.SeatType ==="Gold" ? <div
                 key={seat.seatEndNumber}
                 className={`seat ${seat.availableSeat ? (seat.selected ? 'selected' : 'available') : 'booked'}`}
-                onClick={seat.availableSeat ? () => handleClick(index) : undefined}>
+                onClick={userSelectSeat === "Gold"  ? seat.availableSeat ? () => handleClick(index) : undefined : null}>
                
               </div> : ""
             ))}
@@ -162,7 +174,7 @@ function BookSeat() {
         </div>
 
 
-      </div>
+      </div> }
     </>
   );
 }

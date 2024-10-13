@@ -11,7 +11,6 @@ function TheaterDetailsPage() {
   const [shedules,setShedules] = useState([]);
   const dispatch = useDispatch()
 
-
   const navigate = useNavigate()
 
   const theaterId =fetchTheater ? fetchTheater._id : null
@@ -80,8 +79,8 @@ useEffect(()=> {
       <div>
         <h2 className='text-center text-2xl font-semibold'>My theater</h2>
 
-       {fetchTheater ?  <div>
-      <div className='flex justify-end cursor-pointer' onClick={()=> theaterDelete(fetchTheater._id)}>  <X /></div>
+       {  fetchTheater ? fetchTheater.access === true ?  <div>
+      <div className='flex justify-end cursor-pointer' onClick={()=> theaterDelete(fetchTheater._id)}>  <button className='p-1 rounded-sm bg-blue-500 text-white text-xs mt-3'>Remove Theater</button></div>
         <h4 className='mt-5 tracking-wide'>Theater Name : <span className='font-semibold capitalize'>{fetchTheater.screenName}</span></h4>
         <h4 className='mt-5 tracking-wide'>ScreenType : <span className='font-semibold capitalize'>{fetchTheater.screenType}</span></h4>
         <h4 className='mt-5 tracking-wide mb-4'>City : <span className='font-semibold capitalize'>{fetchTheater.city}</span></h4>
@@ -91,7 +90,8 @@ useEffect(()=> {
     <Link to={`/clients/movie-shedule/${fetchTheater._id}`}> <button className='py-1 px-3 text-[14px] bg-green-600 rounded-sm text-white font-semibold' >Shedule Movie</button></Link>
    
         </div>
-        </div> : <Link to={"/clients/create-theater"}><p className='text-center mx-auto w-[50%] md:w-[20%] mt-6 p-2 rounded-md bg-green-600 text-white'>Create theater</p> </Link> }
+        </div> :<h1 className='text-center mx-auto md:w-[50%] flex items-center justify-center gap-3 mt-6 p-2 rounded-md bg-green-600 text-white'> <span className='text-xs'>Your Application is under processing </span> <span className="loading loading-spinner loading-xs"></span></h1> : <Link to={"/clients/create-theater"}><p className='text-center mx-auto w-[50%] md:w-[20%] mt-6 p-2 rounded-md bg-green-600 text-white'>Create theater</p> </Link>    }
+      
       </div>
       
     </div>

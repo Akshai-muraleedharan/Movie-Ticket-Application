@@ -35,7 +35,7 @@ function CreateTheaterPageClient() {
   return (
     <>
   
-      <div className="backGround_img_client ">
+     
       <button className="mt-8 ml-8 text-[20px] text-white"  onClick={() => navigate(-1)}>
           <FaArrowLeft />
         </button>
@@ -93,7 +93,7 @@ function CreateTheaterPageClient() {
           </div>
           {/* </div> */}
         </div>
-      </div>
+    
     </>
   );
 }

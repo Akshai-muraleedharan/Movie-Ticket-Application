@@ -7,7 +7,7 @@ function PaymentPage() {
 const [theater,setTheater] = useState([])
 const [display,setDisplay] = useState(false)
 const navigate = useNavigate()
-console.log(theater)
+
 
   const theaterFetch = async () => {
     try {
