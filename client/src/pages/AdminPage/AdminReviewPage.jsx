@@ -82,6 +82,17 @@ function AdminReviewPage() {
          }
        }
      
+       const MovieDelete = async(id) => {
+        try {
+          await axiosInstance({
+            url: `admin/movie/${id}`,
+            method: "DELETE",
+          });
+          moviesGet()
+        } catch (error) {
+          console.log(error)
+        }
+       }
       
      
       useEffect(()=>{
@@ -108,6 +119,7 @@ function AdminReviewPage() {
          <th>Movie Review</th>
         <th>Theater name</th>
         <th> City</th>
+        <th> Delete</th>
         
       </tr>
     </thead>
@@ -187,7 +199,7 @@ function AdminReviewPage() {
               <td>{item.theaterId.city}</td>
            {/* <td>{item.createdAt.slice(0,10).split("-").reverse().join("-")}</td> */}
          
-          {/* <td className='text-center'> <Trash onClick={()=> ownerDelete(item._id)} className='mx-auto cursor-pointer'/></td> */}
+          <td className='text-center'> <button className="bg-red-500 text-white  p-1 cursor-pointer rounded-md" onClick={()=> MovieDelete(item._id)} >Delete </button> </td> 
             
           </tr>
          

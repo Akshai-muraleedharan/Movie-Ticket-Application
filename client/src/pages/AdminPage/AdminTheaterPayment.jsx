@@ -64,7 +64,7 @@
 
   return (
     <div className='w-full flex flex-col items-center bg-[#f7f7f7]  justify-center mt-24'>
-    <h1 className='text-center text-2xl font-semibold mb-10'>Payment List</h1>
+    <h1 className='text-center text-2xl font-semibold mb-10'>Theater List</h1>
   <div className='w-full p-2 md:w-5/6 text-center max-auto'>
   
   <div className="overflow-x-auto">

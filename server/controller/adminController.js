@@ -216,23 +216,32 @@ export const userDeleteByAdmin = async (req, res) => {
   try {
 
      const {id} =req.params
-
+     let idOfTheater
      const owner = await OwnerModel.findById(id)
-     const theaterId = await TheaterModel.findOne({Ownermail:owner.email})
 
-     let idOfTheater = theaterId._id.toString()
   
-       const movie = await NewMovieModel.findOne({theaterId:idOfTheater})
 
-       await OwnerModel.findOneAndDelete({email:owner.email})
-       await TheaterModel.findOneAndDelete({Ownermail:owner.email})
-       await NewMovieModel.findOneAndDelete({theaterId:idOfTheater})
+
+      const theaterId = await TheaterModel.findOne({Ownermail:owner.email})
+
+      await OwnerModel.findOneAndDelete({email:owner.email})
+    
+     if(theaterId){
+       idOfTheater = theaterId._id.toString() 
+      await TheaterModel.findOneAndDelete({Ownermail:owner.email})
+     }
+  
+        const movie = await NewMovieModel.findOne({theaterId:idOfTheater})
    
-      
- 
+        if (movie) {
+         await NewMovieModel.findOneAndDelete({ theaterId: idOfTheater });
+       }
+     
+     
       res.json({ success: true, message: "theater owner deleted successfully" });
 
   } catch (error) {
+    console.log(error)
       res.status(error.status || 500).json({message:error || "internal server error"})
       
   }
@@ -464,6 +473,19 @@ export const theaterApprove = async (req,res) => {
      }
       
    
+      } catch (error) {
+        res.status(error.status || 500).json({message:error || "internal server error"})
+      }
+    }
+
+
+    export const deleteMovie = async (req,res) => {
+      try {
+      const {movieId} = req.params
+
+        await NewMovieModel.findByIdAndDelete(movieId)
+
+        res.status(200).json({success:true,message:"movie delete successfully"})
       } catch (error) {
         res.status(error.status || 500).json({message:error || "internal server error"})
       }

@@ -2,7 +2,7 @@ import express from 'express'
 
 
 import { userGetALL } from '../../controller/userController.js'
-import {  adminDelete, adminGet, adminLogin, adminLogout, adminProfile, AdminTheaterOwnerDelete, adminUpdate, checkAdmin, userDeleteByAdmin,changeRole, subAdminDelete, usersInActive, usersActive, theaterApprove, adminSendMail} from '../../controller/adminController.js'
+import {  adminDelete, adminGet, adminLogin, adminLogout, adminProfile, AdminTheaterOwnerDelete, adminUpdate, checkAdmin, userDeleteByAdmin,changeRole, subAdminDelete, usersInActive, usersActive, theaterApprove, adminSendMail, deleteMovie} from '../../controller/adminController.js'
 import { authAdmin } from '../../middleware/authAdmin.js'
 import { theaterList } from '../../controller/theaterController.js'
 import { movieList } from '../../controller/movieController.js'
@@ -49,6 +49,7 @@ router.delete('/sub-admin/delete/:id',authAdmin,subAdminDelete)
 router.delete("/rating/:id", authAdmin, movieRatingDelete);
 router.delete("/user/:id", authAdmin, userDeleteByAdmin);
 router.delete("/owner/:id", authAdmin, AdminTheaterOwnerDelete);
+router.delete("/movie/:movieId", authAdmin, deleteMovie);
 
   
 

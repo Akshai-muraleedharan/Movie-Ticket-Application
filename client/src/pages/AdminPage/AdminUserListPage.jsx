@@ -101,6 +101,7 @@ function UserListPage() {
    
 const ownerDelete = async (id) => {
   try{
+    console.log(id)
      await axiosInstance({
         url:`admin/owner/${id}`,
         method:'DELETE'
